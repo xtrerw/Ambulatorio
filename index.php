@@ -11,6 +11,7 @@ include("tablas/crea_tablas.php");
     <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
+    <img src="img/logoLogin.png" alt="" srcset="">
     <form action="paciente.php" method="POST">
         <h1>Paciente</h1>
         <label for="nombrePaciente">Nombre de Paciente</label>
