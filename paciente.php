@@ -79,7 +79,6 @@ include("tablas/crea_tablas.php");
                     ?>
                 </tbody>
             </table>
-            
             <label>Próximas citas</label>
                 <table>
                     <thead>
@@ -120,7 +119,6 @@ include("tablas/crea_tablas.php");
         </fieldset>
         <input type="submit" value="Pedir una cita" name="registro">
     </form>
-
     <script type="text/javascript" src="pacientes.js"></script>
 </body>
 </html>

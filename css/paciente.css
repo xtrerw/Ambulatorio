@@ -7,7 +7,7 @@ body{
     background:#183945;
 }
 form{
-    border: 10px outset black;
+    background: rgba(245, 245, 245, 0.452);
     padding: 20px;
 }
 fieldset{
