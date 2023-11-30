@@ -38,7 +38,7 @@ include("tablas/crea_tablas.php");
         </label>
         <input type="submit" value="Añadir medicación">
     </form> -->
-    <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
+    <form action="" method="POST">
         <fieldset>
             <legend>
                 <h1>Paciente</h1>
@@ -46,7 +46,7 @@ include("tablas/crea_tablas.php");
             <label for="">Información de Paciente</label>
             <?php
                 global $conexion;  
-                if (isset($_POST['paciente'])) {
+                if (isset($_POST['login']) && isset($_POST['paciente'])) {
                     $pacienteSelect=$_POST['paciente'];
                     $pacienteSelect=mysqli_real_escape_string($conexion,$pacienteSelect);
                     $select="SELECT * FROM pacientes WHERE id='$pacienteSelect'";
