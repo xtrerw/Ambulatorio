@@ -12,7 +12,7 @@ include("tablas/crea_tablas.php");
 <body>
     <form action="html/index.php" method="POST">
             <h1>Paciente</h1>
-            <label for="">Nombre de Paciente</label>
+            <label for="nombrePaciente">Nombre de Paciente</label>
             <select name="paciente" id="">
                 <?php 
                     $select = "SELECT DISTINCT * FROM pacientes";
