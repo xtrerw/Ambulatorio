@@ -1,5 +1,5 @@
 <?php
-    include("./db/conecta.php");
+    include("db/conecta.php");
     $conexion = getConexionsinBD();
 
     $resulta=mysqli_query($conexion,"SHOW DATABASES LIKE 'ambulatorio'");

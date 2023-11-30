@@ -5,13 +5,8 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-<<<<<<< HEAD
     height: 100vh;
     width: 100vw;
-=======
-    width: 100%;
-    height: 100%;
->>>>>>> fc070c2993fbbf8e3e944ed7116571ae9499ebbe
 }
 form{
     border: 10px inset black;

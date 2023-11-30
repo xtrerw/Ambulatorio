@@ -10,7 +10,7 @@ include("tablas/crea_tablas.php");
     <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
-    <form action="html/index.php" method="POST">
+    <form action="paciente.php" method="POST">
             <h1>Paciente</h1>
             <label for="nombrePaciente">Nombre de Paciente</label>
             <select name="paciente" id="">
