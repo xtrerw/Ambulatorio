@@ -1,16 +1,16 @@
 <?php
-include("tablas/crea_tablas.php");         
+include("tablas/crea_tablas.php"); 
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Principal</title>
+    <title>Inicia Sesión</title>
     <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
-    <form action="index.php" method="POST">
+    <form action="html/index.php" method="POST">
             <h1>Paciente</h1>
             <label for="">Nombre de Paciente</label>
             <select name="paciente" id="">
@@ -22,7 +22,7 @@ include("tablas/crea_tablas.php");
                     }
                 ?>
             </select>
-            <input type="submit" value="Log in">
+            <input type="submit" value="Log in" name="login">
     </form>
 </body>
 </html>
