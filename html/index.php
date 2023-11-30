@@ -1,5 +1,5 @@
 <?php
-include("./tablas/crea_tablas.php");
+include("tablas/crea_tablas.php");
               
 ?>
 <!DOCTYPE html>
