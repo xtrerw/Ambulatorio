@@ -4,9 +4,10 @@ body{
     box-sizing: border-box;
     display: flex;
     justify-content: center;
+    background:#183945;
 }
 form{
-    border: 10px inset black;
+    border: 10px outset black;
     padding: 20px;
 }
 fieldset{

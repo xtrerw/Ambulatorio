@@ -9,9 +9,14 @@ include("tablas/crea_tablas.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Principal</title>
     <link rel="shortcut icon" href="img/logo.jpg" type="image/x-icon">
-    <link rel="stylesheet" href="css/pacientes.css">
+    <link rel="stylesheet" href="css/paciente.css">
 </head>
 <body>
+    <header>
+        <div>
+
+        </div>
+    </header>
     <!-- <form action="./clase/medicamentos.php" method="post">
         <h1>Consulta</h1>
         <h2>Información</h2>
@@ -45,18 +50,36 @@ include("tablas/crea_tablas.php");
                 <h1>Paciente</h1>
             </legend>
             <label for="">Información de Paciente</label>
-            <?php
-                global $conexion;  
-                if (isset($_POST['login']) && isset($_POST['paciente'])) {
-                    $pacienteSelect=$_POST['paciente'];
-                    $pacienteSelect=mysqli_real_escape_string($conexion,$pacienteSelect);
-                    $select="SELECT * FROM pacientes WHERE id='$pacienteSelect'";
-                    $resulta=mysqli_query($conexion,$select);
-                    while ($informacion= $resulta->fetch_assoc()) {
-                        echo "<p>{$informacion['nombre']}</p>";
-                    }
-                };
-            ?>
+            <table border="1px">
+                <thead>
+                    <tr>
+                        <td>DNI</td>
+                        <td>Nombre</td>
+                        <td>Apellido</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                        global $conexion;  
+                        if (isset($_POST['login']) && isset($_POST['paciente'])) {
+                            $pacienteSelect=$_POST['paciente'];
+                            $pacienteSelect=mysqli_real_escape_string($conexion,$pacienteSelect);
+                            $select="SELECT * FROM pacientes WHERE id='$pacienteSelect'";
+                            $resulta=mysqli_query($conexion,$select);
+                            while ($informacion= $resulta->fetch_assoc()) {
+                                echo "
+                                        <tr>
+                                            <td>{$informacion['dni']}</td>
+                                            <td>{$informacion['nombre']}</td>
+                                            <td>{$informacion['apellido']}</td>
+                                        </tr>
+                                    ";
+                            }
+                        };
+                    ?>
+                </tbody>
+            </table>
+            
             <label>Próximas citas</label>
                 <table>
                     <thead>
