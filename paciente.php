@@ -56,6 +56,7 @@ include("tablas/crea_tablas.php");
                         <td>DNI</td>
                         <td>Nombre</td>
                         <td>Apellido</td>
+                        <td>Fecha de nacionamiento</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -72,6 +73,7 @@ include("tablas/crea_tablas.php");
                                             <td>{$informacion['dni']}</td>
                                             <td>{$informacion['nombre']}</td>
                                             <td>{$informacion['apellido']}</td>
+                                            <td>{$informacion['fecha_nac']}</td>
                                         </tr>
                                     ";
                             }

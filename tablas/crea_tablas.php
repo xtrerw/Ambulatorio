@@ -89,10 +89,10 @@
         mysqli_query($conexion,$inserta4);
     }
     if ($pacientes->num_rows==0){
-        $inserta1="INSERT INTO pacientes(dni,nombre,apellido,genero,fecha_nac,id_med) VALUES ('123456789','Qual','Smash','M','2023-10-03',1);";
-        $inserta2="INSERT INTO pacientes(dni,nombre,apellido,genero,fecha_nac,id_med) VALUES ('y12345678','LDAS','DASDSA','H','2023-01-02',3);";
-        $inserta3="INSERT INTO pacientes(dni,nombre,apellido,genero,fecha_nac,id_med) VALUES ('ABCDEF123','BBB','WQDQD','M','2013-01-03',2);";
-        $inserta4="INSERT INTO pacientes(dni,nombre,apellido,genero,fecha_nac,id_med) VALUES ('012345678','Oua','Fash','H','2020-05-23',4);";
+        $inserta1="INSERT INTO pacientes(dni,nombre,apellido,genero,fecha_nac,id_med) VALUES ('123456789','Qual','Smash','M','1999-10-03',1);";
+        $inserta2="INSERT INTO pacientes(dni,nombre,apellido,genero,fecha_nac,id_med) VALUES ('y12345678','LDAS','DASDSA','H','1900-01-02',3);";
+        $inserta3="INSERT INTO pacientes(dni,nombre,apellido,genero,fecha_nac,id_med) VALUES ('ABCDEF123','BBB','WQDQD','M','1967-01-03',2);";
+        $inserta4="INSERT INTO pacientes(dni,nombre,apellido,genero,fecha_nac,id_med) VALUES ('012345678','Oua','Fash','H','2000-05-23',4);";
         mysqli_query($conexion,$inserta1);
         mysqli_query($conexion,$inserta2);
         mysqli_query($conexion,$inserta3);
@@ -104,18 +104,18 @@
     if ($consulta->num_rows==0){
         $inserta1="INSERT INTO consulta(fecha,diagnostico,sintomatologia,id_medico,id_paciente) VALUES ('2023-12-23','presenta síntomas indicativos de trastorno depresivo mayor, caracterizado por una persistente tristeza, pérdida de interés y cambios en el apetito y el sueño.','Tristeza persistente, pérdida de interés, cambios en apetito y sueño, señalando posiblemente un trastorno depresivo mayor. Se aconseja evaluación profesional para confirmar y planificar tratamiento.',1,1);";
         $inserta2="INSERT INTO consulta(fecha,diagnostico,sintomatologia,id_medico,id_paciente) VALUES ('2023-10-09','Paciente con infección por VIH. Se requiere atención médica urgente para evaluación y gestión adecuada.','Fatiga, pérdida de peso, fiebre, ganglios inflamados. Importante realizar prueba para confirmar diagnóstico y recibir atención médica.',3,2);";
-        $inserta3="INSERT INTO consulta(fecha,diagnostico,sintomatologia,id_medico,id_paciente) VALUES ('2000-02-01','Paciente con infección por VIH. Se requiere atención médica urgente para evaluación y gestión adecuada.','Fatiga, pérdida de peso, fiebre, ganglios inflamados. Importante realizar prueba para confirmar diagnóstico y recibir atención médica.',2,3);";
-        $inserta4="INSERT INTO consulta(fecha,diagnostico,sintomatologia,id_medico,id_paciente) VALUES ('2019-03-12','dsad','ekwqkp',4,4);";
+        $inserta3="INSERT INTO consulta(fecha,diagnostico,sintomatologia,id_medico,id_paciente) VALUES ('2023-02-01','Paciente con infección por VIH. Se requiere atención médica urgente para evaluación y gestión adecuada.','Fatiga, pérdida de peso, fiebre, ganglios inflamados. Importante realizar prueba para confirmar diagnóstico y recibir atención médica.',2,3);";
+        $inserta4="INSERT INTO consulta(fecha,diagnostico,sintomatologia,id_medico,id_paciente) VALUES ('2023-03-12','dsad','ekwqkp',4,4);";
         mysqli_query($conexion,$inserta1);
         mysqli_query($conexion,$inserta2);
         mysqli_query($conexion,$inserta3);
         mysqli_query($conexion,$inserta4);
     }
     if($receta->num_rows==0){
-        $inserta1="INSERT INTO receta(id_medicamento,id_consulta,posologia,fecha_fin) VALUES (4,1,'2cap/mañ-2m','2020-04-13');";
-        $inserta2="INSERT INTO receta(id_medicamento,id_consulta,posologia,fecha_fin) VALUES (3,2,'2cap/noc-5m','2020-05-13');";
-        $inserta3="INSERT INTO receta(id_medicamento,id_consulta,posologia,fecha_fin) VALUES (2,3,'4cap/mañ-3m','2020-06-13');";
-        $inserta4="INSERT INTO receta(id_medicamento,id_consulta,posologia,fecha_fin) VALUES (1,4,'3cap/mañ-10am','2023-06-13');";
+        $inserta1="INSERT INTO receta(id_medicamento,id_consulta,posologia,fecha_fin) VALUES (4,1,'2cap/mañ-2m','2024-04-13');";
+        $inserta2="INSERT INTO receta(id_medicamento,id_consulta,posologia,fecha_fin) VALUES (3,2,'2cap/noc-5m','2024-05-13');";
+        $inserta3="INSERT INTO receta(id_medicamento,id_consulta,posologia,fecha_fin) VALUES (2,3,'4cap/mañ-3m','2023-12-13');";
+        $inserta4="INSERT INTO receta(id_medicamento,id_consulta,posologia,fecha_fin) VALUES (1,4,'3cap/mañ-10am','2024-06-13');";
         mysqli_query($conexion,$inserta1);
         mysqli_query($conexion,$inserta2);
         mysqli_query($conexion,$inserta3);
