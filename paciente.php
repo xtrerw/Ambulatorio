@@ -8,6 +8,7 @@ include("tablas/crea_tablas.php");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Principal</title>
+    <link rel="shortcut icon" href="img/logo.jpg" type="image/x-icon">
     <link rel="stylesheet" href="css/pacientes.css">
 </head>
 <body>
