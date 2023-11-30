@@ -1,0 +1,14 @@
+body{
+    border: 0;
+    margin: 0;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+}
+form{
+    border: 10px inset black;
+    padding: 20px;
+}
+fieldset{
+    border: 5px outset brown;
+}
