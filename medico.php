@@ -1,5 +1,9 @@
 <?php
-include("tablas/crea_tablas.php");          
+include("tablas/crea_tablas.php");
+if (isset($_POST['login']) && isset($_POST['medico'])) {
+    session_start();
+    $_SESSION["idMedico"]=$_POST["medico"];   
+}     
 ?>
 <!DOCTYPE html>
 <html lang="en">

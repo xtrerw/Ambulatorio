@@ -36,16 +36,21 @@ include("tablas/crea_tablas.php");
                 </thead>
                 <tbody>
                     <?php
-                        if (isset($_POST['medico']) && isset($_POST['consulta'])) {
-                            $medicoSelect=$_POST['medico'];
-                            $select="SELECT * FROM medico WHERE id='$medicoSelect'";
+                        if (isset($_POST['consulta'])) {
+                            session_start();
+                            $medicoSelect=$_SESSION["idMedico"];
+                            $select="SELECT m.nombre AS medico,p.nombre AS paciente, c.fecha AS fecha
+                            FROM consulta c
+                            INNER JOIN medico m ON c.id_medico=m.id
+                            INNER JOIN pacientes p ON c.id_paciente=p.id 
+                            WHERE c.id='$medicoSelect'";
                             $resulta=mysqli_query($conexion,$select);
                             while ($informacion= $resulta->fetch_assoc()) {
                                 echo "
                                     <tr>
-                                        <td>{$informacion['nombre']}</td>
-                                        <td>{$informacion['apellidos']}</td>
-                                        <td>{$informacion['especialidad']}</td>
+                                        <td>{$informacion['medico']}</td>
+                                        <td>{$informacion['paciente']}</td>
+                                        <td>{$informacion['fecha']}</td>
                                     </tr>
                                 ";
                             }
@@ -53,6 +58,7 @@ include("tablas/crea_tablas.php");
                     ?>
                 </tbody>
             </table>
+            
             </fieldset>
     </form>
     </div>

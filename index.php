@@ -1,5 +1,5 @@
 <?php
-include("tablas/crea_tablas.php"); 
+include("tablas/crea_tablas.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,7 +27,8 @@ include("tablas/crea_tablas.php");
             </select>
             <input type="submit" value="Log in" name="login">
         </form>
-        <form action="medico.php" method="POST" id="form2">
+        
+        <form action="medico.php" method="post" id="form2">
             <h1>Médicos</h1>
             <label for="nombreMedico">Nombre de Médico</label>
             <select name="medico" id="">
