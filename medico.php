@@ -20,7 +20,7 @@ include("tablas/crea_tablas.php");
         </div>
     </header>
     <div class="container">
-    <form action="" method="post">
+    <form action="consulta.php" method="post">
         <fieldset>
             <legend>
                 Médico
@@ -29,6 +29,7 @@ include("tablas/crea_tablas.php");
             <table>
                 <thead>
                     <tr>
+                        <td>ID de Médico</td>
                         <td>Nombre</td>
                         <td>Apellido</td>
                         <td>Especialidad</td>
@@ -43,6 +44,7 @@ include("tablas/crea_tablas.php");
                             while ($informacion= $resulta->fetch_assoc()) {
                                 echo "
                                     <tr>
+                                        <td name='idMedico'>{$informacion['id']}</td>
                                         <td>{$informacion['nombre']}</td>
                                         <td>{$informacion['apellidos']}</td>
                                         <td>{$informacion['especialidad']}</td>
@@ -77,25 +79,31 @@ include("tablas/crea_tablas.php");
             <?php
                 if (isset($_POST['login']) && isset($_POST['medico'])) {
                     $medicoSelect=$_POST['medico'];
-                    $select="SELECT c.fecha AS fecha, m.nombre AS nombre
+                    $select="SELECT c.fecha AS fecha, m.nombre AS nombre, p.nombre AS p_nombre, c.id AS c_id ,LEFT(sintomatologia,100) AS sinto
                     FROM consulta c
                     INNER JOIN medico m ON c.id_medico=m.id
+                    INNER JOIN pacientes p ON c.id_paciente=p.id
                     WHERE m.id=$medicoSelect AND DATE(c.fecha) =CURDATE()
                     ORDER BY c.fecha ASC;";
                     $resulta=mysqli_query($conexion,$select);
                     if ($consultaHoy=$resulta->num_rows>0) {
                         while ($consultaHoy= $resulta->fetch_assoc()) {
-                            echo "<p>{$consultaHoy['nombre']}</p>
-                            <p>{$consultaHoy['fecha']}</p>";
+                            echo "
+                            <p>ID DE CONSULTA: {$consultaHoy['c_id']}</p>
+                            <p>NOMBRE DE MÉDICO: {$consultaHoy['nombre']}</p>
+                            <p>NOMBRE DE PACIENTE: {$consultaHoy['p_nombre']}</p>
+                            <p>LA FECHA DE CONSULTA: {$consultaHoy['fecha']}</p>
+                            <p>SINTOMATOLOGÍA: {$consultaHoy['sinto']}</p>
+                            ";
                         }
                     } else {
-                        echo "<p>hoy no tiene disponible de consulta</p>";
+                        echo "<p>Hoy no tiene disponible de consulta</p>";
                     }
                 };
             ?>
-            <button>Consulta</button>
+            <button name="consulta">Consulta</button>
             </fieldset>
     </form>
     </div>
 </body>
-</html>7
+</html>

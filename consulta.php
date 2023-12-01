@@ -1,5 +1,5 @@
 <?php
-include("tablas/crea_tablas.php");          
+include("tablas/crea_tablas.php");    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,7 +36,7 @@ include("tablas/crea_tablas.php");
                 </thead>
                 <tbody>
                     <?php
-                        if (isset($_POST['login']) && isset($_POST['consulta'])) {
+                        if (isset($_POST['medico']) && isset($_POST['consulta'])) {
                             $medicoSelect=$_POST['medico'];
                             $select="SELECT * FROM medico WHERE id='$medicoSelect'";
                             $resulta=mysqli_query($conexion,$select);
@@ -53,46 +53,6 @@ include("tablas/crea_tablas.php");
                     ?>
                 </tbody>
             </table>
-            <label>Consulta en los próximas 7 días</label>
-            <?php
-                if (isset($_POST['login']) && isset($_POST['medico'])) {
-                    $medicoSelect=$_POST['medico'];
-                    $select="SELECT c.fecha AS fecha, m.nombre AS nombre
-                    FROM consulta c
-                    INNER JOIN medico m ON c.id_medico=m.id
-                    WHERE m.id=$medicoSelect AND DATE(c.fecha)>=CURDATE() AND DATE(c.fecha) <= DATE_ADD(CURDATE(),interval 7 day)
-                    ORDER BY fecha ASC;";
-                    $resulta=mysqli_query($conexion,$select);
-                    if ($consulta=$resulta->num_rows>0) {
-                        while ($consulta= $resulta->fetch_assoc()) {
-                            echo "<p>{$consulta['nombre']}</p>
-                            <p>{$consulta['fecha']}</p>";
-                        }
-                    } else {
-                        echo "<p>no tiene disponible de consulta en los próximos días</p>";
-                    }
-                };
-            ?>
-            <label>Consulta de hoy</label>
-            <?php
-                if (isset($_POST['login']) && isset($_POST['medico'])) {
-                    $medicoSelect=$_POST['medico'];
-                    $select="SELECT c.fecha AS fecha, m.nombre AS nombre
-                    FROM consulta c
-                    INNER JOIN medico m ON c.id_medico=m.id
-                    WHERE m.id=$medicoSelect AND DATE(c.fecha) =CURDATE()
-                    ORDER BY c.fecha ASC;";
-                    $resulta=mysqli_query($conexion,$select);
-                    if ($consultaHoy=$resulta->num_rows>0) {
-                        while ($consultaHoy= $resulta->fetch_assoc()) {
-                            echo "<p>{$consultaHoy['nombre']}</p>
-                            <p>{$consultaHoy['fecha']}</p>";
-                        }
-                    } else {
-                        echo "<p>hoy no tiene disponible de consulta</p>";
-                    }
-                };
-            ?>
             </fieldset>
     </form>
     </div>

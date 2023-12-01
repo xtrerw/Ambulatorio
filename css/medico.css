@@ -77,3 +77,13 @@ form fieldset p{
     font-weight: bold;
     font-size: 20px;
 }
+button{
+    border-radius: 5px;
+    width: 50%;
+    background: #0e4275;
+    color: white;
+}
+button:active{
+    background: white;
+    color: #0e4275;
+}
