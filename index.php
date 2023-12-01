@@ -12,19 +12,36 @@ include("tablas/crea_tablas.php");
 </head>
 <body>
     <img src="img/logoLogin.png" alt="" srcset="">
-    <form action="paciente.php" method="POST">
-        <h1>Paciente</h1>
-        <label for="nombrePaciente">Nombre de Paciente</label>
-        <select name="paciente" id="">
-            <?php 
-                $select = "SELECT DISTINCT * FROM pacientes";
-                $resulta = mysqli_query($conexion,$select); 
-                while ($paciente = $resulta->fetch_assoc()) {
-                    echo "<option value='{$paciente['id']}'>{$paciente['nombre']}</option>";
-                }
-            ?>
-        </select>
-        <input type="submit" value="Log in" name="login">
-    </form>
+    <div>
+        <form action="paciente.php" method="POST" id="form1" class="leave">
+            <h1>Paciente</h1>
+            <label for="nombrePaciente">Nombre de Paciente</label>
+            <select name="paciente" id="">
+                <?php 
+                    $select = "SELECT DISTINCT * FROM pacientes";
+                    $resulta = mysqli_query($conexion,$select); 
+                    while ($paciente = $resulta->fetch_assoc()) {
+                        echo "<option value='{$paciente['id']}'>{$paciente['nombre']}</option>";
+                    }
+                ?>
+            </select>
+            <input type="submit" value="Log in" name="login">
+        </form>
+        <form action="medico.php" method="POST" id="form2" class="leave">
+            <h1>Médicos</h1>
+            <label for="nombrePaciente">Nombre de Médico</label>
+            <select name="medico" id="">
+                <?php 
+                    $select = "SELECT DISTINCT * FROM medico";
+                    $resulta = mysqli_query($conexion,$select); 
+                    while ($paciente = $resulta->fetch_assoc()) {
+                        echo "<option value='{$paciente['id']}'>{$paciente['nombre']}</option>";
+                    }
+                ?>
+            </select>
+            <input type="submit" value="Log in" name="login">
+        </form>
+    </div>
+    <script type="text/javascript" src="js/login.js"></script>   
 </body>
 </html>
