@@ -1,6 +1,5 @@
 <?php
-include("tablas/crea_tablas.php");
-              
+include("tablas/crea_tablas.php");          
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,21 +8,25 @@ include("tablas/crea_tablas.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Principal</title>
     <link rel="shortcut icon" href="img/logo.jpg" type="image/x-icon">
-    <link rel="stylesheet" href="css/paciente.css">
+    <link rel="stylesheet" href="css/pacientes.css">
 </head>
 <body>
     <header>
+        <img src="img/logo.jpg" alt="" srcset="">
         <div>
-
+            <a href="index.php">Inicial Sesión</a>
+            <a href="medico.php">Médico</a>
+            <a href="cita.php">Cita Previa</a>
         </div>
     </header>
+    <div class="container">
     <form action="" method="POST">
         <fieldset>
             <legend>
-                <h1>Paciente</h1>
+                Paciente
             </legend>
             <label for="">Información de Paciente</label>
-            <table border="1px">
+            <table>
                 <thead>
                     <tr>
                         <td>DNI</td>
@@ -72,7 +75,7 @@ include("tablas/crea_tablas.php");
                             WHERE c.id_paciente = $pacienteSelect AND DATE(c.fecha) < CURDATE()
                             ORDER BY c.fecha ASC";
                             $resulta=mysqli_query($conexion,$select);
-                            if ($pasado=$resulta->fetch_assoc()>0) {
+                            if ($pasado=$resulta->num_rows > 0) {
                                 # code...
                                 while ($pasado=$resulta->fetch_assoc()) {
                                     # code...
@@ -95,46 +98,85 @@ include("tablas/crea_tablas.php");
                         ?>
                     </tbody>
                 </table>
-            <label>Medicación actual</label>
             <label>Próximas Citas</label>
             <table>
-                    <thead>
-                        <td>ID de Consulta</td>
-                        <td>Médico</td>
-                        <td>Fecha</td>
-                    </thead>
-                    <tbody>
-                        <?php 
-                            if (isset($_POST['login']) && isset($_POST['paciente'])) {
-                                $pacienteSelect=$_POST["paciente"];
-                                $select = "SELECT c.id AS cita_id, m.nombre AS medico_nombre, m.Apellidos AS medico_apellidos, c.fecha
-                                FROM consulta c
-                                INNER JOIN medico m ON c.id_medico = m.id
-                                WHERE c.id_paciente = $pacienteSelect AND DATE(c.fecha) >= CURDATE()
-                                ORDER BY c.fecha ASC";
-                                $resulta=mysqli_query($conexion,$select);
-                                if ($proxima=$resulta->fetch_assoc() > 0) {
-                                    while ($proxima=$resulta->fetch_assoc()) {
-                                        echo "
-                                        <tr>
-                                            <td>{$proxima['cita_id']}</td>
-                                            <td>{$proxima['medico_nombre']}</td>
-                                            <td>{$proxima['fecha']}</td>
-                                        </tr>
-                                        ";
-                                    }
-                                } else {
+                <thead>
+                    <td>ID de Consulta</td>
+                    <td>Médico</td>
+                    <td>Fecha</td>
+                </thead>
+                <tbody>
+                    <?php 
+                        if (isset($_POST['login']) && isset($_POST['paciente'])) {
+                            $pacienteSelect=$_POST["paciente"];
+                            $select = "SELECT c.id AS cita_id, m.nombre AS medico_nombre, m.Apellidos AS medico_apellidos, c.fecha
+                            FROM consulta c
+                            INNER JOIN medico m ON c.id_medico = m.id
+                            WHERE c.id_paciente = $pacienteSelect AND DATE(c.fecha) >= CURDATE()
+                            ORDER BY c.fecha ASC";
+                            $resulta=mysqli_query($conexion,$select);
+                            if ($proximaCita=$resulta->num_rows > 0) {
+                                while ($proximaCita=$resulta->fetch_assoc()) {
                                     echo "
                                     <tr>
-                                        <td colspan='3'>no tenía ningúna cita próxima</td>
+                                        <td>{$proximaCita['cita_id']}</td>
+                                        <td>{$proximaCita['medico_nombre']}</td>
+                                        <td>{$proximaCita['fecha']}</td>
                                     </tr>
                                     ";
                                 }
+                            } else {
+                                echo "
+                                <tr>
+                                    <td colspan='3'>no tenía ningúna cita próxima</td>
+                                </tr>
+                                ";
                             }
-                        ?>
-                    </tbody>
-                </table>
-            <label>Pedir una cita</label>
+                        }
+                    ?>
+                </tbody>
+            </table>
+            </fieldset>
+            <fieldset>
+            <legend>Medicación actual</legend>
+            <?php
+                if (isset($_POST['login']) && isset($_POST['paciente'])) {
+                    # code...
+                    $pacienteSelect=$_POST['paciente'];
+                    $select="SELECT r.posologia AS posologia, r.fecha_fin AS fecha_fin, c.sintomatologia AS sinto, p.nombre AS nombre,m.medicamento AS medicamento, c.diagnostico AS diagnostico
+                    FROM receta r
+                    INNER JOIN consulta c ON r.id_consulta=c.id
+                    INNER JOIN medicamento m ON r.id_medicamento=m.id
+                    INNER JOIN pacientes p ON c.id_paciente=p.id
+                    WHERE c.id_paciente=$pacienteSelect";
+                    $resulta=mysqli_query($conexion,$select);
+                    if ($medicacion=$resulta->num_rows > 0) {
+                        # code...
+                        while ($medicacion=$resulta->fetch_assoc()) {
+                            # code...
+                            echo "<p>Nombre de Paciente</p>
+                            <p>{$medicacion['nombre']}</p>
+                            <p>Medicamento</p>
+                            <p>{$medicacion['medicamento']}</p>
+                            <p>La fecha final</p>
+                            <p>{$medicacion['fecha_fin']}</p>
+                            <p>Posologia</p>
+                            <p>{$medicacion['posologia']}</p>
+                            <p>Diágnostico</p>
+                            <p>{$medicacion['diagnostico']}</p>
+                            <p>Sintomatología</p>
+                            <p>{$medicacion['sinto']}</p>
+                            ";
+                        }
+                    } else {
+                        echo "Este paciente no existe ninguna sintomatologia";
+                    }
+                }
+            ?>
+            </fieldset>
+    </form>
+    <form action="">
+    <label>Pedir una cita</label>
             <input type="date" name="fecha" id="">
             <select name="medico" id="">
                 <?php 
@@ -145,9 +187,10 @@ include("tablas/crea_tablas.php");
                     }
                 ?>
             </select>
-        </fieldset>
         <input type="submit" value="Pedir una cita" name="registro">
+
     </form>
+    </div>
     <script type="text/javascript" src="pacientes.js"></script>
 </body>
 </html>
