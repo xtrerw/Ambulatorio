@@ -175,21 +175,6 @@ include("tablas/crea_tablas.php");
             ?>
             </fieldset>
     </form>
-    <form action="">
-    <label>Pedir una cita</label>
-            <input type="date" name="fecha" id="">
-            <select name="medico" id="">
-                <?php 
-                    $select = "SELECT DISTINCT * FROM medico";
-                    $resulta = mysqli_query($conexion,$select); 
-                    while ($medico = $resulta->fetch_assoc()) {
-                        echo "<option value='{$medico['id']}'>{$medico['nombre']} {$medico['apellidos']}-{$medico['especialidad']}</option>";
-                    }
-                ?>
-            </select>
-        <input type="submit" value="Pedir una cita" name="registro">
-
-    </form>
     </div>
     <script type="text/javascript" src="pacientes.js"></script>
 </body>
