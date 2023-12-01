@@ -68,7 +68,7 @@ include("tablas/crea_tablas.php");
                             if (isset($_POST['login']) && isset($_POST['paciente'])) {
                                 # code...
                                 $pacienteSelect=$_POST["paciente"];
-                            $select = "SELECT c.id AS cita_id, m.nombre AS medico_nombre, m.Apellidos AS medico_apellidos, c.fecha
+                            $select = "SELECT c.id AS cita_id, m.nombre AS medico_nombre, m.apellidos AS medico_apellidos, c.fecha AS fecha
                             FROM consulta c
                             INNER JOIN medico m ON c.id_medico = m.id
                             WHERE c.id_paciente = $pacienteSelect AND DATE(c.fecha) < CURDATE()

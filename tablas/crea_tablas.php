@@ -40,7 +40,7 @@
         fecha DATE,
         diagnostico VARCHAR(255),
         sintomatologia VARCHAR(255),
-        FOREIGN KEY (id_medico) REFERENCES medicamento(id),
+        FOREIGN KEY (id_medico) REFERENCES medico(id),
         FOREIGN KEY (id_paciente) REFERENCES pacientes(id)
         );";
     mysqli_query($conexion,$consulta);
@@ -102,7 +102,7 @@
     
     //
     if ($consulta->num_rows==0){
-        $inserta1="INSERT INTO consulta(fecha,diagnostico,sintomatologia,id_medico,id_paciente) VALUES ('2023-12-07','Esquizofrenia','pensamiento desorganizado',1,1);";
+        $inserta1="INSERT INTO consulta(fecha,diagnostico,sintomatologia,id_medico,id_paciente) VALUES ('2023-12-01','Esquizofrenia','pensamiento desorganizado',1,1);";
         $inserta2="INSERT INTO consulta(fecha,diagnostico,sintomatologia,id_medico,id_paciente) VALUES ('2023-01-09','VIH','diarrea',3,2);";
         $inserta3="INSERT INTO consulta(fecha,diagnostico,sintomatologia,id_medico,id_paciente) VALUES ('2023-12-05','VIH','fiebre baja',2,3);";
         $inserta4="INSERT INTO consulta(fecha,diagnostico,sintomatologia,id_medico,id_paciente) VALUES ('2024-03-12','Cáncer de pulmón','dolor de pecho.',4,4);";

@@ -20,7 +20,7 @@ include("tablas/crea_tablas.php");
         </div>
     </header>
     <div class="container">
-    <form action="" method="POST">
+    <form action="" method="post">
         <fieldset>
             <legend>
                 Médico
@@ -36,7 +36,6 @@ include("tablas/crea_tablas.php");
                 </thead>
                 <tbody>
                     <?php
-                        global $conexion;  
                         if (isset($_POST['login']) && isset($_POST['medico'])) {
                             $medicoSelect=$_POST['medico'];
                             $select="SELECT * FROM medico WHERE id='$medicoSelect'";
@@ -56,31 +55,46 @@ include("tablas/crea_tablas.php");
             </table>
             <label>Consulta en los próximas 7 días</label>
             <?php
-                        global $conexion;  
-                        if (isset($_POST['login']) && isset($_POST['medico'])) {
-                            $medicoSelect=$_POST['medico'];
-                            $select="SELECT c.fecha AS fecha, m.nombre AS nombre
-                            FROM medico m
-                            INNER JOIN consulta c ON c.id_medio=m.id
-                            WHERE id='$medicoSelect' AND DATE(c.fecha)>=CURDATE() AND DATE(c.fecha) < DATE_ADD(CURDATE(),interval 7 days)
-                            ORDER BY c.fecha ASC
-                            ;";
-                            $resulta=mysqli_query($conexion,$select);
-                            if ($informacion=$resulta->num_rows>0) {
-                                while ($informacion= $resulta->fetch_assoc()) {
-                                    echo "<p>{$informacion['nombre']}</p>
-                                    <p>{$informacion['fecha']}</p>";
-                                }
-                            } else {
-                                echo "<p>no tiene disponible de consulta en los próximos días</p>";
-                            }
-                        };
-                    ?>
+                if (isset($_POST['login']) && isset($_POST['medico'])) {
+                    $medicoSelect=$_POST['medico'];
+                    $select="SELECT c.fecha AS fecha, m.nombre AS nombre
+                    FROM consulta c
+                    INNER JOIN medico m ON c.id_medico=m.id
+                    WHERE m.id=$medicoSelect AND DATE(c.fecha)>=CURDATE() AND DATE(c.fecha) <= DATE_ADD(CURDATE(),interval 7 day)
+                    ORDER BY fecha ASC;";
+                    $resulta=mysqli_query($conexion,$select);
+                    if ($consulta=$resulta->num_rows>0) {
+                        while ($consulta= $resulta->fetch_assoc()) {
+                            echo "<p>{$consulta['nombre']}</p>
+                            <p>{$consulta['fecha']}</p>";
+                        }
+                    } else {
+                        echo "<p>no tiene disponible de consulta en los próximos días</p>";
+                    }
+                };
+            ?>
             <label>Consulta de hoy</label>
-            
+            <?php
+                if (isset($_POST['login']) && isset($_POST['medico'])) {
+                    $medicoSelect=$_POST['medico'];
+                    $select="SELECT c.fecha AS fecha, m.nombre AS nombre
+                    FROM consulta c
+                    INNER JOIN medico m ON c.id_medico=m.id
+                    WHERE m.id=$medicoSelect AND DATE(c.fecha) =CURDATE()
+                    ORDER BY c.fecha ASC;";
+                    $resulta=mysqli_query($conexion,$select);
+                    if ($consultaHoy=$resulta->num_rows>0) {
+                        while ($consultaHoy= $resulta->fetch_assoc()) {
+                            echo "<p>{$consultaHoy['nombre']}</p>
+                            <p>{$consultaHoy['fecha']}</p>";
+                        }
+                    } else {
+                        echo "<p>no tiene disponible de consulta en los próximos días</p>";
+                    }
+                };
+            ?>
             </fieldset>
     </form>
     </div>
-    <script type="text/javascript" src="pacientes.js"></script>
 </body>
 </html>7
