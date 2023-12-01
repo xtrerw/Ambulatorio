@@ -21,11 +21,11 @@ include("tablas/crea_tablas.php");
     </header>
     <div class="container">
     <form action="" method="post">
+        <legend>Consulta</legend>
         <fieldset>
             <legend>
-                Consulta
+                Información de Médico y Paciente
             </legend>
-            <label for="">Información de Médico y Paciente</label>
             <table>
                 <thead>
                     <tr>
@@ -58,8 +58,66 @@ include("tablas/crea_tablas.php");
                     ?>
                 </tbody>
             </table>
-            
             </fieldset>
+            <fieldset>
+                <legend>
+                Sintomatología
+                </legend>
+                <textarea name="sintomatologia" id="" cols="50" rows="10">
+                <?php
+                    if (isset($_POST['consulta'])) {
+                        session_start();
+                        $medicoSelect=$_SESSION["idMedico"];
+                        $select="SELECT c.sintomatologia AS sinto
+                        FROM consulta c
+                        INNER JOIN medico m ON c.id_medico=m.id
+                        WHERE c.id='$medicoSelect'";
+                        $resulta=mysqli_query($conexion,$select);
+                        while ($informacion= $resulta->fetch_assoc()) {
+                            echo "{$informacion['sinto']}";
+                        }
+                    };
+                ?>
+            </textarea>
+            </fieldset>
+            <fieldset>
+            <legend>Diagnóstico</legend>
+            <textarea name="diagnostico" id="" cols="50" rows="10">
+                <?php
+                    if (isset($_POST['consulta'])) {
+                        session_start();
+                        $medicoSelect=$_SESSION["idMedico"];
+                        $select="SELECT c.diagnostico AS diagnostico
+                        FROM consulta c
+                        INNER JOIN medico m ON c.id_medico=m.id
+                        WHERE c.id='$medicoSelect'";
+                        $resulta=mysqli_query($conexion,$select);
+                        while ($informacion= $resulta->fetch_assoc()) {
+                            echo "{$informacion['diagnostico']}";
+                        }
+                    };
+                ?>
+            </textarea>
+            </fieldset>
+            <fieldset>
+                <legend>Medicación</legend>
+                <label for="">Medicamentos</label>
+                <select name="medicamentos" id="">
+                    <option value="poción de vida">poción de vida</option>
+                    <option value="amoxicilina">amoxicilina</option>
+                    <option value="aspirina">aspirina</option>
+                    <option value="formalina">formalina</option>
+                    <option value="naproxeno">naproxeno</option>
+                    <option value="Vitamina B12">vitamina B12</option>
+                </select>
+                <label for="">Cantidad</label>
+                <input type="text" name="cantidad">
+                <label for="">Frecuencia</label>
+                <input type="text" name="hora">
+                <input type="text" name="day">
+                <label for="">Medicación es crónica</label>
+            </fieldset>
+            
     </form>
     </div>
 </body>
