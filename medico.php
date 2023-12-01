@@ -93,6 +93,7 @@ include("tablas/crea_tablas.php");
                     }
                 };
             ?>
+            <button>Consulta</button>
             </fieldset>
     </form>
     </div>

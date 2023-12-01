@@ -53,7 +53,7 @@ legend{
     font-weight: bolder;
 }
 fieldset{
-    border: 5px outset brown;
+    border: 5px outset rgb(22, 87, 153);
 }
 label{
     font-size: 25px;

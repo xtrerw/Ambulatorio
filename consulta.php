@@ -23,7 +23,7 @@ include("tablas/crea_tablas.php");
     <form action="" method="post">
         <fieldset>
             <legend>
-                Médico
+                Consulta
             </legend>
             <label for="">Información de Médico y Paciente</label>
             <table>
@@ -36,7 +36,7 @@ include("tablas/crea_tablas.php");
                 </thead>
                 <tbody>
                     <?php
-                        if (isset($_POST['login']) && isset($_POST['medico'])) {
+                        if (isset($_POST['login']) && isset($_POST['consulta'])) {
                             $medicoSelect=$_POST['medico'];
                             $select="SELECT * FROM medico WHERE id='$medicoSelect'";
                             $resulta=mysqli_query($conexion,$select);
