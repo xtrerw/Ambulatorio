@@ -29,27 +29,24 @@ include("tablas/crea_tablas.php");
             <table>
                 <thead>
                     <tr>
-                        <td>DNI</td>
                         <td>Nombre</td>
                         <td>Apellido</td>
-                        <td>Fecha de nacionamiento</td>
+                        <td>Especialidad</td>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
                         global $conexion;  
-                        if (isset($_POST['login']) && isset($_POST['paciente'])) {
-                            $pacienteSelect=$_POST['paciente'];
-                            $pacienteSelect=mysqli_real_escape_string($conexion,$pacienteSelect);
-                            $select="SELECT * FROM pacientes WHERE id='$pacienteSelect'";
+                        if (isset($_POST['login']) && isset($_POST['medico'])) {
+                            $medicoSelect=$_POST['medico'];
+                            $select="SELECT * FROM medico WHERE id='$medicoSelect'";
                             $resulta=mysqli_query($conexion,$select);
                             while ($informacion= $resulta->fetch_assoc()) {
                                 echo "
                                     <tr>
-                                        <td>{$informacion['dni']}</td>
                                         <td>{$informacion['nombre']}</td>
-                                        <td>{$informacion['apellido']}</td>
-                                        <td>{$informacion['fecha_nac']}</td>
+                                        <td>{$informacion['apellidos']}</td>
+                                        <td>{$informacion['especialidad']}</td>
                                     </tr>
                                 ";
                             }
@@ -57,122 +54,30 @@ include("tablas/crea_tablas.php");
                     ?>
                 </tbody>
             </table>
-            <label>Citas Pasadas</label>
-            <table>
-                    <thead>
-                        <td>ID de Consulta</td>
-                        <td>Médico</td>
-                        <td>Fecha</td>
-                    </thead>
-                    <tbody>
-                        <?php 
-                            if (isset($_POST['login']) && isset($_POST['paciente'])) {
-                                # code...
-                                $pacienteSelect=$_POST["paciente"];
-                            $select = "SELECT c.id AS cita_id, m.nombre AS medico_nombre, m.Apellidos AS medico_apellidos, c.fecha
-                            FROM consulta c
-                            INNER JOIN medico m ON c.id_medico = m.id
-                            WHERE c.id_paciente = $pacienteSelect AND DATE(c.fecha) < CURDATE()
-                            ORDER BY c.fecha ASC";
+            <label>Consulta en los próximas 7 días</label>
+            <?php
+                        global $conexion;  
+                        if (isset($_POST['login']) && isset($_POST['medico'])) {
+                            $medicoSelect=$_POST['medico'];
+                            $select="SELECT c.fecha AS fecha, m.nombre AS nombre
+                            FROM medico m
+                            INNER JOIN consulta c ON c.id_medio=m.id
+                            WHERE id='$medicoSelect' AND DATE(c.fecha)>=CURDATE() AND DATE(c.fecha) < DATE_ADD(CURDATE(),interval 7 days)
+                            ORDER BY c.fecha ASC
+                            ;";
                             $resulta=mysqli_query($conexion,$select);
-                            if ($pasado=$resulta->num_rows > 0) {
-                                # code...
-                                while ($pasado=$resulta->fetch_assoc()) {
-                                    # code...
-                                    echo "
-                                    <tr>
-                                        <td>{$pasado['cita_id']}</td>
-                                        <td>{$pasado['medico_nombre']}</td>
-                                        <td>{$pasado['fecha']}</td>
-                                    </tr>
-                                    ";
-                                }
-                            } else{
-                                echo "
-                                <tr>
-                                    <td colspan='3'>no tenía ningúna cita anterior</td>
-                                </tr>
-                                ";
-                            }
-                        }
-                        ?>
-                    </tbody>
-                </table>
-            <label>Próximas Citas</label>
-            <table>
-                <thead>
-                    <td>ID de Consulta</td>
-                    <td>Médico</td>
-                    <td>Fecha</td>
-                </thead>
-                <tbody>
-                    <?php 
-                        if (isset($_POST['login']) && isset($_POST['paciente'])) {
-                            $pacienteSelect=$_POST["paciente"];
-                            $select = "SELECT c.id AS cita_id, m.nombre AS medico_nombre, m.Apellidos AS medico_apellidos, c.fecha
-                            FROM consulta c
-                            INNER JOIN medico m ON c.id_medico = m.id
-                            WHERE c.id_paciente = $pacienteSelect AND DATE(c.fecha) >= CURDATE()
-                            ORDER BY c.fecha ASC";
-                            $resulta=mysqli_query($conexion,$select);
-                            if ($proximaCita=$resulta->num_rows > 0) {
-                                while ($proximaCita=$resulta->fetch_assoc()) {
-                                    echo "
-                                    <tr>
-                                        <td>{$proximaCita['cita_id']}</td>
-                                        <td>{$proximaCita['medico_nombre']}</td>
-                                        <td>{$proximaCita['fecha']}</td>
-                                    </tr>
-                                    ";
+                            if ($informacion=$resulta->num_rows>0) {
+                                while ($informacion= $resulta->fetch_assoc()) {
+                                    echo "<p>{$informacion['nombre']}</p>
+                                    <p>{$informacion['fecha']}</p>";
                                 }
                             } else {
-                                echo "
-                                <tr>
-                                    <td colspan='3'>no tenía ningúna cita próxima</td>
-                                </tr>
-                                ";
+                                echo "<p>no tiene disponible de consulta en los próximos días</p>";
                             }
-                        }
+                        };
                     ?>
-                </tbody>
-            </table>
-            </fieldset>
-            <fieldset>
-            <legend>Medicación actual</legend>
-            <?php
-                if (isset($_POST['login']) && isset($_POST['paciente'])) {
-                    # code...
-                    $pacienteSelect=$_POST['paciente'];
-                    $select="SELECT r.posologia AS posologia, r.fecha_fin AS fecha_fin, c.sintomatologia AS sinto, p.nombre AS nombre,m.medicamento AS medicamento, c.diagnostico AS diagnostico
-                    FROM receta r
-                    INNER JOIN consulta c ON r.id_consulta=c.id
-                    INNER JOIN medicamento m ON r.id_medicamento=m.id
-                    INNER JOIN pacientes p ON c.id_paciente=p.id
-                    WHERE c.id_paciente=$pacienteSelect";
-                    $resulta=mysqli_query($conexion,$select);
-                    if ($medicacion=$resulta->num_rows > 0) {
-                        # code...
-                        while ($medicacion=$resulta->fetch_assoc()) {
-                            # code...
-                            echo "<p>Nombre de Paciente</p>
-                            <p>{$medicacion['nombre']}</p>
-                            <p>Medicamento</p>
-                            <p>{$medicacion['medicamento']}</p>
-                            <p>La fecha final</p>
-                            <p>{$medicacion['fecha_fin']}</p>
-                            <p>Posologia</p>
-                            <p>{$medicacion['posologia']}</p>
-                            <p>Diágnostico</p>
-                            <p>{$medicacion['diagnostico']}</p>
-                            <p>Sintomatología</p>
-                            <p>{$medicacion['sinto']}</p>
-                            ";
-                        }
-                    } else {
-                        echo "Este paciente no existe ninguna sintomatologia";
-                    }
-                }
-            ?>
+            <label>Consulta de hoy</label>
+            
             </fieldset>
     </form>
     </div>

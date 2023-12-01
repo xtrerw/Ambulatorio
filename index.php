@@ -13,7 +13,7 @@ include("tablas/crea_tablas.php");
 <body>
     <img src="img/logoLogin.png" alt="" srcset="">
     <div>
-        <form action="paciente.php" method="POST" id="form1" class="leave">
+        <form action="paciente.php" method="POST" id="form1" >
             <h1>Paciente</h1>
             <label for="nombrePaciente">Nombre de Paciente</label>
             <select name="paciente" id="">
@@ -27,15 +27,15 @@ include("tablas/crea_tablas.php");
             </select>
             <input type="submit" value="Log in" name="login">
         </form>
-        <form action="medico.php" method="POST" id="form2" class="leave">
+        <form action="medico.php" method="POST" id="form2">
             <h1>Médicos</h1>
-            <label for="nombrePaciente">Nombre de Médico</label>
+            <label for="nombreMedico">Nombre de Médico</label>
             <select name="medico" id="">
                 <?php 
                     $select = "SELECT DISTINCT * FROM medico";
                     $resulta = mysqli_query($conexion,$select); 
-                    while ($paciente = $resulta->fetch_assoc()) {
-                        echo "<option value='{$paciente['id']}'>{$paciente['nombre']}</option>";
+                    while ($medico = $resulta->fetch_assoc()) {
+                        echo "<option value='{$medico['id']}'>{$medico['nombre']}</option>";
                     }
                 ?>
             </select>

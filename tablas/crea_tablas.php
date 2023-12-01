@@ -102,9 +102,9 @@
     
     //
     if ($consulta->num_rows==0){
-        $inserta1="INSERT INTO consulta(fecha,diagnostico,sintomatologia,id_medico,id_paciente) VALUES ('2023-12-23','Esquizofrenia','pensamiento desorganizado',1,1);";
-        $inserta2="INSERT INTO consulta(fecha,diagnostico,sintomatologia,id_medico,id_paciente) VALUES ('2024-10-09','VIH','diarrea',3,2);";
-        $inserta3="INSERT INTO consulta(fecha,diagnostico,sintomatologia,id_medico,id_paciente) VALUES ('2024-02-01','VIH','fiebre baja',2,3);";
+        $inserta1="INSERT INTO consulta(fecha,diagnostico,sintomatologia,id_medico,id_paciente) VALUES ('2023-12-07','Esquizofrenia','pensamiento desorganizado',1,1);";
+        $inserta2="INSERT INTO consulta(fecha,diagnostico,sintomatologia,id_medico,id_paciente) VALUES ('2023-01-09','VIH','diarrea',3,2);";
+        $inserta3="INSERT INTO consulta(fecha,diagnostico,sintomatologia,id_medico,id_paciente) VALUES ('2023-12-05','VIH','fiebre baja',2,3);";
         $inserta4="INSERT INTO consulta(fecha,diagnostico,sintomatologia,id_medico,id_paciente) VALUES ('2024-03-12','Cáncer de pulmón','dolor de pecho.',4,4);";
         mysqli_query($conexion,$inserta1);
         mysqli_query($conexion,$inserta2);

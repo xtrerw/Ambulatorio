@@ -20,7 +20,7 @@ include("tablas/crea_tablas.php");
         </div>
     </header>
     <div class="container">
-    <form action="" method="POST">
+    <form action="" method="post">
         <fieldset>
             <legend>
                 Paciente
@@ -40,7 +40,6 @@ include("tablas/crea_tablas.php");
                         global $conexion;  
                         if (isset($_POST['login']) && isset($_POST['paciente'])) {
                             $pacienteSelect=$_POST['paciente'];
-                            $pacienteSelect=mysqli_real_escape_string($conexion,$pacienteSelect);
                             $select="SELECT * FROM pacientes WHERE id='$pacienteSelect'";
                             $resulta=mysqli_query($conexion,$select);
                             while ($informacion= $resulta->fetch_assoc()) {
@@ -176,6 +175,5 @@ include("tablas/crea_tablas.php");
             </fieldset>
     </form>
     </div>
-    <script type="text/javascript" src="pacientes.js"></script>
 </body>
 </html>
