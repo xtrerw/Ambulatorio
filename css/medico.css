@@ -1,0 +1,79 @@
+body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border: 0;
+    margin: 0;
+    box-sizing: border-box;
+    background:#183945;
+}
+header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100vw;
+    height: 70px;
+    background-image: linear-gradient(135deg,#183945, rgba(30, 143, 255, 0.742));
+}
+header img{
+    margin: 15%;
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px 2px rgb(23, 108, 194);
+}
+header div{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    width: 40%;
+    margin-right: 15%;
+}
+header div a{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+div.container{
+    padding-top: 2rem;
+    display: flex;
+    justify-content: center;
+}
+form{
+    background: rgba(245, 245, 245, 0.452);
+    padding: 20px;
+}
+form:last-child{
+    width: 50%;
+}
+legend{
+    font-size: 35px;
+    font-weight: bolder;
+}
+fieldset{
+    border: 5px outset brown;
+}
+label{
+    font-size: 25px;
+    font-weight: bold;
+}
+table thead td{
+    background: #183945b0;
+    font-weight: bold;
+    color: white;
+    box-shadow: 2px 2px 2px 1px rgb(88, 88, 88);
+}
+table tbody td{
+    background: rgb(179, 219, 219);
+    font-weight: bold;
+    color: #183945;
+    box-shadow: 2px 2px 2px 1px rgb(88, 88, 88);
+}
+form fieldset p{
+    color: #183945;
+    margin: 0;
+    font-weight: bold;
+    font-size: 20px;
+}

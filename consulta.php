@@ -25,13 +25,13 @@ include("tablas/crea_tablas.php");
             <legend>
                 Médico
             </legend>
-            <label for="">Información de Médico</label>
+            <label for="">Información de Médico y Paciente</label>
             <table>
                 <thead>
                     <tr>
-                        <td>Nombre</td>
-                        <td>Apellido</td>
-                        <td>Especialidad</td>
+                        <td>Médico</td>
+                        <td>Paciente</td>
+                        <td>Fecha</td>
                     </tr>
                 </thead>
                 <tbody>
