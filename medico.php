@@ -1,6 +1,7 @@
 <?php
 include("tablas/crea_tablas.php");
 if (isset($_POST['login']) && isset($_POST['medico'])) {
+    //conseguir la id de médico que inicia sesión, lo mando a la página de consulta
     session_start();
     $_SESSION["idMedico"]=$_POST["medico"];   
 }     
@@ -15,18 +16,22 @@ if (isset($_POST['login']) && isset($_POST['medico'])) {
     <link rel="stylesheet" href="css/medico.css">
 </head>
 <body>
+    <!-- header -->
     <header>
         <img src="img/logo.jpg" alt="" srcset="">
         <div>
             <a href="index.php">Inicia Sesión</a>
         </div>
     </header>
+    <!-- contenido -->
     <div class="container">
+        <!-- formulario de información de médico -->
     <form action="consulta.php" method="post">
         <fieldset>
             <legend>
                 Médico
             </legend>
+            <!-- información -->
             <label for="">Información de Médico</label>
             <table>
                 <thead>
@@ -40,10 +45,13 @@ if (isset($_POST['login']) && isset($_POST['medico'])) {
                 <tbody>
                     <?php
                         if (isset($_POST['login']) && isset($_POST['medico'])) {
+                            //conseguir id de médico que inicia sesión
                             $medicoSelect=$_POST['medico'];
-                            $select="SELECT * FROM medico WHERE id='$medicoSelect'";
+                            //conseguir toda información de todos los médicos,"DISTINCT" para que no repite aparecer el mismo médico
+                            $select="SELECT DISTINCT * FROM medico WHERE id='$medicoSelect'";
                             $resulta=mysqli_query($conexion,$select);
                             while ($informacion= $resulta->fetch_assoc()) {
+                                //información de médico que contiene nombre,apellidos y especialidad
                                 echo "
                                     <tr>
                                         <td name='idMedico'>{$informacion['id']}</td>
@@ -57,10 +65,12 @@ if (isset($_POST['login']) && isset($_POST['medico'])) {
                     ?>
                 </tbody>
             </table>
-            <label>Consulta en los próximas 7 días</label>
+            <!-- cita en los próximos 7 dias -->
+            <label>Consulta en los próximos 7 días</label>
             <?php
                 if (isset($_POST['login']) && isset($_POST['medico'])) {
                     $medicoSelect=$_POST['medico'];
+                    // combinar la tabla consulta con la de médico, encontrar todas citas dentro de 7 dias en orden ascendente 
                     $select="SELECT c.fecha AS fecha, m.nombre AS nombre
                     FROM consulta c
                     INNER JOIN medico m ON c.id_medico=m.id
@@ -68,11 +78,13 @@ if (isset($_POST['login']) && isset($_POST['medico'])) {
                     ORDER BY fecha ASC;";
                     $resulta=mysqli_query($conexion,$select);
                     if ($consulta=$resulta->num_rows>0) {
+                        //si encontrar, va a presentar el nombre y la fecha
                         while ($consulta= $resulta->fetch_assoc()) {
                             echo "<p>{$consulta['nombre']}</p>
                             <p>{$consulta['fecha']}</p>";
                         }
                     } else {
+                        //si no, va a salir un comentario
                         echo "<p>no tiene disponible de consulta en los próximos días</p>";
                     }
                 };
@@ -81,6 +93,7 @@ if (isset($_POST['login']) && isset($_POST['medico'])) {
             <?php
                 if (isset($_POST['login']) && isset($_POST['medico'])) {
                     $medicoSelect=$_POST['medico'];
+                    // combinar la tabla consulta con la de médico y paciente ,encontrar todas citas que contienen médico, paciente, la fecha y síntoma de los primeros 100 caracteres de hoy en orden ascendente 
                     $select="SELECT c.fecha AS fecha, m.nombre AS nombre, p.nombre AS p_nombre, c.id AS c_id ,LEFT(sintomatologia,100) AS sinto
                     FROM consulta c
                     INNER JOIN medico m ON c.id_medico=m.id
@@ -99,10 +112,11 @@ if (isset($_POST['login']) && isset($_POST['medico'])) {
                             ";
                         }
                     } else {
-                        echo "<p>Hoy no tiene disponible de consulta</p>";
+                        echo "<p>No tiene disponible de consulta de hoy</p>";
                     }
                 };
             ?>
+            <!-- bóton de seguir consultar -->
             <button name="consulta">Consulta</button>
             </fieldset>
     </form>

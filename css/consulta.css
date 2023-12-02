@@ -5,6 +5,7 @@ body{
     box-sizing: border-box;
     background:#183945;
 }
+/* header */
 header{
     display: flex;
     align-items: center;
@@ -37,22 +38,23 @@ header div a{
     font-size: 1.5rem;
     font-weight: bold;
 }
+/* contenido */
 div.container{
     padding-top: 2rem;
     display: flex;
     justify-content: center;
 }
+/* formulario */
 form{
     background: rgba(245, 245, 245, 0.452);
     padding: 20px;
-}
-form:last-child{
     width: 50%;
 }
 legend{
     font-size: 35px;
     font-weight: bolder;
 }
+/* conjunto de campo */
 fieldset{
     display: grid;
     border: 5px outset rgb(22, 87, 153);
@@ -61,6 +63,7 @@ label{
     font-size: 25px;
     font-weight: bold;
 }
+/* información de paciente y médico */
 table thead td{
     background: #183945b0;
     font-weight: bold;
@@ -89,6 +92,7 @@ input[type='checkbox']{
     height: 1rem;
     margin: 5px;
 }
+/* bóton de consulta */
 button{
     margin-top: 10px;
     border: 0;

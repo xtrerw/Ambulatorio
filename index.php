@@ -11,11 +11,14 @@ include("tablas/crea_tablas.php");
     <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
+    <!-- logo -->
     <img src="img/logoLogin.png" alt="" srcset="">
     <div>
+        <!-- formulario de paciente, va a saltar a la página de paciente -->
         <form action="paciente.php" method="POST" id="form1" >
             <h1>Paciente</h1>
             <label for="nombrePaciente">Nombre de Paciente</label>
+            <!-- elige un paciente -->
             <select name="paciente" id="">
                 <?php 
                     $select = "SELECT DISTINCT * FROM pacientes";
@@ -27,10 +30,11 @@ include("tablas/crea_tablas.php");
             </select>
             <input type="submit" value="Log in" name="login">
         </form>
-        
+        <!-- formulario de médico, va a saltar a la página de médico -->
         <form action="medico.php" method="post" id="form2">
             <h1>Médicos</h1>
             <label for="nombreMedico">Nombre de Médico</label>
+            <!-- elige un médico -->
             <select name="medico" id="">
                 <?php 
                     $select = "SELECT DISTINCT * FROM medico";

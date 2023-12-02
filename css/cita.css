@@ -5,6 +5,7 @@ body{
     box-sizing: border-box;
     background:#183945;
 }
+/* header */
 header{
     display: flex;
     align-items: center;
@@ -36,11 +37,13 @@ header div a{
     font-size: 1.5rem;
     font-weight: bold;
 }
+/* contenido */
 div.container{
     padding-top: 2rem;
     display: flex;
     justify-content: center;
 }
+/* formulario */
 form{
     background: rgba(245, 245, 245, 0.452);
     padding: 20px;
@@ -49,14 +52,11 @@ legend{
     font-size: 35px;
     font-weight: bolder;
 }
+/* conjunto de campo */
 fieldset{
+    /* se apilan los input,select y label vertical */
     display: grid;
     border: 5px outset rgb(22, 87, 153);
-}
-#advertencia {
-    display: none;
-    margin: 0px;
-    padding: 0px;
 }
 select,input,label{
     font-size: 25px;
@@ -65,6 +65,13 @@ select,input,label{
     border: 0;
     padding: 10px;
 }
+/* mensaje de advertencia */
+#advertencia {
+    display: none;
+    margin: 0px;
+    padding: 0px;
+}
+/* bóton de enviar */
 input[type="submit"]{
     display: none;
     border-radius: 5px;

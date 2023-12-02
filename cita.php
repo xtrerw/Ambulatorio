@@ -16,7 +16,7 @@ include("tablas/crea_tablas.php");
 
 </head>
 <body>
-    <!-- cabecera -->
+    <!-- header -->
     <header>
         <img src="img/logo.jpg" alt="" srcset="">
         <div>
@@ -25,6 +25,7 @@ include("tablas/crea_tablas.php");
     </header>
     <!-- contenido -->
     <div class="container">
+        <!-- formulario de cita -->
         <form action="" method="POST">
             <fieldset>
                 <!-- Título de la página -->
@@ -51,15 +52,14 @@ include("tablas/crea_tablas.php");
                         }
                     ?>
                 </select>
-
-                <!-- Síntoma de paciente -->
+                <!-- Síntoma de paciente que pueda modificar según su propia situación -->
                 <label>Síntoma</label>
-                <textarea name="" id="" cols="30" rows="10">
+                <textarea name="sintoma" id="" cols="30" rows="10">
                 <?php
                 //conseguir id de paciente que inicia sesión
                     session_start();
                     $pacienteSelect=$_SESSION["idPaciente"];
-                    //combinarse la tabla de consulta con la de paciente y conseguir la síntoma de paciente
+                    //combinarse la tabla de consulta con la de paciente y conseguir la síntoma apuntada de paciente
                     $select="SELECT c.sintomatologia AS sinto
                     FROM consulta c
                     INNER JOIN pacientes p ON c.id_paciente=p.id

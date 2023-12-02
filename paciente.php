@@ -17,6 +17,7 @@ if (isset($_POST['login']) && isset($_POST['paciente'])) {
     <link rel="stylesheet" href="css/paciente.css">
 </head>
 <body>
+    <!-- header -->
     <header>
         <img src="img/logo.jpg" alt="" srcset="">
         <div>
@@ -24,12 +25,16 @@ if (isset($_POST['login']) && isset($_POST['paciente'])) {
             <a href="cita.php">Pedir una Cita</a>
         </div>
     </header>
+    <!-- contenido -->
     <div class="container">
+        <!-- formulario de información de paciente -->
     <form action="cita.php" method="post">
         <fieldset>
+            <!-- título de formulario -->
             <legend>
                 Paciente
             </legend>
+            <!-- información -->
             <label for="">Información de Paciente</label>
             <table>
                 <thead>
@@ -61,6 +66,7 @@ if (isset($_POST['login']) && isset($_POST['paciente'])) {
                     ?>
                 </tbody>
             </table>
+            <!-- citas pasadas -->
             <label>Citas Pasadas</label>
             <table>
                     <thead>
@@ -102,6 +108,7 @@ if (isset($_POST['login']) && isset($_POST['paciente'])) {
                         ?>
                     </tbody>
                 </table>
+                <!-- citas próximas -->
             <label>Próximas Citas</label>
             <table>
                 <thead>
@@ -141,11 +148,12 @@ if (isset($_POST['login']) && isset($_POST['paciente'])) {
                 </tbody>
             </table>
             </fieldset>
+            <!-- medicación actual -->
             <fieldset>
             <legend>Medicación actual</legend>
             <?php
                 if (isset($_POST['login']) && isset($_POST['paciente'])) {
-                    # code...
+                    # combinar la tabla consulta con la de medicamento y paciente, encontrar todas informaciones de síntoma que surgen y medicamento necesario 
                     $pacienteSelect=$_POST['paciente'];
                     $select="SELECT r.posologia AS posologia, r.fecha_fin AS fecha_fin, c.sintomatologia AS sinto, p.nombre AS nombre,m.medicamento AS medicamento, c.diagnostico AS diagnostico
                     FROM receta r
@@ -155,9 +163,9 @@ if (isset($_POST['login']) && isset($_POST['paciente'])) {
                     WHERE c.id_paciente=$pacienteSelect";
                     $resulta=mysqli_query($conexion,$select);
                     if ($medicacion=$resulta->num_rows > 0) {
-                        # code...
+                        # si encontrar ....
                         while ($medicacion=$resulta->fetch_assoc()) {
-                            # code...
+                            # presentar las informaciones
                             echo "<p>Nombre de Paciente</p>
                             <p>{$medicacion['nombre']}</p>
                             <p>Medicamento</p>
@@ -173,6 +181,7 @@ if (isset($_POST['login']) && isset($_POST['paciente'])) {
                             ";
                         }
                     } else {
+                        //si no, sale este comentario
                         echo "Este paciente no existe ninguna sintomatologia";
                     }
                 }

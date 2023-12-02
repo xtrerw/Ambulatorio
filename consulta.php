@@ -11,6 +11,7 @@ include("tablas/crea_tablas.php");
     <link rel="stylesheet" href="css/consulta.css">
 </head>
 <body>
+    <!-- header -->
     <header>
         <img src="img/logo.jpg" alt="" srcset="">
         <div>
@@ -18,10 +19,13 @@ include("tablas/crea_tablas.php");
             <a href="cita.php"> Pedir una Cita</a>
         </div>
     </header>
+    <!-- contenido -->
     <div class="container">
+        <!-- formulario de consulta -->
     <form action="" method="post">
         <legend>Consulta</legend>
         <fieldset>
+            <!-- información de cita de hoy -->
             <legend>
                 Información de Médico y Paciente
             </legend>
@@ -58,6 +62,7 @@ include("tablas/crea_tablas.php");
                 </tbody>
             </table>
             </fieldset>
+            <!-- síntoma que puede modifcar el medico -->
             <fieldset>
                 <legend>
                 Sintomatología
@@ -80,6 +85,7 @@ include("tablas/crea_tablas.php");
             </textarea>
             </fieldset>
             <fieldset>
+                <!-- diagnóstico que también puede modifcar -->
             <legend>Diagnóstico</legend>
             <textarea name="diagnostico" id="" cols="50" rows="10">
                 <?php
@@ -98,6 +104,7 @@ include("tablas/crea_tablas.php");
                 ?>
             </textarea>
             </fieldset>
+            <!-- medicamento que recomenda el médico -->
             <fieldset>
                 <legend>Medicación</legend>
                 <label for="">Medicamentos</label>
