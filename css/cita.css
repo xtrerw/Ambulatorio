@@ -66,6 +66,7 @@ select,input,label{
     padding: 10px;
 }
 input[type="submit"]{
+    display: none;
     border-radius: 5px;
     width: 50%;
     background: #0e4275;

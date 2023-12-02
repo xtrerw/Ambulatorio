@@ -29,9 +29,8 @@ include("tablas/crea_tablas.php");
                     Pedir una cita
                 </legend>
                 <label>Seleciona una fecha disponible</label>
-                <input type="text" name="cita" id="cita" readonly="readonly" onchange="fecha();">
+                <input type="text" name="cita" id="cita" readonly="readonly" onchange="fecha();" require>
                 <img src="img/calendario.png" alt="" width="30" id="selector">
-                <label id="advertencia"></label>
                 <label>Seleciona un médico</label>
                 <select name="medico" id="">
                     <?php 
@@ -42,7 +41,23 @@ include("tablas/crea_tablas.php");
                         }
                     ?>
                 </select>
-            <input type="submit" value="Pedir una cita" name="registro">
+                <label>Sintomatología</label>
+                <textarea name="" id="" cols="30" rows="10">
+                <?php
+                    session_start();
+                    $pacienteSelect=$_SESSION["idPaciente"];
+                    $select="SELECT c.sintomatologia AS sinto
+                    FROM consulta c
+                    INNER JOIN pacientes p ON c.id_paciente=p.id
+                    WHERE c.id=$pacienteSelect";
+                    $resulta=mysqli_query($conexion,$select);
+                    while ($informacion= $resulta->fetch_assoc()) {
+                        echo "{$informacion['sinto']}";
+                    }
+                ?>
+                </textarea>
+                <label id="advertencia"></label>
+                <input type="submit" value="Pedir una cita" name="registro" id="registro">
             </fieldset>
         </form>
     </div>
