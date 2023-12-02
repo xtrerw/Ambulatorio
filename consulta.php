@@ -15,7 +15,6 @@ include("tablas/crea_tablas.php");
         <img src="img/logo.jpg" alt="" srcset="">
         <div>
             <a href="index.php">Inicia Sesión</a>
-            <a href="cita.php">Cita Previa</a>
         </div>
     </header>
     <div class="container">
@@ -116,7 +115,6 @@ include("tablas/crea_tablas.php");
                 <input type="text" name="day">
                 <label for="">Medicación es crónica</label>
             </fieldset>
-            
     </form>
     </div>
 </body>

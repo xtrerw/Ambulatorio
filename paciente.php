@@ -8,18 +8,17 @@ include("tablas/crea_tablas.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Principal</title>
     <link rel="shortcut icon" href="img/logo.jpg" type="image/x-icon">
-    <link rel="stylesheet" href="css/pacientes.css">
+    <link rel="stylesheet" href="css/paciente.css">
 </head>
 <body>
     <header>
         <img src="img/logo.jpg" alt="" srcset="">
         <div>
             <a href="index.php">Inicia Sesión</a>
-            <a href="cita.php">Cita Previa</a>
         </div>
     </header>
     <div class="container">
-    <form action="" method="post">
+    <form action="cita.php" method="post">
         <fieldset>
             <legend>
                 Paciente
@@ -172,6 +171,7 @@ include("tablas/crea_tablas.php");
                 }
             ?>
             </fieldset>
+            <button>Cita en el próximo día</button>
     </form>
     </div>
 </body>
