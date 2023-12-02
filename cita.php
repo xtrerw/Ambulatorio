@@ -39,6 +39,8 @@ include("tablas/crea_tablas.php");
             </fieldset>
         </form>
     </div>
-    <script type="text/javascript" src="pacientes.js"></script>
+    <p id="fecha"></p>
+    <script type="text/javascript" src="js/cita.js"></script>
+
 </body>
 </html>
