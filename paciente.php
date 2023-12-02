@@ -15,6 +15,7 @@ include("tablas/crea_tablas.php");
         <img src="img/logo.jpg" alt="" srcset="">
         <div>
             <a href="index.php">Inicia Sesión</a>
+            <a href="cita.php">Pedir una Cita</a>
         </div>
     </header>
     <div class="container">
@@ -125,7 +126,7 @@ include("tablas/crea_tablas.php");
                             } else {
                                 echo "
                                 <tr>
-                                    <td colspan='3'>no tenía ningúna cita próxima</td>
+                                    <td colspan='3'>no tiene ningúna cita próxima</td>
                                 </tr>
                                 ";
                             }
@@ -171,7 +172,6 @@ include("tablas/crea_tablas.php");
                 }
             ?>
             </fieldset>
-            <button>Cita en el próximo día</button>
     </form>
     </div>
 </body>

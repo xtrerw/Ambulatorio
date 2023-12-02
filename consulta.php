@@ -8,13 +8,14 @@ include("tablas/crea_tablas.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Médico</title>
     <link rel="shortcut icon" href="img/logo.jpg" type="image/x-icon">
-    <link rel="stylesheet" href="css/medico.css">
+    <link rel="stylesheet" href="css/consulta.css">
 </head>
 <body>
     <header>
         <img src="img/logo.jpg" alt="" srcset="">
         <div>
             <a href="index.php">Inicia Sesión</a>
+            <a href="cita.php"> Pedir una Cita</a>
         </div>
     </header>
     <div class="container">
@@ -109,13 +110,19 @@ include("tablas/crea_tablas.php");
                     <option value="Vitamina B12">vitamina B12</option>
                 </select>
                 <label for="">Cantidad</label>
-                <input type="text" name="cantidad">
+                <input type="text" maxlength="100 " name="cantidad" placeholder="eje: media pastilla" require>
                 <label for="">Frecuencia</label>
-                <input type="text" name="hora">
-                <input type="text" name="day">
-                <label for="">Medicación es crónica</label>
+                <input type="text" maxlength="100" name="hora" placeholder="eje: cada 8 hora" require>
+                <input type="text" maxlength="100" id="dia" name="dia" placeholder="eje: 3 días" require>
+                <label for="">
+                    ¿La medicación si es crónica?
+                    <input type="checkbox" name="cronica" id="cronica" onchange="check();">Sí
+                </label>
             </fieldset>
+            <button>Añadir Medicación</button>
     </form>
     </div>
+    
+    <script type="text/javascript" src="js/consulta.js"></script>
 </body>
 </html>7

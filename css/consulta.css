@@ -54,6 +54,7 @@ legend{
     font-weight: bolder;
 }
 fieldset{
+    display: grid;
     border: 5px outset rgb(22, 87, 153);
 }
 label{
@@ -72,33 +73,31 @@ table tbody td{
     color: #183945;
     box-shadow: 2px 2px 2px 1px rgb(88, 88, 88);
 }
-form fieldset p{
-    margin: 0;
-    font-weight: bold;
-}
-form fieldset p:nth-child(2n){
-    font-size: 20px;
-
-}
-form fieldset p:nth-child(2n+1){
-    font-size: 15px;
-    margin-bottom: 10px;
-}
-form button{
+select,input,label,button{
     font-size: 25px;
     font-weight: bold;
+    margin-bottom: 10px;
+    border: 0;
+    width: 40%;
+    padding: 10px;
+}
+input{
+    width: 60%;
+}
+input[type='checkbox']{
+    width: 1rem;
+    height: 1rem;
+    margin: 5px;
+}
+button{
     margin-top: 10px;
     border: 0;
     padding: 10px;
     border-radius: 5px;
-    width: 50%;
     background: #0e4275;
     color: white;
 }
-form button:hover{
-    text-decoration:underline;
-}
-form button:active{
+button:active{
     background: white;
     color: #0e4275;
 }
