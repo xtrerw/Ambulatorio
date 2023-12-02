@@ -139,7 +139,7 @@ if (isset($_POST['login']) && isset($_POST['paciente'])) {
                             } else {
                                 echo "
                                 <tr>
-                                    <td colspan='3'>no tiene ningúna cita próxima</td>
+                                    <td colspan='3'>no tiene ningún próxima cita</td>
                                 </tr>
                                 ";
                             }

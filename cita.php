@@ -1,5 +1,8 @@
 <?php
-include("tablas/crea_tablas.php");          
+include("tablas/crea_tablas.php");
+//conseguir id de paciente que inicia sesión
+session_start();
+$pacienteSelect=$_SESSION["idPaciente"];          
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +29,7 @@ include("tablas/crea_tablas.php");
     <!-- contenido -->
     <div class="container">
         <!-- formulario de cita -->
-        <form action="" method="POST">
+        <form action="tablas/datos_de_cita.php" method="POST">
             <fieldset>
                 <!-- Título de la página -->
                 <legend>
@@ -56,9 +59,6 @@ include("tablas/crea_tablas.php");
                 <label>Síntoma</label>
                 <textarea name="sintoma" id="" cols="30" rows="10">
                 <?php
-                //conseguir id de paciente que inicia sesión
-                    session_start();
-                    $pacienteSelect=$_SESSION["idPaciente"];
                     //combinarse la tabla de consulta con la de paciente y conseguir la síntoma apuntada de paciente
                     $select="SELECT c.sintomatologia AS sinto
                     FROM consulta c
