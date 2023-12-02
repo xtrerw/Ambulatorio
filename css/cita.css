@@ -53,6 +53,11 @@ fieldset{
     display: grid;
     border: 5px outset rgb(22, 87, 153);
 }
+#advertencia {
+    display: none;
+    margin: 0px;
+    padding: 0px;
+}
 select,input,label{
     font-size: 25px;
     font-weight: bold;

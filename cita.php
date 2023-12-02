@@ -9,6 +9,11 @@ include("tablas/crea_tablas.php");
     <title>Pedir Cita</title>
     <link rel="shortcut icon" href="img/logo.jpg" type="image/x-icon">
     <link rel="stylesheet" href="css/cita.css">
+    <script type="text/javascript" src="js/calendar.js"></script>
+    <style type="text/css">@import url("js/calendar-blue.css");</style>
+    <script type="text/javascript" src="js/calendar-es.js"></script>
+    <script type="text/javascript" src="js/calendar-setup.js"></script>
+
 </head>
 <body>
     <header>
@@ -24,7 +29,9 @@ include("tablas/crea_tablas.php");
                     Pedir una cita
                 </legend>
                 <label>Seleciona una fecha disponible</label>
-                <input type="date" name="fecha" id="">
+                <input type="text" name="cita" id="cita" readonly="readonly" onchange="fecha();">
+                <img src="img/calendario.png" alt="" width="30" id="selector">
+                <label id="advertencia"></label>
                 <label>Seleciona un médico</label>
                 <select name="medico" id="">
                     <?php 
@@ -39,8 +46,6 @@ include("tablas/crea_tablas.php");
             </fieldset>
         </form>
     </div>
-    <p id="fecha"></p>
     <script type="text/javascript" src="js/cita.js"></script>
-
 </body>
 </html>
