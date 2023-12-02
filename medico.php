@@ -19,8 +19,6 @@ if (isset($_POST['login']) && isset($_POST['medico'])) {
         <img src="img/logo.jpg" alt="" srcset="">
         <div>
             <a href="index.php">Inicia Sesión</a>
-            <a href="consulta.php">Consulta</a>
-            <a href="cita.php">Cita Previa</a>
         </div>
     </header>
     <div class="container">

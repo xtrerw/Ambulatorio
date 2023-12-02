@@ -15,7 +15,6 @@ include("tablas/crea_tablas.php");
         <img src="img/logo.jpg" alt="" srcset="">
         <div>
             <a href="index.php">Inicia Sesión</a>
-            <a href="consulta.php">Consulta</a>
             <a href="cita.php">Cita Previa</a>
         </div>
     </header>
