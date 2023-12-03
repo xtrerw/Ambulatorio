@@ -106,8 +106,6 @@ if (isset($_POST["registro"]) && isset($_POST["sintoma"])) {
                     }  
                 ?>
                 </div>
-                
-
                 <!-- advertencia -->
                 <label id="advertencia"></label>
                 <!-- bóton para subir cita -->

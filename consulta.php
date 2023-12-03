@@ -78,7 +78,6 @@ if (isset($_POST["add"])) {
         <img src="img/logo.jpg" alt="" srcset="">
         <div>
             <a href="index.php">Inicia Sesión</a>
-            <a href="cita.php"> Pedir una Cita</a>
         </div>
     </header>
     <!-- contenido -->
@@ -188,6 +187,40 @@ if (isset($_POST["add"])) {
         </fieldset>
         <input type="submit" name="add" id="add" value="Añadir Medicación">
     </form>
+
+    <form action="" method="post">
+        <legend>Cita en Futuro</legend>
+            <fieldset>
+                <!-- Título de la página -->
+                <legend>
+                    Pedir una cita
+                </legend>
+
+                <!-- Fecha seleccionada -->
+                <label>Seleciona una fecha disponible</label>
+                <!-- cuando un paciente elige una fecha de la cita, lo va a deja aparecer aquí   -->
+                <input type="text" name="cita" id="cita" readonly="readonly" onchange="fecha();" require>
+                <!-- una imagen se funciona como un selector de fecha  -->
+                <img src="img/calendario.png" alt="" width="30" id="selector">
+
+                <!-- Médico selecionado -->
+                <label>Seleciona un médico</label>
+                <select name="medico" id="">
+                    <?php 
+                        //conseguir todos los médicos
+                        $select = "SELECT DISTINCT * FROM medico";
+                        $resulta = mysqli_query($conexion,$select); 
+                        while ($medico = $resulta->fetch_assoc()) {
+                            echo "<option value='{$medico['id']}'>{$medico['nombre']} {$medico['apellidos']}-{$medico['especialidad']}</option>";
+                        }
+                    ?>
+                </select>
+                <!-- advertencia -->
+                <label id="advertencia"></label>
+                <!-- bóton para subir cita -->
+                <input type="submit" value="Pedir una cita" name="registro" id="registro">
+            </fieldset>
+        </form>
     </div>
     
     <script type="text/javascript" src="js/consulta.js"></script>
