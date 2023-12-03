@@ -117,7 +117,7 @@ if (isset($_POST['login']) && isset($_POST['medico'])) {
                 };
             ?>
             <!-- bóton de seguir consultar -->
-            <button name="consulta">Consulta</button>
+            <button name="consulta">Pasar Consulta</button>
             </fieldset>
     </form>
     </div>

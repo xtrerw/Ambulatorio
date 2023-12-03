@@ -6,8 +6,9 @@ $pacienteSelect=$_SESSION["idPaciente"];
 if (isset($_POST["registro"]) && $_POST["cita"]) {
     # actualiza la fecha que este paciente ya elige en la tabla consulta
     $fecha=$_POST["cita"];
+    $fecha=mysqli_escape_string($conexion,$fecha);
     $update="UPDATE consulta 
-    SET fecha=$fecha
+    SET fecha='$fecha'
     WHERE id_paciente=$pacienteSelect";
     mysqli_query($conexion,$update);
 }
@@ -20,7 +21,7 @@ if (isset($_POST["registro"]) && $_POST["medico"]) {
     WHERE id_paciente=$pacienteSelect";
     mysqli_query($conexion,$update);
     # actualiza el id de médico que este paciente ya elige en la tabla paciente
-    $update="UPDATE  paciente
+    $update="UPDATE  pacientes
     SET id_med=$idMedico
     WHERE id=$pacienteSelect";
     mysqli_query($conexion,$update);
@@ -30,7 +31,7 @@ if (isset($_POST["registro"]) && $_POST["sintoma"]) {
     # actualiza la síntoma que este paciente ya elige en la tabla consulta
     $sintoma=$_POST["sintoma"];
     $update="UPDATE consulta 
-    SET sintomatologia=$sintoma
+    SET sintomatologia='$sintoma'
     WHERE id_paciente=$pacienteSelect";
     mysqli_query($conexion,$update);
 }            
