@@ -77,6 +77,14 @@ form fieldset p{
     font-weight: bold;
     font-size: 20px;
 }
+select{
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    border: 0;
+    width: 40%;
+    padding: 10px;
+}
 button{
     font-size: 25px;
     font-weight: bold;

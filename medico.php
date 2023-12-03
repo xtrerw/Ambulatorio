@@ -54,7 +54,7 @@ if (isset($_POST['login']) && isset($_POST['medico'])) {
                                 //información de médico que contiene nombre,apellidos y especialidad
                                 echo "
                                     <tr>
-                                        <td name='idMedico'>{$informacion['id']}</td>
+                                        <td>{$informacion['id']}</td>
                                         <td>{$informacion['nombre']}</td>
                                         <td>{$informacion['apellidos']}</td>
                                         <td>{$informacion['especialidad']}</td>
@@ -80,16 +80,18 @@ if (isset($_POST['login']) && isset($_POST['medico'])) {
                     if ($consulta=$resulta->num_rows>0) {
                         //si encontrar, va a presentar el nombre y la fecha
                         while ($consulta= $resulta->fetch_assoc()) {
-                            echo "<p>{$consulta['nombre']}</p>
-                            <p>{$consulta['fecha']}</p>";
+                            echo "<p>Nombre de médico: {$consulta['nombre']}
+                            | La fecha: {$consulta['fecha']}</p>";
                         }
                     } else {
                         //si no, va a salir un comentario
-                        echo "<p>no tiene disponible de consulta en los próximos días</p>";
+                        echo "<option>no tiene disponible de consulta en los próximos días</option>";
                     }
                 };
             ?>
+            
             <label>Consulta de hoy</label>
+            <select name="" id="">
             <?php
                 if (isset($_POST['login']) && isset($_POST['medico'])) {
                     $medicoSelect=$_POST['medico'];
@@ -104,18 +106,19 @@ if (isset($_POST['login']) && isset($_POST['medico'])) {
                     if ($consultaHoy=$resulta->num_rows>0) {
                         while ($consultaHoy= $resulta->fetch_assoc()) {
                             echo "
-                            <p>ID DE CONSULTA: {$consultaHoy['c_id']}</p>
-                            <p>NOMBRE DE MÉDICO: {$consultaHoy['nombre']}</p>
-                            <p>NOMBRE DE PACIENTE: {$consultaHoy['p_nombre']}</p>
-                            <p>LA FECHA DE CONSULTA: {$consultaHoy['fecha']}</p>
-                            <p>SINTOMATOLOGÍA: {$consultaHoy['sinto']}</p>
+                            <option value='{$consultaHoy['c_id']}'>ID DE CONSULTA: {$consultaHoy['c_id']}
+                            -NOMBRE DE MÉDICO: {$consultaHoy['nombre']}
+                            -NOMBRE DE PACIENTE: {$consultaHoy['p_nombre']}
+                            -LA FECHA DE CONSULTA: {$consultaHoy['fecha']}
+                            -SINTOMATOLOGÍA: {$consultaHoy['sinto']}</option>
                             ";
                         }
                     } else {
-                        echo "<p>No tiene disponible de consulta de hoy</p>";
+                        echo "<option>No tiene disponible de consulta de hoy</option>";
                     }
                 };
             ?>
+            </select>
             <!-- bóton de seguir consultar -->
             <button name="consulta">Pasar Consulta</button>
             </fieldset>

@@ -79,7 +79,7 @@ include("tablas/crea_tablas.php");
                             FROM consulta c
                             INNER JOIN medico m ON c.id_medico=m.id
                             INNER JOIN pacientes p ON c.id_paciente=p.id 
-                            WHERE c.id=$medicoSelect";
+                            WHERE m.id=$medicoSelect";
                             $resulta=mysqli_query($conexion,$select);
                             while ($informacion= $resulta->fetch_assoc()) {
                                 echo "
@@ -100,7 +100,7 @@ include("tablas/crea_tablas.php");
             <legend>
             Sintomatología
             </legend>
-            <textarea name="sintomatologia" id="" cols="50" rows="10">
+            <div name="sintomatologia">
                 <?php
                     if (isset($_POST['consulta'])) {
                         session_start();
@@ -108,14 +108,14 @@ include("tablas/crea_tablas.php");
                         $select="SELECT c.sintomatologia AS sinto
                         FROM consulta c
                         INNER JOIN medico m ON c.id_medico=m.id
-                        WHERE c.id='$medicoSelect'";
+                        WHERE m.id=$medicoSelect";
                         $resulta=mysqli_query($conexion,$select);
                         while ($informacion= $resulta->fetch_assoc()) {
-                            echo "{$informacion['sinto']}";
+                            echo "<textarea cols='50' rows='10'>{$informacion['sinto']}</textarea>";
                         }
                     };
                 ?>
-            </textarea>
+            </div>
         </fieldset>
         <fieldset>
             <!-- diagnóstico que también puede modifcar -->
