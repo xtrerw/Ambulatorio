@@ -62,6 +62,27 @@ if (isset($_POST["add"])) {
     $update="UPDATE consulta SET archivo='$nombre' WHERE id_medico=$idMedico";
     mysqli_query($conexion,$update);
 }
+//
+if (isset($_POST["registro"]) && isset($_POST["cita"])) {
+    # actualiza la fecha que este médico ya elige para este paciente
+    $fecha=$_POST["cita"];
+    $fecha=mysqli_escape_string($conexion,$fecha);
+    $update="UPDATE consulta 
+    SET fecha='$fecha'
+    WHERE id_medico=$idMedico";
+    mysqli_query($conexion,$update);
+}
+//conseguir id de médico selecionado de la cita
+if (isset($_POST["registro"]) && isset($_POST["medico"])) {
+    # actualiza el id de médico que este paciente ya elige en la tabla consulta
+    $medico=$_POST["medico"];
+    # actualiza el id de médico de la tabla paciente y médico que este médico ya elige para paciente
+    $update="UPDATE  pacientes p
+    INNER JOIN consulta c ON c.id_paciente=p.id
+    SET id_med=$medico,c.id_medico=$medico
+    WHERE c.id_medico=$idMedico";
+    mysqli_query($conexion,$update);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -71,6 +92,11 @@ if (isset($_POST["add"])) {
     <title>Médico</title>
     <link rel="shortcut icon" href="img/logo.jpg" type="image/x-icon">
     <link rel="stylesheet" href="css/consulta.css">
+
+    <script type="text/javascript" src="js/calendar.js"></script>
+    <style type="text/css">@import url("js/calendar-blue.css");</style>
+    <script type="text/javascript" src="js/calendar-es.js"></script>
+    <script type="text/javascript" src="js/calendar-setup.js"></script>
 </head>
 <body>
     <!-- header -->
@@ -187,7 +213,7 @@ if (isset($_POST["add"])) {
         </fieldset>
         <input type="submit" name="add" id="add" value="Añadir Medicación">
     </form>
-
+    <!-- cita para paciente -->
     <form action="" method="post">
         <legend>Cita en Futuro</legend>
             <fieldset>
@@ -222,7 +248,6 @@ if (isset($_POST["add"])) {
             </fieldset>
         </form>
     </div>
-    
     <script type="text/javascript" src="js/consulta.js"></script>
 </body>
 </html>
