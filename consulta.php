@@ -57,12 +57,9 @@ if (isset($_POST["add"]) && isset($_POST["dia"])) {
 if (isset($_POST["add"])) {
     # subir el pdf
     $nombre = $_FILES["archivo"]["name"];
-    $error=$_FILES["archivo"]["error"];
-    // $nombre=mysqli_escape_string($conexion,$nombre);
-    $error=mysqli_escape_string($conexion,$error);
-    $inserta="INSERT INTO consulta(archivo)
-    VALUES ('$error')
-    WHERE id_medico=$idMedico";
+    $nombre=mysqli_escape_string($conexion,$nombre);
+    $nombre=mysqli_escape_string($conexion,$nombre);
+    $update="UPDATE consulta SET archivo='$nombre' WHERE id_medico=$idMedico";
     mysqli_query($conexion,$update);
 }
 ?>
