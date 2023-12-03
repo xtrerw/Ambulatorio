@@ -147,7 +147,6 @@ if (isset($_POST["add"])) {
             <div name="diagnostico">
                 <?php
                     if (isset($_POST['consulta'])) {
-                        $consultaID=$_POST['consultaSelect'];
                         $select="SELECT c.diagnostico AS diagnostico
                         FROM consulta c
                         INNER JOIN medico m ON c.id_medico=m.id
@@ -177,14 +176,15 @@ if (isset($_POST["add"])) {
             <input type="text" maxlength="100 " name="cantidad" placeholder="eje: media pastilla" require>
             <label for="">Frecuencia</label>
             <input type="text" maxlength="100" name="hora" placeholder="eje: cada 8 hora" require>
-            <input type="number" maxlength="100" id="dia" name="dia" placeholder="eje: 3 días" require>
+            <input type="number" maxlength="100" id="dia" name="dia" placeholder="eje: 3 días">
             <label for="">
                 ¿La medicación si es crónica?
                 <input type="checkbox" id="cronica" onchange="check();">Sí
             </label>
             <?php
-                $columna="ALTER TABLE consulta ADD COLUMN archivo varchar(225) NOT NULL;";
-                mysqli_query($conexion,$columna);
+
+                // $columna="ALTER TABLE consulta ADD COLUMN archivo varchar(225) NOT NULL;";
+                // mysqli_query($conexion,$columna);
             ?>
             <label for="archivo">Selecciona un archivo PDF:</label>
             <input type="file" name="archivo" id="archivo" accept=".pdf">
@@ -195,4 +195,4 @@ if (isset($_POST["add"])) {
     
     <script type="text/javascript" src="js/consulta.js"></script>
 </body>
-</html>7
+</html>
