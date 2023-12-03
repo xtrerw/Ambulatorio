@@ -79,7 +79,7 @@ include("tablas/crea_tablas.php");
                             FROM consulta c
                             INNER JOIN medico m ON c.id_medico=m.id
                             INNER JOIN pacientes p ON c.id_paciente=p.id 
-                            WHERE c.id='$medicoSelect'";
+                            WHERE c.id=$medicoSelect";
                             $resulta=mysqli_query($conexion,$select);
                             while ($informacion= $resulta->fetch_assoc()) {
                                 echo "
