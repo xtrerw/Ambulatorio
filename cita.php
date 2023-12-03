@@ -3,7 +3,7 @@ include("tablas/crea_tablas.php");
 //conseguir id de paciente que inicia sesión
 session_start();
 $pacienteSelect=$_SESSION["idPaciente"]; 
-if (isset($_POST["registro"]) && $_POST["cita"]) {
+if (isset($_POST["registro"]) && isset($_POST["cita"])) {
     # actualiza la fecha que este paciente ya elige en la tabla consulta
     $fecha=$_POST["cita"];
     $fecha=mysqli_escape_string($conexion,$fecha);
@@ -13,7 +13,7 @@ if (isset($_POST["registro"]) && $_POST["cita"]) {
     mysqli_query($conexion,$update);
 }
 //conseguir id de médico selecionado de la cita
-if (isset($_POST["registro"]) && $_POST["medico"]) {
+if (isset($_POST["registro"]) && isset($_POST["medico"])) {
     # actualiza el id de médico que este paciente ya elige en la tabla consulta
     $idMedico=$_POST["medico"];
     $update="UPDATE consulta 
@@ -27,7 +27,7 @@ if (isset($_POST["registro"]) && $_POST["medico"]) {
     mysqli_query($conexion,$update);
 }
 //conseguir la síntoma que este paciente ha apuntado
-if (isset($_POST["registro"]) && $_POST["sintoma"]) {
+if (isset($_POST["registro"]) && isset($_POST["sintoma"])) {
     # actualiza la síntoma que este paciente ya elige en la tabla consulta
     $sintoma=$_POST["sintoma"];
     $update="UPDATE consulta 
@@ -97,10 +97,13 @@ if (isset($_POST["registro"]) && $_POST["sintoma"]) {
                     INNER JOIN pacientes p ON c.id_paciente=p.id
                     WHERE c.id=$pacienteSelect";
                     $resulta=mysqli_query($conexion,$select);
-                    while ($informacion= $resulta->fetch_assoc()) {
-                        //conseguir el array seleccionado desde SQL por fetch_assoc() y recorrer el array,presenta la información de síntoma 
-                        echo "{$informacion['sinto']}";
+                    if ($informacion= $resulta->num_rows>0) {
+                        while ($informacion= $resulta->fetch_assoc()) {
+                            //conseguir el array seleccionado desde SQL por fetch_assoc() y recorrer el array,presenta la información de síntoma 
+                            echo trim($informacion['sinto']);
+                        }
                     }
+                    
                 ?>
                 </textarea>
 
