@@ -1,5 +1,38 @@
 <?php
-include("tablas/crea_tablas.php");    
+include("tablas/crea_tablas.php");
+// //conseguir id de médico que inicia sesión
+// session_start();
+// $pacienteSelect=$_SESSION["idMedico"]; 
+// if (isset($_POST["add"]) && $_POST["sintomatologia"]) {
+//     # actualiza la fecha que este médico ya elige en la tabla consulta
+//     $sintoma=$_POST["sintomatologia"];
+//     $update="UPDATE consulta 
+//     SET sintomatologia='$sintoma'
+//     WHERE id_paciente=$pacienteSelect";
+//     mysqli_query($conexion,$update);
+// }
+// //conseguir id de médico selecionado de la cita
+// if (isset($_POST["add"]) && $_POST["diagnostico"]) {
+//     # actualiza el id de médico que este médico ya elige en la tabla consulta
+//     $update="UPDATE consulta 
+//     SET id_medico=$idMedico
+//     WHERE id_paciente=$pacienteSelect";
+//     mysqli_query($conexion,$update);
+//     # actualiza el id de médico que este médico ya elige en la tabla médico
+//     $update="UPDATE  pacientes
+//     SET id_med=$idMedico
+//     WHERE id=$pacienteSelect";
+//     mysqli_query($conexion,$update);
+// }
+// //conseguir la síntoma que este médico ha apuntado
+// if (isset($_POST["add"]) && $_POST["sintoma"]) {
+//     # actualiza la síntoma que este médico ya elige en la tabla consulta
+//     $sintoma=$_POST["sintoma"];
+//     $update="UPDATE consulta 
+//     SET sintomatologia='$sintoma'
+//     WHERE id_paciente=$pacienteSelect";
+//     mysqli_query($conexion,$update);
+// }    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +54,7 @@ include("tablas/crea_tablas.php");
     </header>
     <!-- contenido -->
     <div class="container">
-        <!-- formulario de consulta -->
+    <!-- formulario de consulta -->
     <form action="" method="post">
         <legend>Consulta</legend>
         <fieldset>
@@ -61,13 +94,13 @@ include("tablas/crea_tablas.php");
                     ?>
                 </tbody>
             </table>
-            </fieldset>
-            <!-- síntoma que puede modifcar el medico -->
-            <fieldset>
-                <legend>
-                Sintomatología
-                </legend>
-                <textarea name="sintomatologia" id="" cols="50" rows="10">
+        </fieldset>
+        <!-- síntoma que puede modifcar el medico -->
+        <fieldset>
+            <legend>
+            Sintomatología
+            </legend>
+            <textarea name="sintomatologia" id="" cols="50" rows="10">
                 <?php
                     if (isset($_POST['consulta'])) {
                         session_start();
@@ -83,9 +116,9 @@ include("tablas/crea_tablas.php");
                     };
                 ?>
             </textarea>
-            </fieldset>
-            <fieldset>
-                <!-- diagnóstico que también puede modifcar -->
+        </fieldset>
+        <fieldset>
+            <!-- diagnóstico que también puede modifcar -->
             <legend>Diagnóstico</legend>
             <textarea name="diagnostico" id="" cols="50" rows="10">
                 <?php
@@ -103,30 +136,30 @@ include("tablas/crea_tablas.php");
                     };
                 ?>
             </textarea>
-            </fieldset>
-            <!-- medicamento que recomenda el médico -->
-            <fieldset>
-                <legend>Medicación</legend>
-                <label for="">Medicamentos</label>
-                <select name="medicamentos" id="">
-                    <option value="poción de vida">poción de vida</option>
-                    <option value="amoxicilina">amoxicilina</option>
-                    <option value="aspirina">aspirina</option>
-                    <option value="formalina">formalina</option>
-                    <option value="naproxeno">naproxeno</option>
-                    <option value="Vitamina B12">vitamina B12</option>
-                </select>
-                <label for="">Cantidad</label>
-                <input type="text" maxlength="100 " name="cantidad" placeholder="eje: media pastilla" require>
-                <label for="">Frecuencia</label>
-                <input type="text" maxlength="100" name="hora" placeholder="eje: cada 8 hora" require>
-                <input type="text" maxlength="100" id="dia" name="dia" placeholder="eje: 3 días" require>
-                <label for="">
-                    ¿La medicación si es crónica?
-                    <input type="checkbox" name="cronica" id="cronica" onchange="check();">Sí
-                </label>
-            </fieldset>
-            <button>Añadir Medicación</button>
+        </fieldset>
+        <!-- medicamento que recomenda el médico -->
+        <fieldset>
+            <legend>Medicación</legend>
+            <label for="">Medicamentos</label>
+            <select name="medicamentos" id="">
+                <option value="poción de vida">poción de vida</option>
+                <option value="amoxicilina">amoxicilina</option>
+                <option value="aspirina">aspirina</option>
+                <option value="formalina">formalina</option>
+                <option value="naproxeno">naproxeno</option>
+                <option value="Vitamina B12">vitamina B12</option>
+            </select>
+            <label for="">Cantidad</label>
+            <input type="text" maxlength="100 " name="cantidad" placeholder="eje: media pastilla" require>
+            <label for="">Frecuencia</label>
+            <input type="text" maxlength="100" name="hora" placeholder="eje: cada 8 hora" require>
+            <input type="text" maxlength="100" id="dia" name="dia" placeholder="eje: 3 días" require>
+            <label for="">
+                ¿La medicación si es crónica?
+                <input type="checkbox" name="cronica" id="cronica" onchange="check();">Sí
+            </label>
+        </fieldset>
+        <button value="add">Añadir Medicación</button>
     </form>
     </div>
     
