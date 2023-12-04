@@ -92,8 +92,8 @@ input[type='checkbox']{
     height: 1rem;
     margin: 5px;
 }
-/* bóton de consulta */
-button{
+/* bóton de añadir consulta */
+input[type='submit']{
     margin-top: 10px;
     border: 0;
     padding: 10px;
@@ -101,7 +101,7 @@ button{
     background: #0e4275;
     color: white;
 }
-button:active{
+input[type='submit']:active{
     background: white;
     color: #0e4275;
 }

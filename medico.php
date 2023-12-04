@@ -1,5 +1,7 @@
 <?php
-include("tablas/crea_tablas.php");   
+include("tablas/crea_tablas.php");
+session_start();
+$_SESSION["idMedico"]=$_POST["medico"];  
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -112,36 +114,8 @@ include("tablas/crea_tablas.php");
                     }
                 };
             ?>
-            <!-- debido a que hayan varias pacientes que presenta en el mismo día, necesitamos un selector que eligemos a uno de los pacientes -->
-            <label for="">Elige un paciente</label>
-            <select name="consultaHoy" id="">
-            <?php
-                if (isset($_POST['login']) && isset($_POST['medico'])) {
-                    $medicoSelect=$_POST['medico'];
-                    // combinar la tabla consulta con la de médico y paciente ,encontrar todas citas que contienen médico, paciente, la fecha y síntoma de los primeros 100 caracteres de hoy en orden ascendente 
-                    $select="SELECT c.fecha AS fecha, m.nombre AS nombre, p.nombre AS p_nombre, c.id AS c_id ,LEFT(sintomatologia,100) AS sinto
-                    FROM consulta c
-                    INNER JOIN medico m ON c.id_medico=m.id
-                    INNER JOIN pacientes p ON c.id_paciente=p.id
-                    WHERE m.id=$medicoSelect AND DATE(c.fecha) =CURDATE()
-                    ORDER BY c.fecha ASC;";
-                    $resulta=mysqli_query($conexion,$select);
-                    if ($consultaHoy=$resulta->num_rows>0) {
-                        while ($consultaHoy= $resulta->fetch_assoc()) {
-                            echo "
-                            <option value='{$consultaHoy['c_id']}'>{$consultaHoy['c_id']}
-                            -{$consultaHoy['p_nombre']}
-                            -{$consultaHoy['fecha']}</option>
-                            ";
-                        }
-                    } else {
-                        echo "<option>No tiene disponible de consulta de hoy</option>";
-                    }
-                };
-            ?>
-            </select>
             <!-- bóton de seguir consultar -->
-            <button name="consulta">Pasar Consulta</button>
+            <input name="consulta" type="submit" value="Pasar Consulta">
             </fieldset>
     </form>
     </div>
