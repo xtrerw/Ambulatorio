@@ -1,7 +1,7 @@
 <?php
 include("tablas/crea_tablas.php");
 global $conexion;
-//conseguir id consulta de la página medico.
+//conseguir id consulta desde la página login de médico.
 $idConsulta=$_POST["idConsulta"];
 if (isset($_POST["add"]) && isset($_POST["sintomatologia"])) {
     # actualiza la fecha que este paciente ya elige en la tabla consulta
@@ -75,11 +75,10 @@ if (isset($_POST["pedir"]) && isset($_POST["cita"])) {
     WHERE id=$idConsulta";
     mysqli_query($conexion,$update);
 }
-// //conseguir id de médico selecionado de la cita
+//conseguir id de médico selecionado de la cita
 if (isset($_POST["pedir"]) && isset($_POST["medico"])) {
-    # actualiza el id de médico que este paciente ya elige en la tabla consulta
+    # actualiza el id de médico que elige otro médico en la tabla consulta y la paciente
     $medico=$_POST["medico"];
-    # actualiza el id de médico de la tabla paciente y médico que este médico ya elige para paciente
     $update="UPDATE  pacientes p
     INNER JOIN consulta c ON c.id_paciente=p.id
     SET id_med=$medico,c.id_medico=$medico
@@ -115,7 +114,7 @@ if (isset($_POST["pedir"]) && isset($_POST["medico"])) {
     <form action="" method="post" enctype="multipart/form-data">
         <legend>Consulta</legend>
         <fieldset>
-            <!-- información de cita de hoy -->
+            <!-- información de consulta según la página anterior -->
             <legend>
                 Información de Médico y Paciente
             </legend>
@@ -128,6 +127,7 @@ if (isset($_POST["pedir"]) && isset($_POST["medico"])) {
                     </tr>
                 </thead>
                 <tbody>
+                    <!-- mostrar la información -->
                     <?php
                         if (isset($_POST['consulta'])) {
                             $select="SELECT m.nombre AS medico,p.nombre AS paciente, c.fecha AS fecha
@@ -197,18 +197,24 @@ if (isset($_POST["pedir"]) && isset($_POST["medico"])) {
                     };
                 ?>
             </select>
+            <!-- cantidad de uso de medicamentos -->
             <label for="">Cantidad</label>
             <input type="text" maxlength="100 " name="cantidad" placeholder="eje: media pastilla" require>
+            <!-- frecuencia de uso de medicamento -->
             <label for="">Frecuencia</label>
+            <!-- hora de día -->
             <input type="text" maxlength="100" name="hora" placeholder="eje: cada 8 hora" require>
+            <!-- duración de uso de pastilla -->
             <input type="number" maxlength="100" id="dia" name="dia" placeholder="eje: 3 días">
+            <!-- comprobar si es medicación -->
             <label for="">
                 ¿La medicación si es crónica?
                 <input type="checkbox" id="cronica" onchange="check();">Sí
             </label>
+            <!-- agregar la columna de guardar los archivos -->
             <?php
             $columnExists = mysqli_query($conexion, "SHOW COLUMNS FROM `consulta` LIKE 'archivo'");
-
+            // si no exciste, crear esto
             if(mysqli_num_rows($columnExists) == 0) {
                 $columna="ALTER TABLE consulta ADD COLUMN archivo VARCHAR(255) NOT NULL;";
                 mysqli_query($conexion,$columna);
@@ -216,9 +222,10 @@ if (isset($_POST["pedir"]) && isset($_POST["medico"])) {
             ?>
             <label for="archivo">Selecciona un archivo PDF:</label>
             <input type="file" name="archivo" id="archivo" accept=".pdf">
-            <!-- input es para subir los datos con id de consulta que almacenar, si no hace así,me va a poner error que no busca id de consulta -->
+            <!-- input es para subir los datos con id de consulta que almacenar, si no hace así,me va a poner error que hay nulo de id de consulta -->
             <input type="hidden" name="idConsulta" value="<?php echo $idConsulta ?>" />
         </fieldset>
+        <!-- bóton de añadir medicación -->
         <input type="submit" name="add" id="add" value="Añadir Medicación">
     </form>
     <!-- cita para paciente -->
@@ -231,6 +238,7 @@ if (isset($_POST["pedir"]) && isset($_POST["medico"])) {
                 <legend>Cita en futuro</legend>
                 <!-- Médico selecionado -->
                 <label>Seleciona un médico</label>
+                <!-- es para que el médico puede elige otra médico en la cita próxima del paciente  -->
                 <select name="medico" id="">
                     <?php 
                         //conseguir todos los médicos
@@ -243,7 +251,7 @@ if (isset($_POST["pedir"]) && isset($_POST["medico"])) {
                 </select>
                 <!-- Fecha seleccionada -->
                 <label>Seleciona una fecha disponible</label>
-                <!-- cuando un paciente elige una fecha de la cita, lo va a deja aparecer aquí   -->
+                <!-- cuando el médico elige una fecha de la cita, va a aparecer aquí   -->
                 <input type="text" name="cita" id="cita" readonly="readonly" onchange="fecha();" require>
                 <!-- una imagen se funciona como un selector de fecha  -->
                 <img src="img/calendario.png" alt="" width="30" id="selector">

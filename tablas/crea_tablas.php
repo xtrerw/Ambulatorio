@@ -66,7 +66,7 @@
     $pacientes=mysqli_query($conexion,$pacientes);
     $consulta=mysqli_query($conexion,$consulta);
     $receta=mysqli_query($conexion,$receta);
-    //inserta datos a la tabla pacientes
+    //inserta datos a la tabla médico
     if ($medico->num_rows==0){
         $inserta1="INSERT INTO medico(nombre,apellidos,especialidad) VALUES ('Daaa','Kami','FAMILIA');";
         $inserta2="INSERT INTO medico(nombre,apellidos,especialidad) VALUES ('Docker','Hambur','CABECERA');";
@@ -77,7 +77,7 @@
         mysqli_query($conexion,$inserta3);
         mysqli_query($conexion,$inserta4);
     }
-    //
+    //inserta datos a la tabla medicamento
     if ($medicamento->num_rows==0){
         $inserta1="INSERT INTO medicamento(medicamento) VALUES ('Prozac');";
         $inserta2="INSERT INTO medicamento(medicamento) VALUES ('Poción de vida');";
@@ -88,6 +88,7 @@
         mysqli_query($conexion,$inserta3);
         mysqli_query($conexion,$inserta4);
     }
+    //inserta datos a la tabla paciente
     if ($pacientes->num_rows==0){
         $inserta1="INSERT INTO pacientes(dni,nombre,apellido,genero,fecha_nac,id_med) VALUES ('123456789','Loli','Smash','M','1999-10-03',1);";
         $inserta2="INSERT INTO pacientes(dni,nombre,apellido,genero,fecha_nac,id_med) VALUES ('y12345678','Lord','DASDSA','H','1900-01-02',3);";
@@ -98,9 +99,7 @@
         mysqli_query($conexion,$inserta3);
         mysqli_query($conexion,$inserta4);
     }
-    
-    
-    //
+    //inserta datos a la tabla consulta
     if ($consulta->num_rows==0){
         $inserta1="INSERT INTO consulta(fecha,diagnostico,sintomatologia,id_medico,id_paciente) VALUES ('2023-12-01','Esquizofrenia','pensamiento desorganizado',1,1);";
         $inserta2="INSERT INTO consulta(fecha,diagnostico,sintomatologia,id_medico,id_paciente) VALUES ('2023-01-09','VIH','diarrea',3,2);";
@@ -111,6 +110,7 @@
         mysqli_query($conexion,$inserta3);
         mysqli_query($conexion,$inserta4);
     }
+    //inserta datos a la tabla receta
     if($receta->num_rows==0){
         $inserta1="INSERT INTO receta(id_medicamento,id_consulta,posologia,fecha_fin) VALUES (4,1,'2cap/mañ-2m','2024-04-13');";
         $inserta2="INSERT INTO receta(id_medicamento,id_consulta,posologia,fecha_fin) VALUES (3,2,'2cap/noc-5m','2024-05-13');";
