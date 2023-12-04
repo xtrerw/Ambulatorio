@@ -1,5 +1,6 @@
 <?php
 include("tablas/crea_tablas.php");
+global $conexion;
 $idConsulta=$_POST["idConsulta"];
 if (isset($_POST["add"]) && isset($_POST["sintomatologia"])) {
     # actualiza la fecha que este paciente ya elige en la tabla consulta
@@ -202,8 +203,12 @@ if (isset($_POST["add"])) {
                 <input type="checkbox" id="cronica" onchange="check();">Sí
             </label>
             <?php
+            $columnExists = mysqli_query($conexion, "SHOW COLUMNS FROM `consulta` LIKE 'archivo'");
+
+            if(mysqli_num_rows($columnExists) == 0) {
                 $columna="ALTER TABLE consulta ADD COLUMN archivo VARCHAR(255) NOT NULL;";
                 mysqli_query($conexion,$columna);
+            }
             ?>
             <label for="archivo">Selecciona un archivo PDF:</label>
             <input type="file" name="archivo" id="archivo" accept=".pdf">
@@ -213,6 +218,6 @@ if (isset($_POST["add"])) {
     <!-- cita para paciente -->
     
     </div>
-    <script type="text/javascript" src="js/consulta.js"></script>
+    <!-- <script type="text/javascript" src="js/consulta.js"></script> -->
 </body>
 </html>
