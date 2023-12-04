@@ -48,11 +48,10 @@ if (isset($_POST["add"]) && isset($_POST["cantidad"])) {
 if (isset($_POST["add"]) && isset($_POST["dia"])) {
     # actualiza la posología
     $dia=$_POST["dia"];
-    $dia=mysqli_escape_string($conexion,$dia);
     $update="UPDATE receta r
     INNER JOIN consulta c ON c.id=r.id_consulta
     SET r.fecha_fin=DATE_ADD(NOW(), INTERVAL $dia DAY)
-    WHERE r.id_consulta=$idConsulta";
+    WHERE c.id=$idConsulta";
     mysqli_query($conexion,$update);
 }
 if (isset($_POST["add"])) {
@@ -67,26 +66,26 @@ if (isset($_POST["add"])) {
     mysqli_query($conexion,$update);
 }
 //
-// if (isset($_POST["registro"]) && isset($_POST["cita"])) {
-//     # actualiza la fecha que este médico ya elige para este paciente
-//     $fecha=$_POST["cita"];
-//     $fecha=mysqli_escape_string($conexion,$fecha);
-//     $update="UPDATE consulta 
-//     SET fecha='$fecha'
-//     WHERE id=$idConsulta";
-//     mysqli_query($conexion,$update);
-// }
+if (isset($_POST["pedir"]) && isset($_POST["cita"])) {
+    # actualiza la fecha que este médico ya elige para este paciente
+    $fecha=$_POST["cita"];
+    $fecha=mysqli_escape_string($conexion,$fecha);
+    $update="UPDATE consulta 
+    SET fecha='$fecha'
+    WHERE id=$idConsulta";
+    mysqli_query($conexion,$update);
+}
 // //conseguir id de médico selecionado de la cita
-// if (isset($_POST["registro"]) && isset($_POST["medico"])) {
-//     # actualiza el id de médico que este paciente ya elige en la tabla consulta
-//     $medico=$_POST["medico"];
-//     # actualiza el id de médico de la tabla paciente y médico que este médico ya elige para paciente
-//     $update="UPDATE  pacientes p
-//     INNER JOIN consulta c ON c.id_paciente=p.id
-//     SET id_med=$medico,c.id_medico=$medico
-//     WHERE c.id=$idConsulta";
-//     mysqli_query($conexion,$update);
-// }
+if (isset($_POST["pedir"]) && isset($_POST["medico"])) {
+    # actualiza el id de médico que este paciente ya elige en la tabla consulta
+    $medico=$_POST["medico"];
+    # actualiza el id de médico de la tabla paciente y médico que este médico ya elige para paciente
+    $update="UPDATE  pacientes p
+    INNER JOIN consulta c ON c.id_paciente=p.id
+    SET id_med=$medico,c.id_medico=$medico
+    WHERE c.id=$idConsulta";
+    mysqli_query($conexion,$update);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -223,8 +222,43 @@ if (isset($_POST["add"])) {
         <input type="submit" name="add" id="add" value="Añadir Medicación">
     </form>
     <!-- cita para paciente -->
-    
+    <form action="" method="post" class="formRegistro">
+                <legend>
+                    Derivar a especialista
+                </legend>
+            <fieldset>
+                <!-- Título de la página -->
+                <legend>Cita en futuro</legend>
+                <!-- Médico selecionado -->
+                <label>Seleciona un médico</label>
+                <select name="medico" id="">
+                    <?php 
+                        //conseguir todos los médicos
+                        $select = "SELECT DISTINCT * FROM medico";
+                        $resulta = mysqli_query($conexion,$select); 
+                        while ($medico = $resulta->fetch_assoc()) {
+                            echo "<option value='{$medico['id']}'>{$medico['nombre']} {$medico['apellidos']}-{$medico['especialidad']}</option>";
+                        }
+                    ?>
+                </select>
+                <!-- Fecha seleccionada -->
+                <label>Seleciona una fecha disponible</label>
+                <!-- cuando un paciente elige una fecha de la cita, lo va a deja aparecer aquí   -->
+                <input type="text" name="cita" id="cita" readonly="readonly" onchange="fecha();" require>
+                <!-- una imagen se funciona como un selector de fecha  -->
+                <img src="img/calendario.png" alt="" width="30" id="selector">
+
+                
+                <!-- advertencia -->
+                <label id="advertencia"></label>
+                <!-- input es para subir los datos con id de consulta que almacenar, si no hace así,me va a poner error que no busca id de consulta -->
+                <input type="hidden" name="idConsulta" value="<?php echo $idConsulta ?>" />
+                <!-- bóton para subir cita -->
+                <input type="submit" value="Registro" name="pedir" id="pedir">
+            </fieldset>
+        </form>
+        
     </div>
-    <!-- <script type="text/javascript" src="js/consulta.js"></script> -->
+    <script type="text/javascript" src="js/consulta.js"></script>
 </body>
 </html>

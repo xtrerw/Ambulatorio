@@ -104,3 +104,6 @@ input[type='submit']:active{
     background: white;
     color: #0e4275;
 }
+.formRegistro select,label{
+    width: 300px;
+}

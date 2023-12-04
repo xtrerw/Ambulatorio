@@ -1,11 +1,13 @@
 var cronica = document.getElementById('cronica');
 var dia=document.getElementById('dia');
 function check() {
-    if (cronica.checked) {
+    if (cronica.checked==true) {
         dia.style.display="none";
         dia.value=365;
-    } else {
+    } else if (cronica.checked==false) {
+        dia.value=null;
         dia.style.display="block";
+        
     }
 }
 //
@@ -22,7 +24,7 @@ function fecha() {
     //advertencia de html
     var adv=document.getElementById("advertencia");
     //bóton de pedir la cita
-    var btnCita=document.getElementById("registro");
+    var btnCita=document.getElementById("pedir");
     //conseguir la fecha seleccionada
     var cita=document.getElementById("cita").value;
     var cita=new Date(cita);
