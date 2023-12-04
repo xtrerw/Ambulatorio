@@ -212,6 +212,8 @@ if (isset($_POST["add"])) {
             ?>
             <label for="archivo">Selecciona un archivo PDF:</label>
             <input type="file" name="archivo" id="archivo" accept=".pdf">
+            <!-- input es para subir los datos con id de consulta que almacenar, si no hace así,me va a poner error que no busca id de consulta -->
+            <input type="hidden" name="idConsulta" value="<?php echo $idConsulta ?>" />
         </fieldset>
         <input type="submit" name="add" id="add" value="Añadir Medicación">
     </form>
