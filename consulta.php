@@ -1,7 +1,5 @@
 <?php
-// include("tablas/crea_tablas.php");
-// session_start();
-// $idMedico=$_SESSION["idMedico"];
+include("tablas/crea_tablas.php");
 $idConsulta=$_POST["idConsulta"];
 if (isset($_POST["add"]) && isset($_POST["sintomatologia"])) {
     # actualiza la fecha que este paciente ya elige en la tabla consulta
@@ -30,7 +28,7 @@ if (isset($_POST["add"]) && isset($_POST["medicamento"])) {
     INNER JOIN consulta c ON c.id=r.id_consulta
     INNER JOIN medicamento m ON m.id=r.id_medicamento
     SET r.id_medicamento=$medicamento
-    WHERE c.id=$idConsulta";
+    WHERE r.id_consulta=$idConsulta";
     mysqli_query($conexion,$update);
 }
 if (isset($_POST["add"]) && isset($_POST["cantidad"])) {
@@ -42,7 +40,7 @@ if (isset($_POST["add"]) && isset($_POST["cantidad"])) {
     $update="UPDATE receta r
     INNER JOIN consulta c ON c.id=r.id_consulta
     SET r.posologia='$cantidad/$hora'
-    WHERE c.id=$idConsulta";
+    WHERE r.id_consulta=$idConsulta";
     mysqli_query($conexion,$update);
 }
 if (isset($_POST["add"]) && isset($_POST["dia"])) {
@@ -52,38 +50,37 @@ if (isset($_POST["add"]) && isset($_POST["dia"])) {
     $update="UPDATE receta r
     INNER JOIN consulta c ON c.id=r.id_consulta
     SET r.fecha_fin=DATE_ADD(NOW(), INTERVAL $dia DAY)
-    WHERE c.id=$idConsulta";
+    WHERE r.id_consulta=$idConsulta";
     mysqli_query($conexion,$update);
 }
 if (isset($_POST["add"])) {
     # subir el pdf
-    $nombre = $_FILES["archivo"]["name"];
-    $nombre=mysqli_escape_string($conexion,$nombre);
-    $nombre=mysqli_escape_string($conexion,$nombre);
-    $update="UPDATE consulta SET archivo='$nombre' WHERE id=$idConsulta";
+    $archivo = $_FILES["archivo"]['tmp_name'];
+    $archivo=mysqli_escape_string($conexion,$archivo);
+    $update="UPDATE consulta SET archivo='$archivo' WHERE id=$idConsulta";
     mysqli_query($conexion,$update);
 }
 //
-if (isset($_POST["registro"]) && isset($_POST["cita"])) {
-    # actualiza la fecha que este médico ya elige para este paciente
-    $fecha=$_POST["cita"];
-    $fecha=mysqli_escape_string($conexion,$fecha);
-    $update="UPDATE consulta 
-    SET fecha='$fecha'
-    WHERE id=$idConsulta";
-    mysqli_query($conexion,$update);
-}
-//conseguir id de médico selecionado de la cita
-if (isset($_POST["registro"]) && isset($_POST["medico"])) {
-    # actualiza el id de médico que este paciente ya elige en la tabla consulta
-    $medico=$_POST["medico"];
-    # actualiza el id de médico de la tabla paciente y médico que este médico ya elige para paciente
-    $update="UPDATE  pacientes p
-    INNER JOIN consulta c ON c.id_paciente=p.id
-    SET id_med=$medico,c.id_medico=$medico
-    WHERE c.id=$idConsulta";
-    mysqli_query($conexion,$update);
-}
+// if (isset($_POST["registro"]) && isset($_POST["cita"])) {
+//     # actualiza la fecha que este médico ya elige para este paciente
+//     $fecha=$_POST["cita"];
+//     $fecha=mysqli_escape_string($conexion,$fecha);
+//     $update="UPDATE consulta 
+//     SET fecha='$fecha'
+//     WHERE id=$idConsulta";
+//     mysqli_query($conexion,$update);
+// }
+// //conseguir id de médico selecionado de la cita
+// if (isset($_POST["registro"]) && isset($_POST["medico"])) {
+//     # actualiza el id de médico que este paciente ya elige en la tabla consulta
+//     $medico=$_POST["medico"];
+//     # actualiza el id de médico de la tabla paciente y médico que este médico ya elige para paciente
+//     $update="UPDATE  pacientes p
+//     INNER JOIN consulta c ON c.id_paciente=p.id
+//     SET id_med=$medico,c.id_medico=$medico
+//     WHERE c.id=$idConsulta";
+//     mysqli_query($conexion,$update);
+// }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -132,7 +129,7 @@ if (isset($_POST["registro"]) && isset($_POST["medico"])) {
                             FROM consulta c
                             INNER JOIN medico m ON c.id_medico=m.id
                             INNER JOIN pacientes p ON c.id_paciente=p.id 
-                            WHERE c.id_medico=$idMedico";
+                            WHERE c.id=$idConsulta";
                             $resulta=mysqli_query($conexion,$select);
                             while ($informacion= $resulta->fetch_assoc()) {
                                 echo "
@@ -157,7 +154,7 @@ if (isset($_POST["registro"]) && isset($_POST["medico"])) {
                         $select="SELECT c.sintomatologia AS sinto
                         FROM consulta c
                         INNER JOIN medico m ON c.id_medico=m.id
-                        WHERE c.id_medico=$idMedico";
+                        WHERE c.id=$idConsulta";
                         $resulta=mysqli_query($conexion,$select);
                         while ($informacion= $resulta->fetch_assoc()) {
                             echo "<textarea cols='100' rows='10'>{$informacion['sinto']}</textarea>";
@@ -173,7 +170,7 @@ if (isset($_POST["registro"]) && isset($_POST["medico"])) {
                         $select="SELECT c.diagnostico AS diagnostico
                         FROM consulta c
                         INNER JOIN medico m ON c.id_medico=m.id
-                        WHERE c.id_medico=$idMedico";
+                        WHERE c.id=$idConsulta";
                         $resulta=mysqli_query($conexion,$select);
                         while ($informacion= $resulta->fetch_assoc()) {
                             echo "<textarea name='diagnostico' id='' cols='100' rows='10'>{$informacion['diagnostico']}</textarea>";
@@ -205,9 +202,8 @@ if (isset($_POST["registro"]) && isset($_POST["medico"])) {
                 <input type="checkbox" id="cronica" onchange="check();">Sí
             </label>
             <?php
-
-                // $columna="ALTER TABLE consulta ADD COLUMN archivo varchar(225) NOT NULL;";
-                // mysqli_query($conexion,$columna);
+                $columna="ALTER TABLE consulta ADD COLUMN archivo VARCHAR(255) NOT NULL;";
+                mysqli_query($conexion,$columna);
             ?>
             <label for="archivo">Selecciona un archivo PDF:</label>
             <input type="file" name="archivo" id="archivo" accept=".pdf">
@@ -215,39 +211,7 @@ if (isset($_POST["registro"]) && isset($_POST["medico"])) {
         <input type="submit" name="add" id="add" value="Añadir Medicación">
     </form>
     <!-- cita para paciente -->
-    <form action="" method="post">
-        <legend>Cita en Futuro</legend>
-            <fieldset>
-                <!-- Título de la página -->
-                <legend>
-                    Pedir una cita
-                </legend>
-
-                <!-- Fecha seleccionada -->
-                <label>Seleciona una fecha disponible</label>
-                <!-- cuando un paciente elige una fecha de la cita, lo va a deja aparecer aquí   -->
-                <input type="text" name="cita" id="cita" readonly="readonly" onchange="fecha();" require>
-                <!-- una imagen se funciona como un selector de fecha  -->
-                <img src="img/calendario.png" alt="" width="30" id="selector">
-
-                <!-- Médico selecionado -->
-                <label>Seleciona un médico</label>
-                <select name="medico" id="">
-                    <?php 
-                        //conseguir todos los médicos
-                        $select = "SELECT DISTINCT * FROM medico";
-                        $resulta = mysqli_query($conexion,$select); 
-                        while ($medico = $resulta->fetch_assoc()) {
-                            echo "<option value='{$medico['id']}'>{$medico['nombre']} {$medico['apellidos']}-{$medico['especialidad']}</option>";
-                        }
-                    ?>
-                </select>
-                <!-- advertencia -->
-                <label id="advertencia"></label>
-                <!-- bóton para subir cita -->
-                <input type="submit" value="Pedir una cita" name="registro" id="registro">
-            </fieldset>
-        </form>
+    
     </div>
     <script type="text/javascript" src="js/consulta.js"></script>
 </body>

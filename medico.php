@@ -1,7 +1,5 @@
 <?php
 include("tablas/crea_tablas.php");
-// session_start();
-// $_SESSION["idMedico"]=$_POST["medico"];  
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -82,12 +80,30 @@ include("tablas/crea_tablas.php");
                         }
                     } else {
                         //si no, va a salir un comentario
-                        echo "<p>no tiene disponible de consulta en los próximos días</p>";
+                        echo "<p>No tiene disponible de consulta en los próximos días</p>";
                     }
                 };
             ?>
             
             <label>Consulta de hoy</label>
+            <input type="hidden" name="idConsulta" value="<?php
+
+                    $medicoSelect=$_POST['medico'];
+                    // combinar la tabla consulta con la de médico y paciente ,encontrar todas citas que contienen médico, paciente, la fecha y síntoma de los primeros 100 caracteres de hoy en orden ascendente 
+                    $select="SELECT c.id AS c_id 
+                    FROM consulta c
+                    INNER JOIN medico m ON c.id_medico=m.id
+                    INNER JOIN pacientes p ON c.id_paciente=p.id
+                    WHERE m.id=$medicoSelect AND DATE(c.fecha) =CURDATE()
+                    ORDER BY c.fecha ASC;";
+                    $resulta=mysqli_query($conexion,$select);
+                    if ($consultaHoy=$resulta->num_rows>0) {
+                        while ($consultaHoy= $resulta->fetch_assoc()) {
+                            echo "{$consultaHoy['c_id']}";
+                        }
+                    }
+
+            ?>">
             <?php
                 if (isset($_POST['login']) && isset($_POST['medico'])) {
                     $medicoSelect=$_POST['medico'];
@@ -103,8 +119,8 @@ include("tablas/crea_tablas.php");
                         while ($consultaHoy= $resulta->fetch_assoc()) {
                             echo "
                             <p>ID DE CONSULTA: {$consultaHoy['c_id']}</p>
-                            <p>NOMBRE DE MÉDICO: {$consultaHoy['nombre']}</p>
                             <p>NOMBRE DE PACIENTE: {$consultaHoy['p_nombre']}</p>
+                            <p>NOMBRE DE MÉDICO: {$consultaHoy['nombre']}</p>
                             <p>LA FECHA DE CONSULTA: {$consultaHoy['fecha']}</p>
                             <p>SINTOMATOLOGÍA: {$consultaHoy['sinto']}</p>
                             <input name='consulta' type='submit' value='Pasar Consulta'>
@@ -115,6 +131,7 @@ include("tablas/crea_tablas.php");
                     }
                 };
             ?>
+
             <!-- bóton de seguir consultar -->
             
             </fieldset>
