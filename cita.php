@@ -1,8 +1,13 @@
 <?php
 include("tablas/crea_tablas.php");
-//conseguir id de paciente que inicia sesión
-session_start();
-$pacienteSelect=$_SESSION["idPaciente"]; 
+global $conexion;  
+if (isset($_GET['paciente'])) {
+    # code...
+    $pacienteSelect=$_GET["paciente"]; 
+}else {
+    echo "<p>paciente selected $pacienteSelect</p>";
+}
+
 if (isset($_POST["registro"]) && isset($_POST["cita"])) {
     # actualiza la fecha que este paciente ya elige en la tabla consulta
     $fecha=$_POST["cita"];
@@ -51,12 +56,22 @@ if (isset($_POST["registro"]) && isset($_POST["sintoma"])) {
     <script type="text/javascript" src="js/calendar-setup.js"></script>
 
 </head>
+    <?php
+if (isset($_GET['paciente'])) {
+    # code...
+    $pacienteSelect=$_GET["paciente"];
+    echo "<p>paciente selected $pacienteSelect</p>";
+}else {
+    echo "<p>paciente selected $pacienteSelect</p>";
+}
+?>
+
 <body>
     <!-- header -->
     <header>
         <img src="img/logo.jpg" alt="" srcset="">
         <div>
-            <a href="index.php">Inicial Sesión</a>
+            <a href="index.php">Inicia Sesión</a>
         </div>
     </header>
     <!-- contenido -->
@@ -95,8 +110,8 @@ if (isset($_POST["registro"]) && isset($_POST["sintoma"])) {
                     //combinarse la tabla de consulta con la de paciente y conseguir la síntoma apuntada de paciente
                     $select="SELECT c.sintomatologia AS sinto
                     FROM consulta c
-                    INNER JOIN pacientes p ON c.id_paciente=p.id
-                    WHERE c.id=$pacienteSelect";
+                    INNER JOIN pacientes p ON p.id=c.id_paciente
+                    WHERE c.id_paciente=$pacienteSelect";
                     $resulta=mysqli_query($conexion,$select);
                     if ($informacion= $resulta->num_rows>0) {
                         while ($informacion= $resulta->fetch_assoc()) {

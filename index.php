@@ -15,7 +15,7 @@ include("tablas/crea_tablas.php");
     <img src="img/logoLogin.png" alt="" srcset="">
     <div>
         <!-- formulario de paciente, va a saltar a la página de paciente -->
-        <form action="paciente.php" method="POST" id="form1" >
+        <form action="paciente.php" method="post" id="form1" >
             <h1>Paciente</h1>
             <label for="nombrePaciente">Nombre de Paciente</label>
             <!-- elige un paciente -->

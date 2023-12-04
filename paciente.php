@@ -1,11 +1,15 @@
 <?php
 include("tablas/crea_tablas.php");
 //conseguir los datos de la id de paciente que inicia sesión
+// if (isset($_POST['login']) && isset($_POST['paciente'])) {
+//     //mande id de paciente a la página de cita
+//     session_start();
+//     $_SESSION["idPaciente"]=$_POST["paciente"];   
+// }
+global $conexion;  
 if (isset($_POST['login']) && isset($_POST['paciente'])) {
-    //mande id de paciente a la página de cita
-    session_start();
-    $_SESSION["idPaciente"]=$_POST["paciente"];   
-}         
+    $pacienteSelect=$_POST['paciente'];
+};
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +26,7 @@ if (isset($_POST['login']) && isset($_POST['paciente'])) {
         <img src="img/logo.jpg" alt="" srcset="">
         <div>
             <a href="index.php">Inicia Sesión</a>
-            <a href="cita.php">Pedir una Cita</a>
+            <?php echo "<a href='cita.php?paciente=<?php echo $pacienteSelect ?>'>Pedir una Cita</a>" ?>
         </div>
     </header>
     <!-- contenido -->
@@ -48,8 +52,6 @@ if (isset($_POST['login']) && isset($_POST['paciente'])) {
                 <tbody>
                     <?php
                         global $conexion;  
-                        if (isset($_POST['login']) && isset($_POST['paciente'])) {
-                            $pacienteSelect=$_POST['paciente'];
                             $select="SELECT * FROM pacientes WHERE id='$pacienteSelect'";
                             $resulta=mysqli_query($conexion,$select);
                             while ($informacion= $resulta->fetch_assoc()) {
@@ -61,8 +63,7 @@ if (isset($_POST['login']) && isset($_POST['paciente'])) {
                                         <td>{$informacion['fecha_nac']}</td>
                                     </tr>
                                 ";
-                            }
-                        };
+                            };
                     ?>
                 </tbody>
             </table>
@@ -78,7 +79,6 @@ if (isset($_POST['login']) && isset($_POST['paciente'])) {
                         <?php 
                             if (isset($_POST['login']) && isset($_POST['paciente'])) {
                                 # code...
-                                $pacienteSelect=$_POST["paciente"];
                             $select = "SELECT c.id AS cita_id, m.nombre AS medico_nombre, m.apellidos AS medico_apellidos, c.fecha AS fecha
                             FROM consulta c
                             INNER JOIN medico m ON c.id_medico = m.id
@@ -119,7 +119,6 @@ if (isset($_POST['login']) && isset($_POST['paciente'])) {
                 <tbody>
                     <?php 
                         if (isset($_POST['login']) && isset($_POST['paciente'])) {
-                            $pacienteSelect=$_POST["paciente"];
                             $select = "SELECT c.id AS cita_id, m.nombre AS medico_nombre, m.Apellidos AS medico_apellidos, c.fecha
                             FROM consulta c
                             INNER JOIN medico m ON c.id_medico = m.id
@@ -154,7 +153,6 @@ if (isset($_POST['login']) && isset($_POST['paciente'])) {
             <?php
                 if (isset($_POST['login']) && isset($_POST['paciente'])) {
                     # combinar la tabla consulta con la de medicamento y paciente, encontrar todas informaciones de síntoma que surgen y medicamento necesario 
-                    $pacienteSelect=$_POST['paciente'];
                     $select="SELECT r.posologia AS posologia, r.fecha_fin AS fecha_fin, c.sintomatologia AS sinto, p.nombre AS nombre,m.medicamento AS medicamento, c.diagnostico AS diagnostico
                     FROM receta r
                     INNER JOIN consulta c ON r.id_consulta=c.id

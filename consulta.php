@@ -1,14 +1,15 @@
 <?php
-include("tablas/crea_tablas.php");
-session_start();
-$idMedico=$_SESSION["idMedico"];
+// include("tablas/crea_tablas.php");
+// session_start();
+// $idMedico=$_SESSION["idMedico"];
+$idConsulta=$_POST["idConsulta"];
 if (isset($_POST["add"]) && isset($_POST["sintomatologia"])) {
     # actualiza la fecha que este paciente ya elige en la tabla consulta
     $sintoma=$_POST["sintomatologia"];
     $sintoma=mysqli_escape_string($conexion,$sintoma);
     $update="UPDATE consulta 
     SET sintomatologia='$sintoma'
-    WHERE id_medico=$idMedico";
+    WHERE id=$idConsulta";
     mysqli_query($conexion,$update);
 }
 //conseguir id de médico selecionado de la cita
@@ -17,7 +18,7 @@ if (isset($_POST["add"]) && isset($_POST["diagnostico"])) {
     $diagnostico=$_POST["diagnostico"];
     $update="UPDATE consulta 
     SET diagnostico='$diagnostico'
-    WHERE id_medico=$idMedico";
+    WHERE id=$idConsulta";
     mysqli_query($conexion,$update);
 }
 
@@ -29,7 +30,7 @@ if (isset($_POST["add"]) && isset($_POST["medicamento"])) {
     INNER JOIN consulta c ON c.id=r.id_consulta
     INNER JOIN medicamento m ON m.id=r.id_medicamento
     SET r.id_medicamento=$medicamento
-    WHERE c.id_medico=$idMedico";
+    WHERE c.id=$idConsulta";
     mysqli_query($conexion,$update);
 }
 if (isset($_POST["add"]) && isset($_POST["cantidad"])) {
@@ -41,7 +42,7 @@ if (isset($_POST["add"]) && isset($_POST["cantidad"])) {
     $update="UPDATE receta r
     INNER JOIN consulta c ON c.id=r.id_consulta
     SET r.posologia='$cantidad/$hora'
-    WHERE c.id_medico=$idMedico";
+    WHERE c.id=$idConsulta";
     mysqli_query($conexion,$update);
 }
 if (isset($_POST["add"]) && isset($_POST["dia"])) {
@@ -51,7 +52,7 @@ if (isset($_POST["add"]) && isset($_POST["dia"])) {
     $update="UPDATE receta r
     INNER JOIN consulta c ON c.id=r.id_consulta
     SET r.fecha_fin=DATE_ADD(NOW(), INTERVAL $dia DAY)
-    WHERE c.id_medico=$idMedico";
+    WHERE c.id=$idConsulta";
     mysqli_query($conexion,$update);
 }
 if (isset($_POST["add"])) {
@@ -59,7 +60,7 @@ if (isset($_POST["add"])) {
     $nombre = $_FILES["archivo"]["name"];
     $nombre=mysqli_escape_string($conexion,$nombre);
     $nombre=mysqli_escape_string($conexion,$nombre);
-    $update="UPDATE consulta SET archivo='$nombre' WHERE id_medico=$idMedico";
+    $update="UPDATE consulta SET archivo='$nombre' WHERE id=$idConsulta";
     mysqli_query($conexion,$update);
 }
 //
@@ -69,7 +70,7 @@ if (isset($_POST["registro"]) && isset($_POST["cita"])) {
     $fecha=mysqli_escape_string($conexion,$fecha);
     $update="UPDATE consulta 
     SET fecha='$fecha'
-    WHERE id_medico=$idMedico";
+    WHERE id=$idConsulta";
     mysqli_query($conexion,$update);
 }
 //conseguir id de médico selecionado de la cita
@@ -80,7 +81,7 @@ if (isset($_POST["registro"]) && isset($_POST["medico"])) {
     $update="UPDATE  pacientes p
     INNER JOIN consulta c ON c.id_paciente=p.id
     SET id_med=$medico,c.id_medico=$medico
-    WHERE c.id_medico=$idMedico";
+    WHERE c.id=$idConsulta";
     mysqli_query($conexion,$update);
 }
 ?>

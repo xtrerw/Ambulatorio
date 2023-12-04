@@ -1,7 +1,7 @@
 <?php
 include("tablas/crea_tablas.php");
-session_start();
-$_SESSION["idMedico"]=$_POST["medico"];  
+// session_start();
+// $_SESSION["idMedico"]=$_POST["medico"];  
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -107,6 +107,7 @@ $_SESSION["idMedico"]=$_POST["medico"];
                             <p>NOMBRE DE PACIENTE: {$consultaHoy['p_nombre']}</p>
                             <p>LA FECHA DE CONSULTA: {$consultaHoy['fecha']}</p>
                             <p>SINTOMATOLOGÍA: {$consultaHoy['sinto']}</p>
+                            <input name='consulta' type='submit' value='Pasar Consulta'>
                             ";
                         }
                     } else {
@@ -115,7 +116,7 @@ $_SESSION["idMedico"]=$_POST["medico"];
                 };
             ?>
             <!-- bóton de seguir consultar -->
-            <input name="consulta" type="submit" value="Pasar Consulta">
+            
             </fieldset>
     </form>
     </div>
