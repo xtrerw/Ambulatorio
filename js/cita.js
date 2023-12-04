@@ -18,15 +18,7 @@ function fecha() {
     var citaDay=cita.getDay();
     //conseguir la fecha de hoy
     var hoy=new Date();
-    var ano=hoy.getFullYear();
-    var mes=hoy.getMonth();
-    var dia=hoy.getDate();
-    //si el mes o día es menor de octubre, tendrá la formara como 0 mas mes o día
-    mes=mes<10? '0'+mes:mes;
-    dia=dia<10? '0'+dia:dia;
-    //lo deja como la forma de año-mes-día
-    var hoyObj=ano+'-'+mes+'-'+dia;
-    if (cita<hoy) {
+    if (cita<hoy.setDate(hoy.getDate()-1)) {
     //si la fecha de cita es anterior al día de hoy, aparece "fecha no válida" en fuente rojo
         adv.innerHTML="fecha no válida : "+cita;
         adv.style.color="brown";
