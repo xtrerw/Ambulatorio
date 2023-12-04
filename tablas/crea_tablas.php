@@ -81,8 +81,8 @@
     if ($medicamento->num_rows==0){
         $inserta1="INSERT INTO medicamento(medicamento) VALUES ('Prozac');";
         $inserta2="INSERT INTO medicamento(medicamento) VALUES ('Poción de vida');";
-        $inserta3="INSERT INTO medicamento(medicamento) VALUES ('Poción de corrupción');";
-        $inserta4="INSERT INTO medicamento(medicamento) VALUES ('Virus-T');";
+        $inserta3="INSERT INTO medicamento(medicamento) VALUES ('Aspirina');";
+        $inserta4="INSERT INTO medicamento(medicamento) VALUES ('Formalina');";
         mysqli_query($conexion,$inserta1);
         mysqli_query($conexion,$inserta2);
         mysqli_query($conexion,$inserta3);

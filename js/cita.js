@@ -26,7 +26,7 @@ function fecha() {
     dia=dia<10? '0'+dia:dia;
     //lo deja como la forma de año-mes-día
     var hoyObj=ano+'-'+mes+'-'+dia;
-    if (cita < hoy) {
+    if (cita<hoy) {
     //si la fecha de cita es anterior al día de hoy, aparece "fecha no válida" en fuente rojo
         adv.innerHTML="fecha no válida : "+cita;
         adv.style.color="brown";
@@ -44,7 +44,7 @@ function fecha() {
         adv.style.color="brown";
         adv.style.display="block";
         btnCita.style.display="none";
-    } else{
+    } else  {
         adv.style.display="none";
         btnCita.style.display="block";
     }

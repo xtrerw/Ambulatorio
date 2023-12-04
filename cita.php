@@ -89,7 +89,7 @@ if (isset($_POST["registro"]) && isset($_POST["sintoma"])) {
                 </select>
                 <!-- Síntoma de paciente que pueda modificar según su propia situación -->
                 <label>Síntoma</label>
-                <textarea name="sintoma" id="" cols="30" rows="10">
+                
                 <?php
                     //combinarse la tabla de consulta con la de paciente y conseguir la síntoma apuntada de paciente
                     $select="SELECT c.sintomatologia AS sinto
@@ -100,12 +100,10 @@ if (isset($_POST["registro"]) && isset($_POST["sintoma"])) {
                     if ($informacion= $resulta->num_rows>0) {
                         while ($informacion= $resulta->fetch_assoc()) {
                             //conseguir el array seleccionado desde SQL por fetch_assoc() y recorrer el array,presenta la información de síntoma 
-                            echo trim($informacion['sinto']);
+                            echo "<textarea name='sintoma' id='' cols='30' rows='10'>{$informacion['sinto']}</textarea>";
                         }
-                    }
-                    
+                    }  
                 ?>
-                </textarea>
 
                 <!-- advertencia -->
                 <label id="advertencia"></label>
