@@ -1,10 +1,11 @@
 <?php
 include("tablas/crea_tablas.php");
 //conseguir id de consulta
-$consultaID=$_POST["consultaHoy"]; 
 if (isset($_POST["add"]) && $_POST["sintomatologia"]) {
+    $consultaID=$_POST["consultaHoy"];
     # actualiza la síntoma que este médico ya ha apuntado al paciente
     $sintoma=$_POST["sintomatologia"];
+    $sintoma=mysqli_escape_string($conexion,$sintoma);
     $update="UPDATE consulta 
     SET sintomatologia='$sintoma'
     WHERE id=$consultaID";
@@ -14,6 +15,7 @@ if (isset($_POST["add"]) && $_POST["sintomatologia"]) {
 if (isset($_POST["add"]) && $_POST["diagnostico"]) {
     # actualiza el diagnóstico de consulta
     $diagnostico=$_POST["diagnostico"];
+    $diagnostico=mysqli_escape_string($conexion,$diagnostico);
     $update="UPDATE consulta 
     SET diagnostico='$diagnostico'
     WHERE id=$consultaID";
@@ -23,21 +25,25 @@ if (isset($_POST["add"]) && $_POST["diagnostico"]) {
 if (isset($_POST["add"]) && $_POST["medicamento"]) {
     # actualiza el id de medicamento de la tabla receta
     $medicamentoID=$_POST["medicamento"];
-    $update="UPDATE medicamento
+    $medicamentoID=mysqli_escape_string($conexion,$medicamentoID);
+    $update="UPDATE receta
     SET id_medicamento=$medicamentoID
     WHERE id_consulta=$consultaID";
     mysqli_query($conexion,$update);
 }  
-if (isset($_POST["add"]) && $_POST["cantidad"]) {
-    # actualiza el id de medicamento de la tabla receta
-    $cantidad=$_POST["cantidad"];
-    $hora=$_POST["hora"];
-    $dia=$_POST["dia"];
-    $update="UPDATE medicamento
-    SET posologia='$cantidad/$hora' AND fecha_fin=DATE_ADD(CURDATE(),interval $dia day)
-    WHERE id_consulta=$consultaID";
-    mysqli_query($conexion,$update);
-}  
+// if (isset($_POST["add"]) && $_POST["cantidad"]) {
+//     # actualiza el id de medicamento de la tabla receta
+//     $cantidad=$_POST["cantidad"];
+//     $hora=$_POST["hora"];
+//     $dia=$_POST["dia"];
+//     $cantidad=mysqli_escape_string($conexion,$cantidad);
+//     $hora=mysqli_escape_string($conexion,$hora);
+//     $dia=mysqli_escape_string($conexion,$dia);
+//     $update="UPDATE receta
+//     SET posologia='$cantidad/$hora' , fecha_fin=DATE_ADD(NOW(),interval $dia day)
+//     WHERE id_consulta=$consultaID";
+//     mysqli_query($conexion,$update);
+// }  
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -146,7 +152,7 @@ if (isset($_POST["add"]) && $_POST["cantidad"]) {
             <select name="medicamentos" id="">
                 <?php
                     if (isset($_POST['consulta']) && isset($_POST['consultaHoy'])) {
-                        $select="SELECT * FROM medicamento";
+                        $select="SELECT  * FROM medicamento";
                         $resulta=mysqli_query($conexion,$select);
                         while ($medicamento= $resulta->fetch_assoc()) {
                             echo "<option value='{$medicamento['id']}'>{$medicamento['medicamento']}</option>";
@@ -161,8 +167,14 @@ if (isset($_POST["add"]) && $_POST["cantidad"]) {
             <input type="number" maxlength="100" id="dia" name="dia" placeholder="eje: 3 días" require>
             <label for="">
                 ¿La medicación si es crónica?
-                <input type="checkbox" name="dia" value="365" id="cronica" onchange="check();">Sí
+                <input type="checkbox" name="dia" id="cronica" onchange="check();">Sí
             </label>
+            <label for="archivo">Selecciona un archivo PDF:</label>
+            <input type="file" name="archivo" id="archivo" accept=".pdf">
+            <?php
+                $columna="ALTER TABLE consulta ADD COLUMN archivo_pdf varchar(255);";
+                mysqli_query($conexion,$columna);
+            ?>
         </fieldset>
         <button name="add">Añadir Medicación</button>
     </form>

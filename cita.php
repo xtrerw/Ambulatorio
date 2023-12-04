@@ -30,6 +30,7 @@ if (isset($_POST["registro"]) && isset($_POST["medico"])) {
 if (isset($_POST["registro"]) && isset($_POST["sintoma"])) {
     # actualiza la síntoma que este paciente ya elige en la tabla consulta
     $sintoma=$_POST["sintoma"];
+    $sintoma=mysqli_escape_string($conexion,$sintoma);
     $update="UPDATE consulta 
     SET sintomatologia='$sintoma'
     WHERE id_paciente=$pacienteSelect";
