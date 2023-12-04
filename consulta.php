@@ -1,6 +1,7 @@
 <?php
 include("tablas/crea_tablas.php");
 global $conexion;
+//conseguir id consulta de la página medico.
 $idConsulta=$_POST["idConsulta"];
 if (isset($_POST["add"]) && isset($_POST["sintomatologia"])) {
     # actualiza la fecha que este paciente ya elige en la tabla consulta
@@ -56,7 +57,11 @@ if (isset($_POST["add"]) && isset($_POST["dia"])) {
 }
 if (isset($_POST["add"])) {
     # subir el pdf
-    $archivo = $_FILES["archivo"]['tmp_name'];
+    $directorio_subida = "pdf/";
+    $archivo = $_FILES["archivo"]['name'];
+    $archivoTmp = $_FILES["archivo"]['tmp_name'];
+    $ruta_completa=$directorio_subida . $archivo;
+    move_uploaded_file($archivoTmp,$ruta_completa);
     $archivo=mysqli_escape_string($conexion,$archivo);
     $update="UPDATE consulta SET archivo='$archivo' WHERE id=$idConsulta";
     mysqli_query($conexion,$update);
