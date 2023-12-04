@@ -1,11 +1,6 @@
 <?php
 include("tablas/crea_tablas.php");
 //conseguir los datos de la id de paciente que inicia sesión
-// if (isset($_POST['login']) && isset($_POST['paciente'])) {
-//     //mande id de paciente a la página de cita
-//     session_start();
-//     $_SESSION["idPaciente"]=$_POST["paciente"];   
-// }
 global $conexion;  
 if (isset($_POST['login']) && isset($_POST['paciente'])) {
     $pacienteSelect=$_POST['paciente'];
