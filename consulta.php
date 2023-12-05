@@ -21,20 +21,8 @@ if (isset($_POST["add"]) && isset($_POST["diagnostico"])) {
     WHERE id=$idConsulta";
     mysqli_query($conexion,$update);
 }
-
-if (isset($_POST["add"]) && isset($_POST["medicamento"])) {
-    # actualiza la medicamento 
-    $medicamento=$_POST["medicamento"];
-    $medicamento=mysqli_escape_string($conexion,$medicamento);
-    $update="UPDATE receta r
-    INNER JOIN consulta c ON c.id=r.id_consulta
-    INNER JOIN medicamento m ON m.id=r.id_medicamento
-    SET r.id_medicamento=$medicamento
-    WHERE r.id_consulta=$idConsulta";
-    mysqli_query($conexion,$update);
-}
 if (isset($_POST["add"])) {
-    # actualiza la cantidad 
+    # inserta la cantidad 
     $cantidad=$_POST["cantidad"];
     $cantidad=mysqli_escape_string($conexion,$cantidad);
     $hora=$_POST["hora"];
