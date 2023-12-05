@@ -1,7 +1,9 @@
 <?php
     include("db/conecta.php");
-    $conexion = getConexionsinBD();
 
+    $conexion = getConexionsinBD();
+    $sql="CREATE DATABASE ambulatorio";
+    mysqli_query($conexion,$sql);
     $resulta=mysqli_query($conexion,"SHOW DATABASES LIKE 'ambulatorio'");
     if($resulta->num_rows>0){ //num_rows >0 existe
         mysqli_select_db($conexion, "ambulatorio");
