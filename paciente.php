@@ -153,7 +153,8 @@ if (isset($_POST['login']) && isset($_POST['paciente'])) {
                     INNER JOIN consulta c ON r.id_consulta=c.id
                     INNER JOIN medicamento m ON r.id_medicamento=m.id
                     INNER JOIN pacientes p ON c.id_paciente=p.id
-                    WHERE c.id_paciente=$pacienteSelect AND r.fecha_fin>=CURDATE()";
+                    WHERE c.id_paciente=$pacienteSelect AND r.fecha_fin>=CURDATE()
+                    ORDER BY c.fecha DESC LIMIT 1";
                     $resulta=mysqli_query($conexion,$select);
                     if ($medicacion=$resulta->num_rows > 0) {
                         # si encontrar ....
