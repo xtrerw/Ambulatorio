@@ -42,7 +42,7 @@ include("tablas/crea_tablas.php");
                         if (isset($_POST['login']) && isset($_POST['medico'])) {
                             //conseguir id de médico que inicia sesión
                             $medicoSelect=$_POST['medico'];
-                            //conseguir toda información de todos los médicos,"DISTINCT" para que no repite aparecer el mismo médico
+                            //conseguir toda información del médico,"DISTINCT" para que no repite aparecer el mismo médico
                             $select="SELECT DISTINCT * FROM medico WHERE id='$medicoSelect'";
                             $resulta=mysqli_query($conexion,$select);
                             while ($informacion= $resulta->fetch_assoc()) {
@@ -66,6 +66,7 @@ include("tablas/crea_tablas.php");
                 if (isset($_POST['login']) && isset($_POST['medico'])) {
                     $medicoSelect=$_POST['medico'];
                     // combinar la tabla consulta con la de médico, encontrar todas citas dentro de 7 dias en orden ascendente 
+                    //date_add es para conseguir la fecha despúes de 7 días
                     $select="SELECT c.fecha AS fecha, m.nombre AS nombre
                     FROM consulta c
                     INNER JOIN medico m ON c.id_medico=m.id
