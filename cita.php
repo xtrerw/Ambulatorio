@@ -5,39 +5,21 @@ if (isset($_GET['paciente'])) {
     # code...
     $pacienteSelect=$_GET["paciente"]; 
 }
-if (isset($_POST["registro"]) && isset($_POST["cita"])) {
-    # actualiza la fecha que este paciente ya elige en la tabla consulta
+if (isset($_POST["registro"])) {
+    # agrega la fecha que este paciente ya elige en la tabla consulta
     $fecha=$_POST["cita"];
-    $fecha=mysqli_escape_string($conexion,$fecha);
-    $update="UPDATE consulta 
-    SET fecha='$fecha'
-    WHERE id_paciente=$pacienteSelect";
-    mysqli_query($conexion,$update);
-}
-//conseguir id de médico selecionado de la cita
-if (isset($_POST["registro"]) && isset($_POST["medico"])) {
-    # actualiza el id de médico que este paciente ya elige en la tabla consulta
     $idMedico=$_POST["medico"];
-    $update="UPDATE consulta 
-    SET id_medico=$idMedico
-    WHERE id_paciente=$pacienteSelect";
-    mysqli_query($conexion,$update);
-    # actualiza el id de médico que este paciente ya elige en la tabla paciente
+    $sintoma=$_POST["sintoma"];
+    $fecha=mysqli_escape_string($conexion,$fecha);
+    $inserta="INSERT INTO consulta(id_medico,id_paciente,fecha,sintomatologia) 
+    VALUES ($idMedico,$pacienteSelect,'$fecha','$sintoma');";
+    mysqli_query($conexion,$inserta);
     $update="UPDATE  pacientes
     SET id_med=$idMedico
     WHERE id=$pacienteSelect";
     mysqli_query($conexion,$update);
-}
-//conseguir la síntoma que este paciente ha apuntado
-if (isset($_POST["registro"]) && isset($_POST["sintoma"])) {
-    # actualiza la síntoma que este paciente ya elige en la tabla consulta
-    $sintoma=$_POST["sintoma"];
-    $sintoma=mysqli_escape_string($conexion,$sintoma);
-    $update="UPDATE consulta 
-    SET sintomatologia='$sintoma'
-    WHERE id_paciente=$pacienteSelect";
-    mysqli_query($conexion,$update);
-}            
+    
+}          
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -92,24 +74,11 @@ if (isset($_POST["registro"]) && isset($_POST["sintoma"])) {
                 </select>
                 <!-- Síntoma de paciente que pueda modificar según su propia situación -->
                 <label>Síntoma</label>
-                <div name='sintoma'>
-                <?php
-                    //combinarse la tabla de consulta con la de paciente y conseguir la síntoma apuntada de paciente
-                    $select="SELECT c.sintomatologia AS sinto
-                    FROM consulta c
-                    INNER JOIN pacientes p ON p.id=c.id_paciente
-                    WHERE c.id_paciente=$pacienteSelect";
-                    $resulta=mysqli_query($conexion,$select);
-                    if ($informacion= $resulta->num_rows>0) {
-                        while ($informacion= $resulta->fetch_assoc()) {
-                            //conseguir el array seleccionado desde SQL por fetch_assoc() y recorrer el array,presenta la información de síntoma 
-                            echo "<textarea  id='' cols='30' rows='10'>{$informacion['sinto']}</textarea>";
-                        }
-                    }  
-                ?>
-                </div>
+                    <!-- combinarse la tabla de consulta con la de paciente y conseguir la síntoma apuntada de paciente -->
+                    <textarea name='sintoma' id='' cols='30' rows='10'></textarea>
                 <!-- advertencia -->
                 <label id="advertencia"></label>
+                <!-- input es para subir los datos con id de consulta que almacenar, si no hace así,me va a poner error que no busca id de consulta -->
                 <!-- bóton para subir cita -->
                 <input type="submit" value="Pedir una cita" name="registro" id="registro">
             </fieldset>

@@ -47,7 +47,7 @@ if (isset($_POST['login']) && isset($_POST['paciente'])) {
                 <tbody>
                     <?php
                         global $conexion;  
-                            $select="SELECT * FROM pacientes WHERE id='$pacienteSelect'";
+                            $select="SELECT DISTINCT * FROM pacientes WHERE id='$pacienteSelect'";
                             $resulta=mysqli_query($conexion,$select);
                             while ($informacion= $resulta->fetch_assoc()) {
                                 echo "
@@ -74,7 +74,7 @@ if (isset($_POST['login']) && isset($_POST['paciente'])) {
                         <?php 
                             if (isset($_POST['login']) && isset($_POST['paciente'])) {
                                 # code...
-                            $select = "SELECT c.id AS cita_id, m.nombre AS medico_nombre, m.apellidos AS medico_apellidos, c.fecha AS fecha
+                            $select = "SELECT DISTINCT c.id AS cita_id, m.nombre AS medico_nombre, m.apellidos AS medico_apellidos, c.fecha AS fecha
                             FROM consulta c
                             INNER JOIN medico m ON c.id_medico = m.id
                             WHERE c.id_paciente = $pacienteSelect AND DATE(c.fecha) < CURDATE()
@@ -114,7 +114,7 @@ if (isset($_POST['login']) && isset($_POST['paciente'])) {
                 <tbody>
                     <?php 
                         if (isset($_POST['login']) && isset($_POST['paciente'])) {
-                            $select = "SELECT c.id AS cita_id, m.nombre AS medico_nombre, m.Apellidos AS medico_apellidos, c.fecha
+                            $select = "SELECT DISTINCT c.id AS cita_id, m.nombre AS medico_nombre, m.Apellidos AS medico_apellidos, c.fecha
                             FROM consulta c
                             INNER JOIN medico m ON c.id_medico = m.id
                             WHERE c.id_paciente = $pacienteSelect AND DATE(c.fecha) >= CURDATE()
@@ -148,7 +148,7 @@ if (isset($_POST['login']) && isset($_POST['paciente'])) {
             <?php
                 if (isset($_POST['login']) && isset($_POST['paciente'])) {
                     # combinar la tabla consulta con la de medicamento y paciente, encontrar todas informaciones de síntoma que surgen y medicamento necesario 
-                    $select="SELECT r.posologia AS posologia, r.fecha_fin AS fecha_fin, c.sintomatologia AS sinto, p.nombre AS nombre,m.medicamento AS medicamento, c.diagnostico AS diagnostico
+                    $select="SELECT DISTINCT r.posologia AS posologia, r.fecha_fin AS fecha_fin, c.sintomatologia AS sinto, p.nombre AS nombre,m.medicamento AS medicamento, c.diagnostico AS diagnostico
                     FROM receta r
                     INNER JOIN consulta c ON r.id_consulta=c.id
                     INNER JOIN medicamento m ON r.id_medicamento=m.id
