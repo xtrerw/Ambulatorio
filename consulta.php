@@ -193,7 +193,7 @@ if (isset($_POST["pedir"]) && isset($_POST["medico"])) {
             <!-- agregar la columna de guardar los archivos -->
             <?php
             $columnExists = mysqli_query($conexion, "SHOW COLUMNS FROM `consulta` LIKE 'archivo'");
-            // si no exciste, crear esto
+            // crear columna "archivo" en tabla consulta
             if(mysqli_num_rows($columnExists) == 0) {
                 $columna="ALTER TABLE consulta ADD COLUMN archivo VARCHAR(255);";
                 mysqli_query($conexion,$columna);
@@ -201,7 +201,7 @@ if (isset($_POST["pedir"]) && isset($_POST["medico"])) {
             ?>
             <label for="archivo">Selecciona un archivo PDF:</label>
             <input type="file" name="archivo" id="archivo" accept=".pdf">
-            <!-- input es para subir los datos con id de consulta que almacenar, si no hace así,me va a poner error que hay nulo de id de consulta -->
+            <!-- input es para ulitilizar $_POST con id de consulta que almacenar cuando subimos los datos, si no hace así,me va a poner error que hay nulo de id de consulta -->
             <input type="hidden" name="idConsulta" value="<?php echo $idConsulta ?>" />
         </fieldset>
         <!-- bóton de añadir medicación -->
@@ -234,8 +234,6 @@ if (isset($_POST["pedir"]) && isset($_POST["medico"])) {
                 <input type="text" name="cita" id="cita" readonly="readonly" onchange="fecha();" require>
                 <!-- una imagen se funciona como un selector de fecha  -->
                 <img src="img/calendario.png" alt="" width="30" id="selector">
-
-                
                 <!-- advertencia -->
                 <label id="advertencia"></label>
                 <!-- input es para subir los datos con id de consulta que almacenar, si no hace así,me va a poner error que no busca id de consulta -->
