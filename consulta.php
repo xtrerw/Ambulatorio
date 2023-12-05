@@ -33,27 +33,27 @@ if (isset($_POST["add"]) && isset($_POST["medicamento"])) {
     WHERE r.id_consulta=$idConsulta";
     mysqli_query($conexion,$update);
 }
-if (isset($_POST["add"]) && isset($_POST["cantidad"])) {
+if (isset($_POST["add"])) {
     # actualiza la cantidad 
     $cantidad=$_POST["cantidad"];
     $cantidad=mysqli_escape_string($conexion,$cantidad);
     $hora=$_POST["hora"];
     $hora=mysqli_escape_string($conexion,$hora);
-    $update="UPDATE receta r
-    INNER JOIN consulta c ON c.id=r.id_consulta
-    SET r.posologia='$cantidad/$hora'
-    WHERE r.id_consulta=$idConsulta";
-    mysqli_query($conexion,$update);
-}
-if (isset($_POST["add"]) && isset($_POST["dia"])) {
-    # actualiza la posología
+    $medicamento=$_POST["medicamento"];
     $dia=$_POST["dia"];
-    $update="UPDATE receta r
-    INNER JOIN consulta c ON c.id=r.id_consulta
-    SET r.fecha_fin=DATE_ADD(NOW(), INTERVAL $dia DAY)
-    WHERE c.id=$idConsulta";
+    $update="INSERT INTO receta(id_medicamento,id_consulta,posologia,fecha_fin)
+    VALUES($medicamento,$idConsulta,'$cantidad/$hora',DATE_ADD(NOW(), INTERVAL $dia DAY))";
     mysqli_query($conexion,$update);
 }
+// if (isset($_POST["add"]) && isset($_POST["dia"])) {
+//     # actualiza la posología
+
+//     $update="UPDATE receta r
+//     INNER JOIN consulta c ON c.id=r.id_consulta
+//     SET r.fecha_fin=DATE_ADD(NOW(), INTERVAL $dia DAY)
+//     WHERE c.id=$idConsulta";
+//     mysqli_query($conexion,$update);
+// }
 if (isset($_POST["add"])) {
     # subir el pdf
     $directorio_subida = "pdf/";
@@ -216,7 +216,7 @@ if (isset($_POST["pedir"]) && isset($_POST["medico"])) {
             $columnExists = mysqli_query($conexion, "SHOW COLUMNS FROM `consulta` LIKE 'archivo'");
             // si no exciste, crear esto
             if(mysqli_num_rows($columnExists) == 0) {
-                $columna="ALTER TABLE consulta ADD COLUMN archivo VARCHAR(255) NOT NULL;";
+                $columna="ALTER TABLE consulta ADD COLUMN archivo VARCHAR(255);";
                 mysqli_query($conexion,$columna);
             }
             ?>

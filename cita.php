@@ -11,6 +11,7 @@ if (isset($_POST["registro"])) {
     $idMedico=$_POST["medico"];
     $sintoma=$_POST["sintoma"];
     $fecha=mysqli_escape_string($conexion,$fecha);
+    $sintoma=mysqli_escape_string($conexion,$sintoma);
     $inserta="INSERT INTO consulta(id_medico,id_paciente,fecha,sintomatologia) 
     VALUES ($idMedico,$pacienteSelect,'$fecha','$sintoma');";
     mysqli_query($conexion,$inserta);
@@ -75,10 +76,9 @@ if (isset($_POST["registro"])) {
                 <!-- Síntoma de paciente que pueda modificar según su propia situación -->
                 <label>Síntoma</label>
                     <!-- combinarse la tabla de consulta con la de paciente y conseguir la síntoma apuntada de paciente -->
-                    <textarea name='sintoma' id='' cols='30' rows='10'></textarea>
+                <textarea name='sintoma' id='' cols='30' rows='10'></textarea>
                 <!-- advertencia -->
                 <label id="advertencia"></label>
-                <!-- input es para subir los datos con id de consulta que almacenar, si no hace así,me va a poner error que no busca id de consulta -->
                 <!-- bóton para subir cita -->
                 <input type="submit" value="Pedir una cita" name="registro" id="registro">
             </fieldset>

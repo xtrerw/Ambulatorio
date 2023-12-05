@@ -148,12 +148,12 @@ if (isset($_POST['login']) && isset($_POST['paciente'])) {
             <?php
                 if (isset($_POST['login']) && isset($_POST['paciente'])) {
                     # combinar la tabla consulta con la de medicamento y paciente, encontrar todas informaciones de síntoma que surgen y medicamento necesario 
-                    $select="SELECT DISTINCT r.posologia AS posologia, r.fecha_fin AS fecha_fin, c.sintomatologia AS sinto, p.nombre AS nombre,m.medicamento AS medicamento, c.diagnostico AS diagnostico
+                    $select="SELECT  r.posologia AS posologia, r.fecha_fin AS fecha_fin, c.sintomatologia AS sinto, p.nombre AS nombre,m.medicamento AS medicamento, c.diagnostico AS diagnostico, c.id AS id
                     FROM receta r
                     INNER JOIN consulta c ON r.id_consulta=c.id
                     INNER JOIN medicamento m ON r.id_medicamento=m.id
                     INNER JOIN pacientes p ON c.id_paciente=p.id
-                    WHERE c.id_paciente=$pacienteSelect";
+                    WHERE c.id_paciente=$pacienteSelect AND r.fecha_fin>=CURDATE()";
                     $resulta=mysqli_query($conexion,$select);
                     if ($medicacion=$resulta->num_rows > 0) {
                         # si encontrar ....
