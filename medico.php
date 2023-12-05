@@ -117,6 +117,7 @@ include("tablas/crea_tablas.php");
                     ORDER BY c.fecha ASC;";
                     $resulta=mysqli_query($conexion,$select);
                     if ($consultaHoy=$resulta->num_rows>0) {
+                        // fetch_assoc() se ultilzar para obtener cada fila de resulta de
                         while ($consultaHoy= $resulta->fetch_assoc()) {
                             echo "
                             <p>ID DE CONSULTA: {$consultaHoy['c_id']}</p>
