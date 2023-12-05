@@ -123,6 +123,7 @@ include("tablas/crea_tablas.php");
                             <p>NOMBRE DE MÉDICO: {$consultaHoy['nombre']}</p>
                             <p>LA FECHA DE CONSULTA: {$consultaHoy['fecha']}</p>
                             <p>SINTOMATOLOGÍA: {$consultaHoy['sinto']}</p>
+                            <input type='hidden' name='idConsulta' value='{$consultaHoy['c_id']}'/>
                             <input name='consulta' type='submit' value='Pasar Consulta'>
                             ";
                         }
