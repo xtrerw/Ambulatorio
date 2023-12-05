@@ -45,15 +45,6 @@ if (isset($_POST["add"])) {
     VALUES($medicamento,$idConsulta,'$cantidad/$hora',DATE_ADD(NOW(), INTERVAL $dia DAY))";
     mysqli_query($conexion,$update);
 }
-// if (isset($_POST["add"]) && isset($_POST["dia"])) {
-//     # actualiza la posología
-
-//     $update="UPDATE receta r
-//     INNER JOIN consulta c ON c.id=r.id_consulta
-//     SET r.fecha_fin=DATE_ADD(NOW(), INTERVAL $dia DAY)
-//     WHERE c.id=$idConsulta";
-//     mysqli_query($conexion,$update);
-// }
 if (isset($_POST["add"])) {
     # subir el pdf
     $directorio_subida = "pdf/";
