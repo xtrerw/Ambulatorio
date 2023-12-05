@@ -22,7 +22,7 @@ if (isset($_POST["add"]) && isset($_POST["diagnostico"])) {
     mysqli_query($conexion,$update);
 }
 if (isset($_POST["add"])) {
-    # inserta la cantidad 
+    # inserta la cantidad ,frecuencia etc
     $cantidad=$_POST["cantidad"];
     $cantidad=mysqli_escape_string($conexion,$cantidad);
     $hora=$_POST["hora"];
