@@ -2,6 +2,7 @@
     include("db/conecta.php");
 
     $conexion = getConexionsinBD();
+    // crear el base de datos
     $sql="CREATE DATABASE ambulatorio";
     mysqli_query($conexion,$sql);
     $resulta=mysqli_query($conexion,"SHOW DATABASES LIKE 'ambulatorio'");
