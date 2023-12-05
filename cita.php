@@ -4,10 +4,7 @@ global $conexion;
 if (isset($_GET['paciente'])) {
     # code...
     $pacienteSelect=$_GET["paciente"]; 
-}else {
-    echo "<p>paciente selected $pacienteSelect</p>";
 }
-
 if (isset($_POST["registro"]) && isset($_POST["cita"])) {
     # actualiza la fecha que este paciente ya elige en la tabla consulta
     $fecha=$_POST["cita"];
@@ -56,16 +53,6 @@ if (isset($_POST["registro"]) && isset($_POST["sintoma"])) {
     <script type="text/javascript" src="js/calendar-setup.js"></script>
 
 </head>
-    <?php
-if (isset($_GET['paciente'])) {
-    # code...
-    $pacienteSelect=$_GET["paciente"];
-    echo "<p>paciente selected $pacienteSelect</p>";
-}else {
-    echo "<p>paciente selected $pacienteSelect</p>";
-}
-?>
-
 <body>
     <!-- header -->
     <header>

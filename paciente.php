@@ -26,7 +26,7 @@ if (isset($_POST['login']) && isset($_POST['paciente'])) {
         <img src="img/logo.jpg" alt="" srcset="">
         <div>
             <a href="index.php">Inicia Sesión</a>
-            <?php echo "<a href='cita.php?paciente=<?php echo $pacienteSelect ?>'>Pedir una Cita</a>" ?>
+            <a href='cita.php?paciente=<?php echo $pacienteSelect ?>'>Pedir una Cita</a>
         </div>
     </header>
     <!-- contenido -->
