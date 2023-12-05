@@ -2,13 +2,15 @@
     include("db/conecta.php");
 
     $conexion = getConexionsinBD();
-    // crear el base de datos
-    $sql="CREATE DATABASE ambulatorio";
-    mysqli_query($conexion,$sql);
+    // crear el base de datos y verificar de conexión
+
     $resulta=mysqli_query($conexion,"SHOW DATABASES LIKE 'ambulatorio'");
     if($resulta->num_rows>0){ //num_rows >0 existe
         mysqli_select_db($conexion, "ambulatorio");
     }else{
+        //si no exicte, vamos a crearlo.
+        $sql="CREATE DATABASE ambulatorio";
+        mysqli_query($conexion,$sql);
         $conexion=getConexion();
         mysqli_select_db($conexion, "ambulatorio");    
     }
