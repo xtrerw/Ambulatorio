@@ -108,7 +108,6 @@ if (isset($_POST["pedir"]) && isset($_POST["medico"])) {
                 <tbody>
                     <!-- mostrar la información -->
                     <?php
-                        if (isset($_POST['consulta'])) {
                             $select="SELECT m.nombre AS medico,p.nombre AS paciente, c.fecha AS fecha
                             FROM consulta c
                             INNER JOIN medico m ON c.id_medico=m.id
@@ -123,8 +122,7 @@ if (isset($_POST["pedir"]) && isset($_POST["medico"])) {
                                         <td>{$informacion['fecha']}</td>
                                     </tr>
                                 ";
-                            }
-                        };
+                            };
                     ?>
                 </tbody>
             </table>
@@ -134,7 +132,6 @@ if (isset($_POST["pedir"]) && isset($_POST["medico"])) {
             </legend>
             <div name="sintomatologia">
                 <?php
-                    if (isset($_POST['consulta'])) {
                         $select="SELECT c.sintomatologia AS sinto
                         FROM consulta c
                         INNER JOIN medico m ON c.id_medico=m.id
@@ -142,15 +139,14 @@ if (isset($_POST["pedir"]) && isset($_POST["medico"])) {
                         $resulta=mysqli_query($conexion,$select);
                         while ($informacion= $resulta->fetch_assoc()) {
                             echo "<textarea cols='100' rows='10'>{$informacion['sinto']}</textarea>";
-                        }
-                    };
+                        };
                 ?>
             </div>
             <!-- diagnóstico que también puede modifcar -->
             <legend>Diagnóstico</legend>
             <div name="diagnostico">
                 <?php
-                    if (isset($_POST['consulta'])) {
+
                         $select="SELECT c.diagnostico AS diagnostico
                         FROM consulta c
                         INNER JOIN medico m ON c.id_medico=m.id
@@ -158,8 +154,7 @@ if (isset($_POST["pedir"]) && isset($_POST["medico"])) {
                         $resulta=mysqli_query($conexion,$select);
                         while ($informacion= $resulta->fetch_assoc()) {
                             echo "<textarea name='diagnostico' id='' cols='100' rows='10'>{$informacion['diagnostico']}</textarea>";
-                        }
-                    };
+                        };
                 ?>
             </div>
         <!-- medicamento que recomenda el médico -->
@@ -167,13 +162,11 @@ if (isset($_POST["pedir"]) && isset($_POST["medico"])) {
             <label for="">Medicamentos</label>
             <select name="medicamento" id="">
                 <?php
-                    if (isset($_POST['consulta'])) {
                         $select="SELECT DISTINCT * FROM medicamento";
                         $resulta=mysqli_query($conexion,$select);
                         while ($medicamento= $resulta->fetch_assoc()) {
                             echo "<option value='{$medicamento['id']}'>{$medicamento['medicamento']}</option>";
-                        }
-                    };
+                        };
                 ?>
             </select>
             <!-- cantidad de uso de medicamentos -->
