@@ -108,21 +108,21 @@ if (isset($_POST["pedir"]) && isset($_POST["medico"])) {
                 <tbody>
                     <!-- mostrar la información -->
                     <?php
-                            $select="SELECT m.nombre AS medico,p.nombre AS paciente, c.fecha AS fecha
-                            FROM consulta c
-                            INNER JOIN medico m ON c.id_medico=m.id
-                            INNER JOIN pacientes p ON c.id_paciente=p.id 
-                            WHERE c.id=$idConsulta";
-                            $resulta=mysqli_query($conexion,$select);
-                            while ($informacion= $resulta->fetch_assoc()) {
-                                echo "
-                                    <tr>
-                                        <td>{$informacion['medico']}</td>
-                                        <td>{$informacion['paciente']}</td>
-                                        <td>{$informacion['fecha']}</td>
-                                    </tr>
-                                ";
-                            };
+                        $select="SELECT m.nombre AS medico,p.nombre AS paciente, c.fecha AS fecha
+                        FROM consulta c
+                        INNER JOIN medico m ON c.id_medico=m.id
+                        INNER JOIN pacientes p ON c.id_paciente=p.id 
+                        WHERE c.id=$idConsulta";
+                        $resulta=mysqli_query($conexion,$select);
+                        while ($informacion= $resulta->fetch_assoc()) {
+                            echo "
+                                <tr>
+                                    <td>{$informacion['medico']}</td>
+                                    <td>{$informacion['paciente']}</td>
+                                    <td>{$informacion['fecha']}</td>
+                                </tr>
+                            ";
+                        };
                     ?>
                 </tbody>
             </table>
@@ -132,29 +132,28 @@ if (isset($_POST["pedir"]) && isset($_POST["medico"])) {
             </legend>
             <div name="sintomatologia">
                 <?php
-                        $select="SELECT c.sintomatologia AS sinto
-                        FROM consulta c
-                        INNER JOIN medico m ON c.id_medico=m.id
-                        WHERE c.id=$idConsulta";
-                        $resulta=mysqli_query($conexion,$select);
-                        while ($informacion= $resulta->fetch_assoc()) {
-                            echo "<textarea cols='100' rows='10'>{$informacion['sinto']}</textarea>";
-                        };
+                    $select="SELECT c.sintomatologia AS sinto
+                    FROM consulta c
+                    INNER JOIN medico m ON c.id_medico=m.id
+                    WHERE c.id=$idConsulta";
+                    $resulta=mysqli_query($conexion,$select);
+                    while ($informacion= $resulta->fetch_assoc()) {
+                        echo "<textarea cols='100' rows='10'>{$informacion['sinto']}</textarea>";
+                    };
                 ?>
             </div>
             <!-- diagnóstico que también puede modifcar -->
             <legend>Diagnóstico</legend>
             <div name="diagnostico">
                 <?php
-
-                        $select="SELECT c.diagnostico AS diagnostico
-                        FROM consulta c
-                        INNER JOIN medico m ON c.id_medico=m.id
-                        WHERE c.id=$idConsulta";
-                        $resulta=mysqli_query($conexion,$select);
-                        while ($informacion= $resulta->fetch_assoc()) {
-                            echo "<textarea name='diagnostico' id='' cols='100' rows='10'>{$informacion['diagnostico']}</textarea>";
-                        };
+                    $select="SELECT c.diagnostico AS diagnostico
+                    FROM consulta c
+                    INNER JOIN medico m ON c.id_medico=m.id
+                    WHERE c.id=$idConsulta";
+                    $resulta=mysqli_query($conexion,$select);
+                    while ($informacion= $resulta->fetch_assoc()) {
+                        echo "<textarea name='diagnostico' id='' cols='100' rows='10'>{$informacion['diagnostico']}</textarea>";
+                    };
                 ?>
             </div>
         <!-- medicamento que recomenda el médico -->
