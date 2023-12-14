@@ -40,7 +40,7 @@ include("tablas/crea_tablas.php");
                 <tbody>
                     <?php
                         if (isset($_POST['login']) && isset($_POST['medico'])) {
-                            //conseguir id de médico que inicia sesión
+                            //conseguir id de médico de login
                             $medicoSelect=$_POST['medico'];
                             //conseguir toda información del médico,"DISTINCT" para que no repite aparecer el mismo médico
                             $select="SELECT DISTINCT * FROM medico WHERE id='$medicoSelect'";
@@ -80,35 +80,17 @@ include("tablas/crea_tablas.php");
                             | La fecha: {$consulta['fecha']}</p>";
                         }
                     } else {
-                        //si no, va a salir un comentario
+                        //si no, va a salir un mensaje
                         echo "<p>No tiene disponible de consulta en los próximos días</p>";
                     }
                 };
             ?>
             
             <label>Consulta de hoy</label>
-            <input type="hidden" name="idConsulta" value="<?php
-
-                    $medicoSelect=$_POST['medico'];
-                    // combinar la tabla consulta con la de médico y paciente ,encontrar todas citas que contienen médico, paciente, la fecha y síntoma de los primeros 100 caracteres de hoy en orden ascendente 
-                    $select="SELECT c.id AS c_id 
-                    FROM consulta c
-                    INNER JOIN medico m ON c.id_medico=m.id
-                    INNER JOIN pacientes p ON c.id_paciente=p.id
-                    WHERE m.id=$medicoSelect AND DATE(c.fecha) =CURDATE()
-                    ORDER BY c.fecha ASC;";
-                    $resulta=mysqli_query($conexion,$select);
-                    if ($consultaHoy=$resulta->num_rows>0) {
-                        while ($consultaHoy= $resulta->fetch_assoc()) {
-                            echo "{$consultaHoy['c_id']}";
-                        }
-                    }
-
-            ?>">
             <?php
                 if (isset($_POST['login']) && isset($_POST['medico'])) {
                     $medicoSelect=$_POST['medico'];
-                    // combinar la tabla consulta con la de médico y paciente ,encontrar todas citas que contienen médico, paciente, la fecha y síntoma de los primeros 100 caracteres de hoy en orden ascendente 
+                    // combinar la tabla consulta con la de médico y paciente para encontrar todas citas que tienen la fecha y síntoma de los primeros 100 caracteres de hoy en orden ascendente 
                     $select="SELECT c.fecha AS fecha, m.nombre AS nombre, p.nombre AS p_nombre, c.id AS c_id ,LEFT(sintomatologia,100) AS sinto
                     FROM consulta c
                     INNER JOIN medico m ON c.id_medico=m.id
@@ -117,7 +99,8 @@ include("tablas/crea_tablas.php");
                     ORDER BY c.fecha ASC;";
                     $resulta=mysqli_query($conexion,$select);
                     if ($consultaHoy=$resulta->num_rows>0) {
-                        // fetch_assoc() se ultilzar para obtener cada fila de resulta de
+                        // fetch_assoc() se ultilzar para obtener cada fila de resulta
+                        // input hidden para pasar id consulta a la siguiente pagina
                         while ($consultaHoy= $resulta->fetch_assoc()) {
                             echo "
                             <p>ID DE CONSULTA: {$consultaHoy['c_id']}</p>

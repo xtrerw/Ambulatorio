@@ -2,19 +2,21 @@
 include("tablas/crea_tablas.php");
 global $conexion;  
 if (isset($_GET['paciente'])) {
-    # code...
+    # obtener id paciente
     $pacienteSelect=$_GET["paciente"]; 
 }
 if (isset($_POST["pedir"])) {
-    # agrega la fecha que este paciente ya elige en la tabla consulta
+    # conseguir la información introducida de pedir cita
     $fecha=$_POST["cita"];
     $idMedico=$_POST["medico"];
     $sintoma=$_POST["sintoma"];
     $fecha=mysqli_escape_string($conexion,$fecha);
     $sintoma=mysqli_escape_string($conexion,$sintoma);
+    #inserta todos a la base de datos
     $inserta="INSERT INTO consulta(id_medico,id_paciente,fecha,sintomatologia) 
     VALUES ($idMedico,$pacienteSelect,'$fecha','$sintoma');";
     mysqli_query($conexion,$inserta);
+    // tmb actualiza la tabla paciente
     $update="UPDATE  pacientes
     SET id_med=$idMedico
     WHERE id=$pacienteSelect";
@@ -45,7 +47,7 @@ if (isset($_POST["pedir"])) {
     </header>
     <!-- contenido -->
     <div class="container">
-        <!-- formulario de cita -->
+        <!-- formulario de pedir cita -->
         <form action="" method="post">
             <fieldset>
                 <!-- Título de la página -->
@@ -64,7 +66,7 @@ if (isset($_POST["pedir"])) {
                 <label>Seleciona un médico</label>
                 <select name="medico" id="medico">
                     <?php 
-                        //conseguir todos los médicos
+                        //conseguir todos los médicos para selecionar
                         $select = "SELECT DISTINCT * FROM medico";
                         $resulta = mysqli_query($conexion,$select); 
                         while ($medico = $resulta->fetch_assoc()) {
@@ -74,7 +76,6 @@ if (isset($_POST["pedir"])) {
                 </select>
                 <!-- Síntoma de paciente que pueda modificar según su propia situación -->
                 <label>Síntoma</label>
-                    <!-- combinarse la tabla de consulta con la de paciente y conseguir la síntoma apuntada de paciente -->
                 <textarea name='sintoma' id='' cols='30' rows='10'></textarea>
                 <!-- advertencia -->
                 <label id="advertencia"></label>
@@ -84,10 +85,11 @@ if (isset($_POST["pedir"])) {
         </form>
     </div>
     <label>
-    <!-- muestra la información enviado -->
+    <!-- muestra la información de la cita enviado -->
     <?php 
         if (isset($_POST["pedir"])) {
             echo"La cita ya ha pedido";
+            // con Select según id seleccionado
             $select="SELECT DISTINCT * FROM pacientes WHERE id='$pacienteSelect'";
             $resulta=mysqli_query($conexion,$select);
             while ($informacion= $resulta->fetch_assoc()) {
@@ -96,6 +98,7 @@ if (isset($_POST["pedir"])) {
                 La cita: $fecha<br />
                 Su síntoma: $sintoma<br />";
             };
+            // el médico seleccionado
             $select="SELECT DISTINCT * FROM medico WHERE id='$idMedico'";
             $resulta=mysqli_query($conexion,$select);
             while ($informacion= $resulta->fetch_assoc()) {

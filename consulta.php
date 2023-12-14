@@ -4,7 +4,7 @@ global $conexion;
 //conseguir id consulta desde la página login de médico.
 $idConsulta=$_POST["idConsulta"];
 if (isset($_POST["add"]) && isset($_POST["sintomatologia"])) {
-    # actualiza la fecha que este paciente ya elige en la tabla consulta
+    # actualizar la sintomatología en la tabla consulta
     $sintoma=$_POST["sintomatologia"];
     $sintoma=mysqli_escape_string($conexion,$sintoma);
     $update="UPDATE consulta 
@@ -12,9 +12,8 @@ if (isset($_POST["add"]) && isset($_POST["sintomatologia"])) {
     WHERE id=$idConsulta";
     mysqli_query($conexion,$update);
 }
-//conseguir id de médico selecionado de la cita
 if (isset($_POST["add"]) && isset($_POST["diagnostico"])) {
-    # actualiza el id de médico que este paciente ya elige en la tabla consulta
+    # actualiza diagnóstico apuntado
     $diagnostico=$_POST["diagnostico"];
     $update="UPDATE consulta 
     SET diagnostico='$diagnostico'
@@ -22,7 +21,7 @@ if (isset($_POST["add"]) && isset($_POST["diagnostico"])) {
     mysqli_query($conexion,$update);
 }
 if (isset($_POST["add"])) {
-    # inserta la cantidad ,frecuencia etc
+    # inserta la cantidad ,frecuencia etc de medicamento
     $cantidad=$_POST["cantidad"];
     $cantidad=mysqli_escape_string($conexion,$cantidad);
     $hora=$_POST["hora"];
@@ -35,18 +34,19 @@ if (isset($_POST["add"])) {
 }
 if (isset($_POST["add"])) {
     # subir el pdf
-    $directorio_subida = "pdf/";
+    // si ya subido, pues guardar en la archivo pdf
+    $directorio_subida = "pdf/";// crear el directorio para guadar pdf
     $archivo = $_FILES["archivo"]['name'];
     $archivoTmp = $_FILES["archivo"]['tmp_name'];
     $ruta_completa=$directorio_subida . $archivo;
-    move_uploaded_file($archivoTmp,$ruta_completa);
+    move_uploaded_file($archivoTmp,$ruta_completa);//mover fichero al directorio
     $archivo=mysqli_escape_string($conexion,$archivo);
-    $update="UPDATE consulta SET archivo='$archivo' WHERE id=$idConsulta";
+    $update="UPDATE consulta SET archivo='$archivo' WHERE id=$idConsulta";// para guardar nombre de fichero enviado
     mysqli_query($conexion,$update);
 }
 //
 if (isset($_POST["pedir"]) && isset($_POST["cita"])) {
-    # actualiza la fecha que este médico ya elige para este paciente
+    # actualiza la fecha que este médico elige para este paciente
     $fecha=$_POST["cita"];
     $fecha=mysqli_escape_string($conexion,$fecha);
     $update="UPDATE consulta 
@@ -56,7 +56,7 @@ if (isset($_POST["pedir"]) && isset($_POST["cita"])) {
 }
 //conseguir id de médico selecionado de la cita
 if (isset($_POST["pedir"]) && isset($_POST["medico"])) {
-    # actualiza el id de médico que elige otro médico en la tabla consulta y la paciente
+    # actualiza el médico que elige en la tabla consulta y la paciente
     $medico=$_POST["medico"];
     $update="UPDATE  pacientes p
     INNER JOIN consulta c ON c.id_paciente=p.id
@@ -161,6 +161,7 @@ if (isset($_POST["pedir"]) && isset($_POST["medico"])) {
             <label for="">Medicamentos</label>
             <select name="medicamento" id="">
                 <?php
+                // selecciona medicamento que tiene
                         $select="SELECT DISTINCT * FROM medicamento";
                         $resulta=mysqli_query($conexion,$select);
                         while ($medicamento= $resulta->fetch_assoc()) {
@@ -199,10 +200,11 @@ if (isset($_POST["pedir"]) && isset($_POST["medico"])) {
         <!-- bóton de añadir medicación -->
         <input type="submit" name="add" id="add" value="Añadir Medicación">
     </form>
-    <!-- muestra información de añadir medicamento y síntoma -->
+    <!-- muestra información de añadir medicamento y sintomatología apuntada -->
     <label>
     <?php 
         if (isset($_POST["add"])) {
+            // combinar la tabla consulta con la de médico y paciente para obtener informacion introducida 
                 $select="SELECT m.nombre AS medico,p.nombre AS paciente, c.sintomatologia AS sintoma
                 FROM consulta c
                 INNER JOIN medico m ON c.id_medico=m.id
@@ -216,6 +218,8 @@ if (isset($_POST["pedir"]) && isset($_POST["medico"])) {
                         Su síntoma: {$informacion['sintoma']}<br>
                         Diagnóstico: $diagnostico<br>";
                 };
+            // combinar la tabla receta con medicamento para obtener cantidad de medicamento
+            // va a PDF subido por etiqueta ancla
                 $select="SELECT DISTINCT m.medicamento AS medicamento 
                 FROM receta r
                 INNER JOIN medicamento m ON m.id=r.id_medicamento 
