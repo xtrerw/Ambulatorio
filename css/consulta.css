@@ -41,7 +41,7 @@ header div a{
 /* contenido */
 div.container{
     padding-top: 2rem;
-    display: flex;
+    display: grid;
     justify-content: center;
 }
 /* formulario */
