@@ -1,6 +1,6 @@
 <?php
 include("tablas/crea_tablas.php");
-//conseguir los datos de la id de paciente que inicia sesión
+//conseguir la id de paciente de login
 global $conexion;  
 if (isset($_POST['login']) && isset($_POST['paciente'])) {
     $pacienteSelect=$_POST['paciente'];
