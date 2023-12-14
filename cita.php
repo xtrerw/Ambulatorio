@@ -62,7 +62,7 @@ if (isset($_POST["pedir"])) {
 
                 <!-- Médico selecionado -->
                 <label>Seleciona un médico</label>
-                <select name="medico" id="">
+                <select name="medico" id="medico">
                     <?php 
                         //conseguir todos los médicos
                         $select = "SELECT DISTINCT * FROM medico";
@@ -79,15 +79,30 @@ if (isset($_POST["pedir"])) {
                 <!-- advertencia -->
                 <label id="advertencia"></label>
                 <!-- bóton para subir cita -->
-                <input type="submit" value="Pedir una cita" name="pedir" id="pedir">
+                <input type="submit" value="Pedir una cita" name="pedir" id="pedir" onclick="click();">
             </fieldset>
         </form>
     </div>
+    <label>
+    <!-- muestra la información enviado -->
     <?php 
         if (isset($_POST["pedir"])) {
-        echo "<label >EL formulario ya enviado,la cita de este paciente es el $fecha";
+            echo"La cita ya ha pedido";
+            $select="SELECT DISTINCT * FROM pacientes WHERE id='$pacienteSelect'";
+            $resulta=mysqli_query($conexion,$select);
+            while ($informacion= $resulta->fetch_assoc()) {
+                echo "<br/>Paciente: {$informacion['nombre']} 
+                <br />
+                La cita: $fecha<br />";
+            };
+            $select="SELECT DISTINCT * FROM medico WHERE id='$idMedico'";
+            $resulta=mysqli_query($conexion,$select);
+            while ($informacion= $resulta->fetch_assoc()) {
+                echo "Su médico: {$informacion['nombre']}";
+            };
         }
     ?>
+    </label>
     <script type="text/javascript" src="js/cita.js"></script>
 </body>
 </html>
