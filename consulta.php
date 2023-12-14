@@ -201,8 +201,9 @@ if (isset($_POST["pedir"]) && isset($_POST["medico"])) {
     </form>
     <?php 
             if (isset($_POST["add"])) {
-            echo "<label>Ya añadir medicamento</label>
-            <a href='$directorio_subida$archivo'>Ver pdf</a>";
+            echo "<label>Ya añadir medicamento
+            <a href='$directorio_subida$archivo'>Ver pdf</a>
+            </label>";
             }
         ?>
     <!-- cita para paciente -->
