@@ -29,9 +29,9 @@ if (isset($_POST["add"])) {
     $hora=mysqli_escape_string($conexion,$hora);
     $medicamento=$_POST["medicamento"];
     $dia=$_POST["dia"];
-    $update="INSERT INTO receta(id_medicamento,id_consulta,posologia,fecha_fin)
+    $insert="INSERT INTO receta(id_medicamento,id_consulta,posologia,fecha_fin)
     VALUES($medicamento,$idConsulta,'$cantidad/$hora',DATE_ADD(NOW(), INTERVAL $dia DAY))";
-    mysqli_query($conexion,$update);
+    mysqli_query($conexion,$insert);
 }
 if (isset($_POST["add"])) {
     # subir el pdf
@@ -199,15 +199,41 @@ if (isset($_POST["pedir"]) && isset($_POST["medico"])) {
         <!-- bóton de añadir medicación -->
         <input type="submit" name="add" id="add" value="Añadir Medicación">
     </form>
+    <!-- muestra información de añadir medicamento y síntoma -->
+    <label>
     <?php 
-            if (isset($_POST["add"])) {
-            echo "<label>Ya añadir medicamento
-            <a href='$directorio_subida$archivo'>Ver pdf</a>
-            </label>";
-            }
-        ?>
-    <!-- cita para paciente -->
-    <form action="" method="post" class="formRegistro">
+        if (isset($_POST["add"])) {
+                $select="SELECT m.nombre AS medico,p.nombre AS paciente, c.sintomatologia AS sintoma
+                FROM consulta c
+                INNER JOIN medico m ON c.id_medico=m.id
+                INNER JOIN pacientes p ON c.id_paciente=p.id 
+                WHERE c.id=$idConsulta";
+                $resulta=mysqli_query($conexion,$select);
+                while ($informacion= $resulta->fetch_assoc()) {
+                    echo "
+                        Médico: {$informacion['medico']}<br>
+                        Paciente: {$informacion['paciente']}<br>
+                        Su síntoma: {$informacion['sintoma']}<br>
+                        Diagnóstico: $diagnostico<br>";
+                };
+                $select="SELECT DISTINCT m.medicamento AS medicamento 
+                FROM receta r
+                INNER JOIN medicamento m ON m.id=r.id_medicamento 
+                WHERE  id_consulta=$idConsulta";
+                $resulta=mysqli_query($conexion,$select);
+                while ($medica= $resulta->fetch_assoc()) {
+                echo "Ya añadir medicamento: {$medica['medicamento']}<br>
+                Cantidad: $cantidad<br>
+                Horas: $hora<br>
+                Dia: $dia<br>
+                <a href='$directorio_subida$archivo'>Ver pdf</a>";
+                }
+            }   
+    ?>
+    </label>
+    
+        <!-- cita para paciente -->
+        <form action="" method="post" class="formRegistro">
                 <legend>
                     Derivar a especialista
                 </legend>
@@ -241,11 +267,26 @@ if (isset($_POST["pedir"]) && isset($_POST["medico"])) {
                 <input type="submit" value="Registro" name="pedir" id="pedir">
             </fieldset>
         </form>
+        <!-- muestra información de cita modificado -->
+        <label>
         <?php 
             if (isset($_POST["pedir"])) {
-            echo "<label >La cita ya cambiado </label>";
+                $select="SELECT m.nombre AS medico,p.nombre AS paciente,c.fecha AS fecha
+                FROM consulta c
+                INNER JOIN medico m ON c.id_medico=m.id
+                INNER JOIN pacientes p ON c.id_paciente=p.id 
+                WHERE c.id=$idConsulta";
+                $resulta=mysqli_query($conexion,$select);
+                while ($informacion= $resulta->fetch_assoc()) {
+                    echo "La cita ya cambiado <br>
+                        Médico: {$informacion['medico']}<br>
+                        Paciente: {$informacion['paciente']}<br>
+                        La fecha cambiado: {$informacion['fecha']}<br>
+                        ";
+                };
             }
         ?>
+        </label>
     </div>
     <script type="text/javascript" src="js/consulta.js"></script>
 </body>

@@ -93,7 +93,8 @@ if (isset($_POST["pedir"])) {
             while ($informacion= $resulta->fetch_assoc()) {
                 echo "<br/>Paciente: {$informacion['nombre']} 
                 <br />
-                La cita: $fecha<br />";
+                La cita: $fecha<br />
+                Su síntoma: $sintoma<br />";
             };
             $select="SELECT DISTINCT * FROM medico WHERE id='$idMedico'";
             $resulta=mysqli_query($conexion,$select);
