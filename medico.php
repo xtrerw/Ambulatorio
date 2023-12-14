@@ -133,11 +133,8 @@ include("tablas/crea_tablas.php");
                         echo "<p>No tiene disponible de consulta de hoy</p>";
                     }
                 };
-            ?>
-
-            <!-- bóton de seguir consultar -->
-            
-            </fieldset>
+            ?>            
+        </fieldset>
     </form>
     </div>
 </body>
