@@ -7,12 +7,12 @@ window.onload = function () {
     });
 }
 //función para comprobar la fecha elegida si es válida. 
+//advertencia de html
+var adv=document.getElementById("advertencia");
+//bóton de pedir la cita
+var btnCita=document.getElementById("pedir");
+//conseguir la fecha seleccionada
 function fecha() { 
-    //advertencia de html
-    var adv=document.getElementById("advertencia");
-    //bóton de pedir la cita
-    var btnCita=document.getElementById("registro");
-    //conseguir la fecha seleccionada
     var cita=document.getElementById("cita").value;
     var cita=new Date(cita);
     var citaDay=cita.getDay();

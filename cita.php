@@ -5,7 +5,7 @@ if (isset($_GET['paciente'])) {
     # code...
     $pacienteSelect=$_GET["paciente"]; 
 }
-if (isset($_POST["registro"])) {
+if (isset($_POST["pedir"])) {
     # agrega la fecha que este paciente ya elige en la tabla consulta
     $fecha=$_POST["cita"];
     $idMedico=$_POST["medico"];
@@ -19,7 +19,6 @@ if (isset($_POST["registro"])) {
     SET id_med=$idMedico
     WHERE id=$pacienteSelect";
     mysqli_query($conexion,$update);
-    
 }          
 ?>
 <!DOCTYPE html>
@@ -80,10 +79,15 @@ if (isset($_POST["registro"])) {
                 <!-- advertencia -->
                 <label id="advertencia"></label>
                 <!-- bóton para subir cita -->
-                <input type="submit" value="Pedir una cita" name="registro" id="registro">
+                <input type="submit" value="Pedir una cita" name="pedir" id="pedir">
             </fieldset>
         </form>
     </div>
+    <?php 
+        if (isset($_POST["pedir"])) {
+        echo "<label >EL formulario ya enviado,la cita de este paciente es el $fecha";
+        }
+    ?>
     <script type="text/javascript" src="js/cita.js"></script>
 </body>
 </html>

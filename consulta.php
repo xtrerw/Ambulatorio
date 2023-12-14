@@ -199,6 +199,12 @@ if (isset($_POST["pedir"]) && isset($_POST["medico"])) {
         <!-- bóton de añadir medicación -->
         <input type="submit" name="add" id="add" value="Añadir Medicación">
     </form>
+    <?php 
+            if (isset($_POST["add"])) {
+            echo "<label>Ya añadir medicamento</label>
+            <a href='$directorio_subida$archivo'>Ver pdf</a>";
+            }
+        ?>
     <!-- cita para paciente -->
     <form action="" method="post" class="formRegistro">
                 <legend>
@@ -234,7 +240,11 @@ if (isset($_POST["pedir"]) && isset($_POST["medico"])) {
                 <input type="submit" value="Registro" name="pedir" id="pedir">
             </fieldset>
         </form>
-        
+        <?php 
+            if (isset($_POST["pedir"])) {
+            echo "<label >La cita ya cambiado </label>";
+            }
+        ?>
     </div>
     <script type="text/javascript" src="js/consulta.js"></script>
 </body>
