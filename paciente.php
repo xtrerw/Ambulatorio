@@ -147,7 +147,7 @@ if (isset($_POST['login']) && isset($_POST['paciente'])) {
             <legend>Medicación actual</legend>
             <?php
                 if (isset($_POST['login']) && isset($_POST['paciente'])) {
-                    # combinar la tabla consulta con la de medicamento y paciente a través de id de cada una corresponden a la tabla receta
+                    # combinar la tabla receta con medicamento, consulta y paciente a través de id de cada una corresponden a la tabla receta
                     # A través de c.id_paciente = $pacienteSelect y la fecha finalización de la medicación despúes de hoy, encontramos toda la información del paciente
                     # Order by DESC c.fecha es para que ordenar la fecha de mayor a menor y LIMIT 1 es para conseguir el registro de primera fila.
                     $select="SELECT  r.posologia AS posologia, r.fecha_fin AS fecha_fin, c.sintomatologia AS sinto, p.nombre AS nombre,m.medicamento AS medicamento, c.diagnostico AS diagnostico, c.id AS id
