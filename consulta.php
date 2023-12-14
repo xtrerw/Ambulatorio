@@ -72,7 +72,7 @@ if (isset($_POST["pedir"]) && isset($_POST["medico"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Médico</title>
     <link rel="shortcut icon" href="img/logo.jpg" type="image/x-icon">
-    <link rel="stylesheet" href="css/consulta.css">
+    <link rel="stylesheet" href="css/consultas.css">
 
     <script type="text/javascript" src="js/calendar.js"></script>
     <style type="text/css">@import url("js/calendar-blue.css");</style>
