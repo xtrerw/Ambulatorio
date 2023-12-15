@@ -178,7 +178,7 @@ if (isset($_POST["pedir"]) && isset($_POST["medico"])) {
             <input type="text" maxlength="100" name="hora" placeholder="eje: cada 8 hora" require>
             <!-- duración de uso de pastilla -->
             <input type="number" maxlength="100" id="dia" name="dia" placeholder="eje: 3 días">
-            <!-- comprobar si es medicación -->
+            <!-- comprobar si es medicación crónica, si es, pues valor de duración de uso pastilla será 365 días-->
             <label for="">
                 ¿La medicación si es crónica?
                 <input type="checkbox" id="cronica" onchange="check();">Sí
