@@ -1,0 +1,109 @@
+body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border: 0;
+    margin: 0;
+    box-sizing: border-box;
+    background:#183945;
+}
+/* header */
+header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100vw;
+    height: 70px;
+    background-image: linear-gradient(135deg,#183945, rgba(30, 143, 255, 0.742));
+}
+header img{
+    margin: 15%;
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px 2px rgb(23, 108, 194);
+}
+header div{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: end;
+    width: 40%;
+    margin-right: 15%;
+}
+header div a{
+    margin-right: 30px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+/* contenido */
+div.container{
+    padding-top: 2rem;
+    display: flex;
+    justify-content: center;
+}
+/* formulario */
+form{
+    background: rgba(245, 245, 245, 0.452);
+    padding: 20px;
+}
+legend{
+    font-size: 35px;
+    font-weight: bolder;
+}
+/* conjunto de campo */
+fieldset{
+    display: grid;
+    border: 5px outset rgb(22, 87, 153);
+}
+label{
+    font-size: 25px;
+    font-weight: bold;
+}
+/* información de paciente y médico */
+table thead td{
+    background: #183945b0;
+    font-weight: bold;
+    color: white;
+    box-shadow: 2px 2px 2px 1px rgb(88, 88, 88);
+}
+table tbody td{
+    background: rgb(179, 219, 219);
+    font-weight: bold;
+    color: #183945;
+    box-shadow: 2px 2px 2px 1px rgb(88, 88, 88);
+}
+select,input,label,button{
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    border: 0;
+    width: 40%;
+    padding: 10px;
+}
+input{
+    width: 60%;
+}
+input[type='checkbox']{
+    width: 1rem;
+    height: 1rem;
+    margin: 5px;
+}
+/* bóton de añadir consulta */
+input[type='submit']{
+    margin-top: 10px;
+    border: 0;
+    padding: 10px;
+    border-radius: 5px;
+    background: #0e4275;
+    color: white;
+}
+input[type='submit']:active{
+    background: white;
+    color: #0e4275;
+}
+.formRegistro select,label{
+    width: 300px;
+}
